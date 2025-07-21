@@ -1,0 +1,7 @@
+record(stringin, "$(P)$(R):SerialNum_RBV") {
+    field(DESC, "Serial Number")
+    field(DTYP, "CAEN Dig")
+    field(INP,  "@$(NAME) PAR S /par/serialnum")
+    field(PINI, "YES")
+    field(TPRO, "1")
+}

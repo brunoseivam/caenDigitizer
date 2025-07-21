@@ -1,0 +1,3 @@
+device(stringin, INST_IO, devCaenDigSi, "CAEN Dig")
+
+registrar(caenDigitizerRegistrar)

@@ -1,46 +1,28 @@
-# SPDX-FileCopyrightText: 2003 Argonne National Laboratory
-#
-# SPDX-License-Identifier: EPICS
-
 TOP=../..
 
 include $(TOP)/configure/CONFIG
-#----------------------------------------
-#  ADD MACRO DEFINITIONS AFTER THIS LINE
-#=============================
-
-#=============================
-# Build the IOC application
 
 PROD_IOC = caenDigitizer
-# caenDigitizer.dbd will be created and installed
-DBD += caenDigitizer.dbd
 
-# caenDigitizer.dbd will be made up from these files:
-caenDigitizer_DBD += base.dbd
+DBD += $(PROD_IOC).dbd
 
-# Include dbd files from all support applications:
-#caenDigitizer_DBD += xxx.dbd
+$(PROD_IOC)_DBD += base.dbd
+$(PROD_IOC)_DBD += $(PROD_IOC)Support.dbd
 
-# Add all the support libraries needed by this IOC
-#caenDigitizer_LIBS += xxx
+$(PROD_IOC)_SRCS += $(PROD_IOC)_registerRecordDeviceDriver.cpp
 
-# caenDigitizer_registerRecordDeviceDriver.cpp derives from caenDigitizer.dbd
-caenDigitizer_SRCS += caenDigitizer_registerRecordDeviceDriver.cpp
+# Wrapper around CAEN_FELib
+$(PROD_IOC)_SRCS += caen_digitizer.cpp
 
-# Build the main IOC entry point on workstation OSs.
-caenDigitizer_SRCS_DEFAULT += caenDigitizerMain.cpp
-caenDigitizer_SRCS_vxWorks += -nil-
+# Device Support implementation
+$(PROD_IOC)_SRCS += dev.cpp
 
-# Add support from base/src/vxWorks if needed
-#caenDigitizer_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
+# Build the main IOC entry point
+$(PROD_IOC)_SRCS += $(PROD_IOC)Main.cpp
 
-# Finally link to the EPICS Base libraries
-caenDigitizer_LIBS += $(EPICS_BASE_IOC_LIBS)
+$(PROD_IOC)_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-#===========================
+# Link to CAEN libraries, which are assumed to be installed on the system
+$(PROD_IOC)_SYS_LIBS += CAEN_Dig2 CAEN_FELib
 
 include $(TOP)/configure/RULES
-#----------------------------------------
-#  ADD RULES AFTER THIS LINE
-
