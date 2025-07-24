@@ -1,3 +1,5 @@
-device(stringin, INST_IO, devCaenDigSi, "CAEN Dig")
+device(stringin, INST_IO, devCaenDigSi, "CAEN Dig Param")
+device(longin, INST_IO, devCaenDigLi, "CAEN Dig Param")
+device(ai, INST_IO, devCaenDigAi, "CAEN Dig Param")
 
 registrar(caenDigitizerRegistrar)
