@@ -1,0 +1,19 @@
+record(ai, "$(P)$(R)$(NAME)_RBV") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "CAEN Dig Param")
+    field(INP,  "@$(PORT) $(TYPE=DBL) $(PATH)")
+    field(EGU,  "$(EGU=)")
+    field(PREC, "$(PREC=0)")
+    field(PINI, "$(PINI=YES)")
+}
+
+$(W)record(ao, "$(P)$(R)$(NAME)") {
+$(W)    field(DESC, "$(DESC)")
+$(W)    field(DTYP, "CAEN Dig Param")
+$(W)    field(OUT,  "@$(PORT) $(TYPE=DBL) $(PATH)")
+$(W)    field(DRVL, "$(DRVL=)")
+$(W)    field(DRVH, "$(DRVH=)")
+$(W)    field(EGU,  "$(EGU=)")
+$(W)    field(PREC, "$(PREC=0)")
+$(W)    field(FLNK, "$(P)$(R)$(NAME)_RBV PP")
+$(W)}

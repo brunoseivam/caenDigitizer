@@ -1,5 +1,13 @@
-device(stringin, INST_IO, devCaenDigSi, "CAEN Dig Param")
-device(longin, INST_IO, devCaenDigLi, "CAEN Dig Param")
-device(ai, INST_IO, devCaenDigAi, "CAEN Dig Param")
+device(stringin, INST_IO, devCaenDigParamSi, "CAEN Dig Param")
+device(longin, INST_IO, devCaenDigParamLi, "CAEN Dig Param")
+device(longout, INST_IO, devCaenDigParamLo, "CAEN Dig Param")
+device(ai, INST_IO, devCaenDigParamAi, "CAEN Dig Param")
+device(ao, INST_IO, devCaenDigParamAo, "CAEN Dig Param")
+device(bi, INST_IO, devCaenDigParamBi, "CAEN Dig Param")
+device(bo, INST_IO, devCaenDigParamBo, "CAEN Dig Param")
+device(mbbi, INST_IO, devCaenDigParamMbbi, "CAEN Dig Param")
+device(mbbo, INST_IO, devCaenDigParamMbbo, "CAEN Dig Param")
+
+device(bo, INST_IO, devCaenDigCmdBo, "CAEN Dig Cmd")
 
 registrar(caenDigitizerRegistrar)

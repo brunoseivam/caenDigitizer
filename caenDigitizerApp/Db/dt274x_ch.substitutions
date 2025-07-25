@@ -1,0 +1,35 @@
+file "dt274x_par_number.template" {
+pattern
+{ W,   NAME,                 PATH,                       PREC, EGU, DRVL,   DRVH,  DESC                          }
+{ "#", "Ch\$(N):AdcToVolts", "/ch/\$(N)/par/adctovolts", "9",  "",  "",     "",    "Factor to convert cts to V"  }
+{ "",  "Ch\$(N):DCOffset",   "/ch/\$(N)/par/dcoffset",   "3",  "%", "-100", "100", "DC Offset"                   }
+{ "",  "Ch\$(N):GainFactor", "/ch/\$(N)/par/gainfactor", "6",  "",  "",     "",    "ADC Gain"                    }
+}
+
+file "dt274x_par_bool.template" {
+pattern
+{ W,   NAME,                PATH,                     DESC                              }
+{ "",  "Ch\$(N):Enable",    "/ch/\$(N)/par/chenable", "Enable channel for acquisition"  }
+}
+
+file "dt274x_par_integer.template" {
+pattern
+{ W,   NAME,                        PATH,                                        EGU,    DRVL,       DRVH,      DESC                              }
+{ "",  "Ch\$(N):SuppSmpOverThresh", "/ch/\$(N)/par/chsupprsamplesoverthreshold", "samp", "0",        "65535",   "Suppression Samples Over Thresh" }
+{ "",  "Ch\$(N):SuppThresh",        "/ch/\$(N)/par/chsupprthr",                  "ct",   "-65535",   "65535",   "Threshold for suppression"       }
+{ "",  "Ch\$(N):OverThreshVetoWdt", "/ch/\$(N)/par/overthresholdvetowidth",      "samp", "0",        "65535",   "Veto width to discard trigs"     }
+{ "",  "Ch\$(N):SamplesOverThresh", "/ch/\$(N)/par/samplesoverthreshold",        "samp", "0",        "65535",   "Samples Over Threshold"          }
+{ "#", "Ch\$(N):SelfTriggerRate",   "/ch/\$(N)/par/selftrgrate",                 "trgs", "",         "",        "Num trigs in prev second"        }
+{ "",  "Ch\$(N):SelfTriggerWidth",  "/ch/\$(N)/par/selftriggerwidth",            "",     "",         "",        "Width of self-trigger"           }
+{ "",  "Ch\$(N):SignalOffset",      "/ch/\$(N)/par/signaloffset",                "uV",   "-1000000", "1000000", "Offset of the input signal"      }
+{ "",  "Ch\$(N):TriggerThresh",     "/ch/\$(N)/par/triggerthr",                  "ct",   "-65535",   "65535",   "Trigger Threshold"               }
+}
+
+file "dt274x_par_enum.template" {
+pattern
+{ W,   NAME,                      PATH,                            DESC,                  ZRST,       ONST,              TWST,            THST,           FRST,            FVST,   SXST,  SVST         }
+{ "",  "Ch\$(N):ITLConnect",      "/ch/\$(N)/par/itlconnect",      "ITL Connect",         "Disabled", "ITLA",            "ITLB",          "",             "",              "",     "",    ""           }
+{ "",  "Ch\$(N):SelfTriggerEdge", "/ch/\$(N)/par/selftriggeredge", "Self Trigger Edge",   "RISE",     "FALL",            "",              "",             "",              "",     "",    ""           }
+{ "",  "Ch\$(N):TrigThreshMode",  "/ch/\$(N)/par/triggerthrmode",  "Trigger Thresh Mode", "Relative", "Absolute",        "",              "",             "",              "",     "",    ""           }
+{ "",  "Ch\$(N):WaveDataSource",  "/ch/\$(N)/par/wavedatasource",  "Wave Data Source",    "ADC_DATA", "ADC_TEST_TOGGLE", "ADC_TEST_RAMP", "ADC_TEST_SIN", "ADC_TEST_PRBS", "Ramp", "IPE", "SquareWave" }
+}

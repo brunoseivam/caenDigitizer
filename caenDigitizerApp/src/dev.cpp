@@ -1,5 +1,6 @@
 #include "caen_digitizer.h"
 
+#include <algorithm>
 #include <exception>
 #include <stdexcept>
 #include <string>
@@ -21,7 +22,13 @@
 
 #include <stringinRecord.h>
 #include <longinRecord.h>
+#include <longoutRecord.h>
 #include <aiRecord.h>
+#include <aoRecord.h>
+#include <biRecord.h>
+#include <boRecord.h>
+#include <mbbiRecord.h>
+#include <mbboRecord.h>
 
 typedef std::map<std::string, CaenDigitizer*> dev_map_t;
 static dev_map_t dev_map;
@@ -80,7 +87,7 @@ struct Pvt {
 };
 
 long init_record_common(dbCommon *prec) {
-    static std::regex LINK_RE("(\\w+) (\\w+) ([^\\s]+)");
+    static std::regex LINK_RE("([^\\s]+) (INT|DBL|STR|CMD|BOOL) ([^\\s]+)");
 
     try {
         DBLINK *plink = get_dev_link(prec);
@@ -130,44 +137,100 @@ long init_record_common(dbCommon *prec) {
     }
 }
 
-long read_string_si(stringinRecord *prec) {
+template<typename R>
+using io_func_t = std::function<void(Pvt*)>;
+
+template<typename R>
+long do_param_io(R *prec, long ret, int alarm, io_func_t<R> io_func) {
     Pvt *pvt = static_cast<Pvt*>(prec->dpvt);
 
     try {
-        auto digitizer = pvt->digitizer;
-        std::string value(digitizer->get_value(pvt->handle));
+        io_func(pvt);
+    } catch (std::exception & ex) {
+        recGblSetSevr(prec, alarm, INVALID_ALARM);
+        errlogPrintf(ERL_ERROR " %s: got exception while processing record: %s\n", prec->name, ex.what());
+    }
+    return ret;
+}
+
+long read_si(stringinRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
+        std::string value(pvt->digitizer->get_value(pvt->handle));
         snprintf(prec->val, sizeof(prec->val), "%s", value.c_str());
-    } catch (std::exception & ex) {
-        recGblSetSevr(prec, READ_ALARM, INVALID_ALARM);
-        errlogPrintf(ERL_ERROR " %s: got exception while reading record: %s\n", prec->name, ex.what());
-    }
-    return 0;
+    });
 }
 
-long read_string_li(longinRecord *prec) {
-    Pvt *pvt = static_cast<Pvt*>(prec->dpvt);
-
-    try {
+long read_li(longinRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
         prec->val = pvt->digitizer->get_int_value(pvt->handle);
-    } catch (std::exception & ex) {
-        recGblSetSevr(prec, READ_ALARM, INVALID_ALARM);
-        errlogPrintf(ERL_ERROR " %s: got exception while reading record: %s\n", prec->name, ex.what());
-    }
-    return 0;
+    });
 }
 
-long read_string_ai(aiRecord *prec) {
-    Pvt *pvt = static_cast<Pvt*>(prec->dpvt);
+long write_lo(longoutRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+        pvt->digitizer->set_int_value(pvt->handle, prec->val);
+    });
+}
 
-    try {
+long read_ai(aiRecord *prec) {
+    return do_param_io(prec, 2, READ_ALARM, [&](Pvt *pvt) {
         prec->val = pvt->digitizer->get_double_value(pvt->handle);
-    } catch (std::exception & ex) {
-        recGblSetSevr(prec, READ_ALARM, INVALID_ALARM);
-        errlogPrintf(ERL_ERROR " %s: got exception while reading record: %s\n", prec->name, ex.what());
-    }
-    return 2;
+    });
 }
 
+long write_ao(aoRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+        pvt->digitizer->set_double_value(pvt->handle, prec->val);
+    });
+}
+
+long read_bi(biRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
+        prec->val = pvt->digitizer->get_bool_value(pvt->handle) ? 1 : 0;
+    });
+}
+
+long write_bo(boRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+        pvt->digitizer->set_bool_value(pvt->handle, !!prec->val);
+    });
+}
+
+std::string str_tolower(std::string s) {
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    return s;
+}
+
+long read_mbbi(mbbiRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
+        std::string value(str_tolower(pvt->digitizer->get_value(pvt->handle)));
+
+        size_t i = 0;
+        char (*p)[26] = &prec->zrst;
+        for (; i < 16; ++p, ++i) {
+            //printf("%s[%lu] = %s    '%s'\n", prec->name, i, *p, value.c_str());
+            if (str_tolower(*p) == value) {
+                prec->val = i;
+                return;
+            }
+        }
+        throw std::runtime_error(std::string("Failed to match value '") + value + "' to one of the choices");
+    });
+}
+
+long write_mbbo(mbboRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+        char (*p)[26] = &prec->zrst;
+        p += prec->val;
+        pvt->digitizer->set_value(pvt->handle, *p);
+    });
+}
+
+long send_command_bo(boRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+        pvt->digitizer->send_command(pvt->handle);
+    });
+}
 
 // EPICS Registration
 const iocshArg createCaenDigitizerArg0 = {"name", iocshArgString};
@@ -200,8 +263,16 @@ struct dset6 {
 #define DSET(NAME, REC, RW) static dset6<REC ## Record> NAME = \
     {6, NULL, NULL, &init_record_common, NULL, RW, NULL}; epicsExportAddress(dset, NAME)
 
-DSET(devCaenDigSi, stringin, &read_string_si);
-DSET(devCaenDigLi, longin, &read_string_li);
-DSET(devCaenDigAi, ai, &read_string_ai);
+DSET(devCaenDigParamSi, stringin, &read_si);
+DSET(devCaenDigParamLi, longin, &read_li);
+DSET(devCaenDigParamLo, longout, &write_lo);
+DSET(devCaenDigParamAi, ai, &read_ai);
+DSET(devCaenDigParamAo, ao, &write_ao);
+DSET(devCaenDigParamBi, bi, &read_bi);
+DSET(devCaenDigParamBo, bo, &write_bo);
+DSET(devCaenDigParamMbbi, mbbi, &read_mbbi);
+DSET(devCaenDigParamMbbo, mbbo, &write_mbbo);
+
+DSET(devCaenDigCmdBo, bo, &send_command_bo);
 
 epicsExportRegistrar(caenDigitizerRegistrar);

@@ -1,6 +1,7 @@
 #include "caen_digitizer.h"
 
 #include <CAEN_FELib.h>
+#include <cstdint>
 #include <cstdio>
 #include <stdexcept>
 #include <string>
@@ -60,4 +61,31 @@ int64_t CaenDigitizer::get_int_value(uint64_t handle) {
 
 double CaenDigitizer::get_double_value(uint64_t handle) {
     return std::stod(get_value(handle));
+}
+
+bool CaenDigitizer::get_bool_value(uint64_t handle) {
+    std::string value(get_value(handle));
+    return value[0]=='T' || value[0]=='t';
+}
+
+void CaenDigitizer::set_value(uint64_t handle, const std::string & value) {
+    int ec = CAEN_FELib_SetValue(handle, NULL, value.c_str());
+    throw_if_err(ec, handle, "Failed to set value");
+}
+
+void CaenDigitizer::set_int_value(uint64_t handle, int64_t value) {
+    set_value(handle, std::to_string(value));
+}
+
+void CaenDigitizer::set_double_value(uint64_t handle, double value) {
+    set_value(handle, std::to_string(value));
+}
+
+void CaenDigitizer::set_bool_value(uint64_t handle, bool value) {
+    set_value(handle, value ? "true" : "false");
+}
+
+void CaenDigitizer::send_command(uint64_t handle) {
+    int ec = CAEN_FELib_SendCommand(handle, NULL);
+    throw_if_err(ec, handle, "Failed to send command");
 }
