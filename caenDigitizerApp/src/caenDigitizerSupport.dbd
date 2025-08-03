@@ -1,4 +1,5 @@
 device(stringin, INST_IO, devCaenDigParamSi, "CAEN Dig Param")
+device(stringout, INST_IO, devCaenDigParamSo, "CAEN Dig Param")
 device(longin, INST_IO, devCaenDigParamLi, "CAEN Dig Param")
 device(longout, INST_IO, devCaenDigParamLo, "CAEN Dig Param")
 device(ai, INST_IO, devCaenDigParamAi, "CAEN Dig Param")

@@ -1,0 +1,32 @@
+record(longin, "$(P)$(R)$(NAME)_RBV") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "CAEN Dig Param")
+    field(INP,  "@$(PORT) $(TYPE=INT) $(PATH)")
+    field(EGU,  "$(EGU=)")
+    field(PINI, "$(PINI=YES)")
+    field(SCAN, "$(SCAN=)")
+    field(FLNK, "$(P)$(R)$(NAME)BITS_RBV PP")
+}
+
+record(mbbiDirect, "$(P)$(R)$(NAME)BITS_RBV") {
+    field(DESC, "$(DESC)")
+    field(INP,  "$(P)$(R)$(NAME)_RBV")
+}
+
+$(S01R=#)record(bi, "$(P)$(R)$(NAME):$(S01=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B0 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S02R=#)record(bi, "$(P)$(R)$(NAME):$(S02=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B1 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S03R=#)record(bi, "$(P)$(R)$(NAME):$(S03=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B2 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S04R=#)record(bi, "$(P)$(R)$(NAME):$(S04=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B3 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S05R=#)record(bi, "$(P)$(R)$(NAME):$(S05=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B4 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S06R=#)record(bi, "$(P)$(R)$(NAME):$(S06=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B5 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S07R=#)record(bi, "$(P)$(R)$(NAME):$(S07=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B6 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S08R=#)record(bi, "$(P)$(R)$(NAME):$(S08=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B7 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S09R=#)record(bi, "$(P)$(R)$(NAME):$(S09=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B8 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S10R=#)record(bi, "$(P)$(R)$(NAME):$(S10=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B9 CP")  field(ZNAM, "Off") field(ONAM, "On") }
+$(S11R=#)record(bi, "$(P)$(R)$(NAME):$(S11=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B10 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S12R=#)record(bi, "$(P)$(R)$(NAME):$(S12=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B11 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S13R=#)record(bi, "$(P)$(R)$(NAME):$(S13=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B12 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S14R=#)record(bi, "$(P)$(R)$(NAME):$(S14=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B13 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S15R=#)record(bi, "$(P)$(R)$(NAME):$(S15=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B14 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S16R=#)record(bi, "$(P)$(R)$(NAME):$(S16=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B15 CP") field(ZNAM, "Off") field(ONAM, "On") }
+$(S17R=#)record(bi, "$(P)$(R)$(NAME):$(S17=)_RBV") { field(INP, "$(P)$(R)$(NAME)BITS_RBV.B16 CP") field(ZNAM, "Off") field(ONAM, "On") }

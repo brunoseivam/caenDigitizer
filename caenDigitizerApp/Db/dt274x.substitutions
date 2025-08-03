@@ -1,18 +1,4 @@
-file "dt274x_base.template" { pattern {} {} }
-
-file "dt274x_cmd.template" {
-pattern
-{ NAME,                 PATH,                      DESC                                       }
-{ "ArmAcquisition",     "/cmd/armacquisition",     "Arms digitizer to start the acquisition"  }
-{ "ClearData",          "/cmd/cleardata",          "Clear data from memories"                 }
-{ "DisarmAcquisition",  "/cmd/disarmacquisition",  "Disarms acq and prevents new run"         }
-{ "Reboot",             "/cmd/reboot",             "Reboots the board after 4 seconds"        }
-{ "ReloadCalibration",  "/cmd/reloadcalibration",  "Del calib file and reload, or use def"    }
-{ "Reset",              "/cmd/reset",              "Resets the board"                         }
-{ "SendSWTrigger",      "/cmd/sendswtrigger",      "Send a software trigger"                  }
-{ "SWStartAcquisition", "/cmd/swstartacquisition", "Start the acquisition"                    }
-{ "SWStopAcquisition",  "/cmd/swstopacquisition",  "Stop the acquisition"                     }
-}
+file "dt274x_base.db" { {} }
 
 file "dt274x_ch.db" {
 pattern { N }

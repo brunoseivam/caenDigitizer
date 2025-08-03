@@ -1,0 +1,58 @@
+record(bo, "$(P)$(R)$(NAME)_C01") { field(DESC, "$(DESC) $(C01)")  field(FLNK, "$(P)$(R)$(NAME)_C01S PP") }
+record(bo, "$(P)$(R)$(NAME)_C02") { field(DESC, "$(DESC) $(C02)")  field(FLNK, "$(P)$(R)$(NAME)_C02S PP") }
+record(bo, "$(P)$(R)$(NAME)_C03") { field(DESC, "$(DESC) $(C03)")  field(FLNK, "$(P)$(R)$(NAME)_C03S PP") }
+record(bo, "$(P)$(R)$(NAME)_C04") { field(DESC, "$(DESC) $(C04)")  field(FLNK, "$(P)$(R)$(NAME)_C04S PP") }
+record(bo, "$(P)$(R)$(NAME)_C05") { field(DESC, "$(DESC) $(C05)")  field(FLNK, "$(P)$(R)$(NAME)_C05S PP") }
+record(bo, "$(P)$(R)$(NAME)_C06") { field(DESC, "$(DESC) $(C06)")  field(FLNK, "$(P)$(R)$(NAME)_C06S PP") }
+record(bo, "$(P)$(R)$(NAME)_C07") { field(DESC, "$(DESC) $(C07)")  field(FLNK, "$(P)$(R)$(NAME)_C07S PP") }
+record(bo, "$(P)$(R)$(NAME)_C08") { field(DESC, "$(DESC) $(C08)")  field(FLNK, "$(P)$(R)$(NAME)_C08S PP") }
+record(bo, "$(P)$(R)$(NAME)_C09") { field(DESC, "$(DESC) $(C09)")  field(FLNK, "$(P)$(R)$(NAME)_C09S PP") }
+record(bo, "$(P)$(R)$(NAME)_C10") { field(DESC, "$(DESC) $(C10)")  field(FLNK, "$(P)$(R)$(NAME)_C10S PP") }
+record(bo, "$(P)$(R)$(NAME)_C11") { field(DESC, "$(DESC) $(C11)")  field(FLNK, "$(P)$(R)$(NAME)_C11S PP") }
+record(bo, "$(P)$(R)$(NAME)_C12") { field(DESC, "$(DESC) $(C12)")  field(FLNK, "$(P)$(R)$(NAME)_C12S PP") }
+
+record(scalcout, "$(P)$(R)$(NAME)_C01S") { field(INPA, "$(P)$(R)$(NAME)_C01")  field(CALC, "A>0 && \"$(C01)\"!=\"\" ? \"|$(C01)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C02S") { field(INPA, "$(P)$(R)$(NAME)_C02")  field(CALC, "A>0 && \"$(C02)\"!=\"\" ? \"|$(C02)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C03S") { field(INPA, "$(P)$(R)$(NAME)_C03")  field(CALC, "A>0 && \"$(C03)\"!=\"\" ? \"|$(C03)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C04S") { field(INPA, "$(P)$(R)$(NAME)_C04")  field(CALC, "A>0 && \"$(C04)\"!=\"\" ? \"|$(C04)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C05S") { field(INPA, "$(P)$(R)$(NAME)_C05")  field(CALC, "A>0 && \"$(C05)\"!=\"\" ? \"|$(C05)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C06S") { field(INPA, "$(P)$(R)$(NAME)_C06")  field(CALC, "A>0 && \"$(C06)\"!=\"\" ? \"|$(C06)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C07S") { field(INPA, "$(P)$(R)$(NAME)_C07")  field(CALC, "A>0 && \"$(C07)\"!=\"\" ? \"|$(C07)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C08S") { field(INPA, "$(P)$(R)$(NAME)_C08")  field(CALC, "A>0 && \"$(C08)\"!=\"\" ? \"|$(C08)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C09S") { field(INPA, "$(P)$(R)$(NAME)_C09")  field(CALC, "A>0 && \"$(C09)\"!=\"\" ? \"|$(C09)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C10S") { field(INPA, "$(P)$(R)$(NAME)_C10")  field(CALC, "A>0 && \"$(C10)\"!=\"\" ? \"|$(C10)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C11S") { field(INPA, "$(P)$(R)$(NAME)_C11")  field(CALC, "A>0 && \"$(C11)\"!=\"\" ? \"|$(C11)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+record(scalcout, "$(P)$(R)$(NAME)_C12S") { field(INPA, "$(P)$(R)$(NAME)_C12")  field(CALC, "A>0 && \"$(C12)\"!=\"\" ? \"|$(C12)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
+
+record(scalcout, "$(P)$(R)$(NAME)") {
+    field(INAA, "$(P)$(R)$(NAME)_C01S.SVAL")
+    field(INBB, "$(P)$(R)$(NAME)_C02S.SVAL")
+    field(INCC, "$(P)$(R)$(NAME)_C03S.SVAL")
+    field(INDD, "$(P)$(R)$(NAME)_C04S.SVAL")
+    field(INEE, "$(P)$(R)$(NAME)_C05S.SVAL")
+    field(INFF, "$(P)$(R)$(NAME)_C06S.SVAL")
+    field(INGG, "$(P)$(R)$(NAME)_C07S.SVAL")
+    field(INHH, "$(P)$(R)$(NAME)_C08S.SVAL")
+    field(INII, "$(P)$(R)$(NAME)_C09S.SVAL")
+    field(INJJ, "$(P)$(R)$(NAME)_C10S.SVAL")
+    field(INKK, "$(P)$(R)$(NAME)_C11S.SVAL")
+    field(INLL, "$(P)$(R)$(NAME)_C12S.SVAL")
+
+    #field(CALC, "A:=1;UNTIL(AA:=AA+@@A;A:=A+1;A>=12?AA-|'|':0)")
+    field(CALC, "(AA+BB+CC+DD+EE+FF+GG+HH+II+JJ+KK+LL)-|'|'")
+    field(OUT,  "$(P)$(R)$(NAME)_OUT PP")
+}
+
+record(stringout, "$(P)$(R)$(NAME)_OUT") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "CAEN Dig Param")
+    field(OUT,  "@$(PORT) $(TYPE=STR) $(PATH)")
+    field(FLNK, "$(P)$(R)$(NAME)_RBV PP")
+}
+
+record(stringin, "$(P)$(R)$(NAME)_RBV") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "CAEN Dig Param")
+    field(INP,  "@$(PORT) $(TYPE=STR) $(PATH)")
+    field(PINI, "$(PINI=YES)")
+}

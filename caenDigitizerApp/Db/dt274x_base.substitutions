@@ -1,0 +1,101 @@
+file "dt274x_par_str.template" {
+pattern
+{ W,   NAME,                 PATH,                       DESC                          }
+{ "#", "ModelName",          "/par/ModelName",           "Model Name"                  }
+{ "#", "SerialNum",          "/par/SerialNum",           "Serial Number"               }
+{ "#", "CupVersion",         "/par/cupver",              "CUP Version"                 }
+{ "#", "FormFactor",         "/par/FormFactor",          "Form Factor"                 }
+{ "#", "FpgaFwVers",         "/par/Fpga_FwVer",          "FPGA Firmware Version"       }
+{ "#", "FwType",             "/par/FwType",              "Firmware Type"               }
+{ "#", "License",            "/par/License",             "License"                     }
+
+{ "#", "Net:Gateway",        "/par/Gateway",             "Network Gateway"             }
+{ "#", "Net:IPAddr",         "/par/IPAddress",           "Network IP Address"          }
+}
+
+file "dt274x_par_integer.template" {
+pattern
+{ W,   NAME,                        PATH,                       EGU,    DRVL,       DRVH,      DESC                              }
+{ "#", "AdcNumBits",                "/par/ADC_NBit",            "",     "",         "",        "ADC Number of Bits"              }
+{ "#", "NumCh",                     "/par/NumCh",               "",     "",         "",        "Number of Channels"              }
+{ "#", "AdcSampleRate",             "/par/ADC_SamplRate",       "Msps", "",         "",        "ADC Sample Rate"                 }
+{ "",  "DacOutChanSelect",          "/par/DacOutChSelect",      "",     "0",        "63",      "DAC Out Channel Select"          }
+{ "",  "DacOutStaticLevel",         "/par/DacOutStaticLevel",   "",     "0",        "16383",   "DAC Out Static Level"            }
+{ "#", "DeadTimeMonitor",           "/par/DeadTimeMonitor",     "ns",   "",         "",        "DeadTime measured by the FPGA"   }
+{ "",  "ErrFlagDataMask",           "/par/ErrorFlagDataMask",   "",     "",         "",        "Data Error Mask"                 }
+{ "",  "ErrFlagMask",               "/par/ErrorFlagMask",       "",     "",         "",        "Error Mask"                      }
+{ "#", "FamilyCode",                "/par/FamilyCode",          "",     "",         "",        "Family Code"                     }
+{ "",  "ITLA:GateWidth",            "/par/ITLAGateWidth",       "ns",   "0",        "524280",  "ITLA Gate Width"                 }
+{ "",  "ITLA:MajLevel",             "/par/ITLAMajorityLev",     "",     "0",        "63",      "ITLA Majority Level"             }
+{ "",  "ITLA:Mask",                 "/par/ITLAMask",            "",     "",         "",        "ITLA Enable Mask"                }
+{ "",  "ITLB:GateWidth",            "/par/ITLBGateWidth",       "ns",   "0",        "524280",  "ITLB Gate Width"                 }
+{ "",  "ITLB:MajLevel",             "/par/ITLBMajorityLev",     "",     "0",        "63",      "ITLB Majority Level"             }
+{ "",  "ITLB:Mask",                 "/par/ITLBMask",            "",     "",         "",        "ITLB Enable Mask"                }
+}
+
+file "dt274x_par_number.template" {
+pattern
+{ W,   NAME,                        PATH,                EGU,    PREC, DRVL,       DRVH,      DESC                              }
+{ "#", "InputRange",                "/par/InputRange",   "V",    "1",  "",         "",        "Input dynamic range"             }
+{ "#", "IOutSensDcDc",              "/par/IOutSensDcDc", "A",    "3",  "",         "",        "DCDC Current Out"                }
+}
+
+file "dt274x_par_multi.template" {
+pattern
+{ NAME,            PATH,                    DESC,              C01,     C02,  C03,     C04,    C05,    C06,    C07,             C08,            C09,            C10,    C11,         C12       }
+{ "AcqTrigSource", "/par/AcqTriggerSource", "Acq Trig Source", "TrgIn", "P0", "SwTrg", "LVDS", "ITLA", "ITLB", "ITLA_AND_ITLB", "ITLA_OR_ITLB", "EncodedClkIn", "GPIO", "TestPulse", "UserTrg" }
+}
+
+file "dt274x_par_status.template" {
+pattern
+{ NAME,       PATH,                     DESC,                 SCAN,       S01R, S01,         S02R, S02,             S03R, S03,           S04R, S04,           S05R, S05,             S06R, S06,          S07R, S07,                S08R, S08,                S09R, S09,              S10R, S10,           S11R, S11,      S12R, S12,           S13R, S13,           S14R, S14,            S15R, S15,            S16R, S16,         S17R, S17           }
+{ "AcqSts",   "/par/AcquisitionStatus", "Acquisition Status", "1 second", "",   "Armed",     "",   "Run",           "",   "RunMw",       "",   "JesdClkVld",  "",   "Busy",          "",   "PreTrigRdy", "",   "LicenseFail",      "#",  "",                 "#",  "",               "#",  "",            "#",  "",       "#",  "",            "#",  "",            "#",  "",             "#",  "",             "#",  "",          "#",  ""            }
+{ "ErrFlags", "/par/ErrorFlags",        "Error Flags",        "1 second", "",   "PowerFail", "",   "BoardInitFail", ""    "SI5341Unlck", "",   "SI5395Unlck", "",   "LMK04832Unlck", "",   "JesdUnlck",  "",   "DdrPlB0CalibFail", "",   "DdrPlB1CalibFail", "",   "DdrPsCalibFail", "",   "FpgaCfgFail", "",   "BicErr", "",   "AdcOverTemp", "",   "AirOverTemp", "",   "FpgaOverTemp", "",   "DcDcOverTemp", "",   "ClkInMiss", "",   "AdcShutDown" }
+}
+
+file "dt274x_par_bool.template" {
+pattern
+{ W,   NAME,                        PATH,                       DESC                                 }
+{ "#", "BoardReady",                "/par/BoardReady",          "Board Ready"                        }
+{ "",  "AutoDisarmAcq",             "/par/EnAutoDisarmAcq",     "Disarm acq at stop of run"          }
+{ "",  "ChannelSuppr",              "/par/EnChSuppr",           "Enable channel suppression"         }
+{ "",  "ClockOutFP",                "/par/EnClockOutFP",        "Enable clock output on Front Panel" }
+{ "",  "MultiWinRun",               "/par/EnMultiWindowRun",    "Enale Multi-Window Run"             }
+{ "",  "OffsetCalib",               "/par/EnOffsetCalibration", "Enale Offset Calibration"           }
+{ "",  "TrigOverlap",               "/par/EnTriggerOverlap",    "Enale Trigger Overlap"              }
+{ "",  "ITLA:Retrigger",            "/par/ITLAEnRetrigger",     "Enable ITLA Retrigger"              }
+{ "",  "ITLB:Retrigger",            "/par/ITLBEnRetrigger",     "Enable ITLB Retrigger"              }
+}
+
+file "dt274x_par_enum.template" {
+pattern
+{ W,   NAME,             PATH,                      DESC,                          ZRST,          ONST,             TWST,       THST,     FRST,   FVST,      SXST,           SVST,             EIST,           NIST,           TEST,    ELST,  TVST,     TTST,        FTST,   FFST      }
+{ "",  "BusyInSource",   "/par/BusyInSource",       "Source of Busy Input",        "Disabled",    "SIN",            "GPIO",     "LVDS",   "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ClockSource",    "/par/ClockSource",        "Source of System Clock",      "Internal",    "FPClkIn",        "",         "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "DacOutMode",     "/par/DacOutMode",         "Mode of the DAC Output",      "Static",      "Ramp",           "Sin5MHz",  "Square", "IPE",  "ChInput", "MemOccupancy", "ChSum",          "OverThrSum",   "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "DecimationFac",  "/par/DecimationFactor",   "ADC Decimation Factor",       "1",           "2",              "4",        "8",      "16",   "32",      "64",           "128",            "256",          "512",          "1024",  "",    "",       "",          "",     ""        }
+# NOTE: For GPIO Mode, we're missing the last two possible values, Fixed0 and Fixed1, which didn't fit into mbbi/mbbo
+{ "",  "GpioMode",       "/par/GpioMode",           "GPIO Mode",                   "Disabled",    "TrgIn",          "P0",       "SIN",    "LVDS", "ITLA",    "ITLB",         "ITLA_AND_ITLB",  "ITLA_OR_ITLB", "EncodedClkIn", "SwTrg", "Run", "RefClk", "TestPulse", "Busy", "UserGPO" }
+{ "#", "InputType",      "/par/InputType",          "Input Type",                  "SE",          "Differential",   "",         "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "#", "IOLevel",        "/par/IOLevel",            "Electrical logic I/O Level",  "NIM",         "TTL",            "",         "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLA:MainLogic", "/par/ITLAMainLogic",      "Set the logic of ITLA",       "OR",          "AND",            "Majority", "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLA:PairLogic", "/par/ITLAPairLogic",      "ITLA Pairs comb logic",       "OR",          "AND",            "NONE",     "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLA:Polarity",  "/par/ITLAPolarity",       "ITLA Polarity",               "Direct",      "Inverted",       "",         "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLB:MainLogic", "/par/ITLBMainLogic",      "Set the logic of ITLB",       "OR",          "AND",            "Majority", "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLB:PairLogic", "/par/ITLBPairLogic",      "ITLB Pairs comb logic",       "OR",          "AND",            "NONE",     "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+{ "",  "ITLB:Polarity",  "/par/ITLBPolarity",       "ITLB Polarity",               "Direct",      "Inverted",       "",         "",       "",     "",        "",             "",               "",             "",             "",      "",    "",       "",          "",     ""        }
+}
+
+file "dt274x_cmd.template" {
+pattern
+{ NAME,                 PATH,                      DESC                                       }
+{ "ArmAcquisition",     "/cmd/armacquisition",     "Arms digitizer to start the acquisition"  }
+{ "ClearData",          "/cmd/cleardata",          "Clear data from memories"                 }
+{ "DisarmAcquisition",  "/cmd/disarmacquisition",  "Disarms acq and prevents new run"         }
+{ "Reboot",             "/cmd/reboot",             "Reboots the board after 4 seconds"        }
+{ "ReloadCalibration",  "/cmd/reloadcalibration",  "Del calib file and reload, or use def"    }
+{ "Reset",              "/cmd/reset",              "Resets the board"                         }
+{ "SendSWTrigger",      "/cmd/sendswtrigger",      "Send a software trigger"                  }
+{ "SWStartAcquisition", "/cmd/swstartacquisition", "Start the acquisition"                    }
+{ "SWStopAcquisition",  "/cmd/swstopacquisition",  "Stop the acquisition"                     }
+}

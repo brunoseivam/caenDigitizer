@@ -21,6 +21,7 @@
 #include <alarm.h>
 
 #include <stringinRecord.h>
+#include <stringoutRecord.h>
 #include <longinRecord.h>
 #include <longoutRecord.h>
 #include <aiRecord.h>
@@ -29,6 +30,7 @@
 #include <boRecord.h>
 #include <mbbiRecord.h>
 #include <mbboRecord.h>
+#include <mbbiDirectRecord.h>
 
 typedef std::map<std::string, CaenDigitizer*> dev_map_t;
 static dev_map_t dev_map;
@@ -160,6 +162,12 @@ long read_si(stringinRecord *prec) {
     });
 }
 
+long write_so(stringoutRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
+        pvt->digitizer->set_value(pvt->handle, prec->val);
+    });
+}
+
 long read_li(longinRecord *prec) {
     return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
         prec->val = pvt->digitizer->get_int_value(pvt->handle);
@@ -208,13 +216,14 @@ long read_mbbi(mbbiRecord *prec) {
         size_t i = 0;
         char (*p)[26] = &prec->zrst;
         for (; i < 16; ++p, ++i) {
-            //printf("%s[%lu] = %s    '%s'\n", prec->name, i, *p, value.c_str());
             if (str_tolower(*p) == value) {
                 prec->val = i;
                 return;
             }
         }
-        throw std::runtime_error(std::string("Failed to match value '") + value + "' to one of the choices");
+        throw std::runtime_error(
+            std::string("Failed to match value '") + value + "' to one of the choices"
+        );
     });
 }
 
@@ -264,6 +273,7 @@ struct dset6 {
     {6, NULL, NULL, &init_record_common, NULL, RW, NULL}; epicsExportAddress(dset, NAME)
 
 DSET(devCaenDigParamSi, stringin, &read_si);
+DSET(devCaenDigParamSo, stringout, &write_so);
 DSET(devCaenDigParamLi, longin, &read_li);
 DSET(devCaenDigParamLo, longout, &write_lo);
 DSET(devCaenDigParamAi, ai, &read_ai);
