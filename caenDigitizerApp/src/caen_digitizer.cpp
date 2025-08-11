@@ -27,14 +27,66 @@ static void throw_if_err(int ec, uint64_t handle, const std::string & msg) {
     }
 }
 
+CaenDigitizerParam::CaenDigitizerParam(CaenDigitizer *parent, const std::string & path)
+: parent_(parent), path_(path)
+{}
+
+void CaenDigitizerParam::get_value(std::string & v) {
+    char value[256];
+    uint64_t handle = parent_->get_handle(path_);
+    int ec = CAEN_FELib_GetValue(handle, NULL, value);
+    throw_if_err(ec, handle, "Failed to get value");
+    v = std::string(value);
+}
+
+void CaenDigitizerParam::get_value(int64_t & v) {
+    std::string value;
+    get_value(value);
+    v = std::stol(value);
+}
+
+void CaenDigitizerParam::get_value(double & v) {
+    std::string value;
+    get_value(value);
+    v = std::stod(value);
+}
+
+void CaenDigitizerParam::get_value(bool & v) {
+    std::string value;
+    get_value(value);
+    v = value[0]=='T' || value[0]=='t';
+}
+
+void CaenDigitizerParam::set_value(const std::string & v) {
+    uint64_t handle = parent_->get_handle(path_);
+    int ec = CAEN_FELib_SetValue(handle, NULL, v.c_str());
+    throw_if_err(ec, handle, "Failed to set value");
+}
+
+void CaenDigitizerParam::set_value(int64_t v) {
+    set_value(std::to_string(v));
+}
+
+void CaenDigitizerParam::set_value(double v) {
+    set_value(std::to_string(v));
+}
+
+void CaenDigitizerParam::set_value(bool v) {
+    set_value(v ? "true" : "false");
+}
+
+void CaenDigitizerParam::send_command() {
+    uint64_t handle = parent_->get_handle(path_);
+    int ec = CAEN_FELib_SendCommand(handle, NULL);
+    throw_if_err(ec, handle, "Failed to send command");
+}
+
 CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
-: _name(name), _addr(addr)
+: name_(name), addr_(addr), is_open_(false)
 {
-    int ec = CAEN_FELib_Open(addr.c_str(), &handle_);
-    throw_if_err(
-        ec,
-        std::string("Failed to open digitizer '") + name + "' @ '" + addr + "'"
-    );
+    if (CAEN_FELib_Open(addr.c_str(), &handle_) == CAEN_FELib_Success) {
+        is_open_ = true;
+    }
 }
 
 void CaenDigitizer::destroy() {
@@ -42,50 +94,21 @@ void CaenDigitizer::destroy() {
 }
 
 uint64_t CaenDigitizer::get_handle(const std::string & path) {
+    if (!is_open_) {
+        // TODO: this isn't thread safe. And we need to close it
+        int ec = CAEN_FELib_Open(addr_.c_str(), &handle_);
+        throw_if_err(ec, std::string("Failed to get handle for device ") + addr_);
+        is_open_ = true;
+    }
+
     uint64_t handle;
     int ec = CAEN_FELib_GetHandle(handle_, path.c_str(), &handle);
     throw_if_err(ec, std::string("Failed to get handle for path ") + path);
     return handle;
 }
 
-std::string CaenDigitizer::get_value(uint64_t handle) {
-    char value[256];
-    int ec = CAEN_FELib_GetValue(handle, NULL, value);
-    throw_if_err(ec, handle, "Failed to get value");
-    return std::string(value);
-}
-
-int64_t CaenDigitizer::get_int_value(uint64_t handle) {
-    return std::stol(get_value(handle));
-}
-
-double CaenDigitizer::get_double_value(uint64_t handle) {
-    return std::stod(get_value(handle));
-}
-
-bool CaenDigitizer::get_bool_value(uint64_t handle) {
-    std::string value(get_value(handle));
-    return value[0]=='T' || value[0]=='t';
-}
-
-void CaenDigitizer::set_value(uint64_t handle, const std::string & value) {
-    int ec = CAEN_FELib_SetValue(handle, NULL, value.c_str());
-    throw_if_err(ec, handle, "Failed to set value");
-}
-
-void CaenDigitizer::set_int_value(uint64_t handle, int64_t value) {
-    set_value(handle, std::to_string(value));
-}
-
-void CaenDigitizer::set_double_value(uint64_t handle, double value) {
-    set_value(handle, std::to_string(value));
-}
-
-void CaenDigitizer::set_bool_value(uint64_t handle, bool value) {
-    set_value(handle, value ? "true" : "false");
-}
-
-void CaenDigitizer::send_command(uint64_t handle) {
-    int ec = CAEN_FELib_SendCommand(handle, NULL);
-    throw_if_err(ec, handle, "Failed to send command");
+CaenDigitizerParam *CaenDigitizer::get_parameter(const std::string & path) {
+    // TODO: manage this memory
+    // TODO: keep set of registered params
+    return new CaenDigitizerParam(this, path);
 }

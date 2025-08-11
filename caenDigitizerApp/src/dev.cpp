@@ -35,6 +35,11 @@
 typedef std::map<std::string, CaenDigitizer*> dev_map_t;
 static dev_map_t dev_map;
 
+static std::string str_tolower(std::string s) {
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    return s;
+}
+
 void destroyCaenDigitizer(void *dev);
 
 void createCaenDigitizer(const std::string & name, const std::string & addr) {
@@ -76,18 +81,6 @@ DBLINK* get_dev_link(dbCommon *prec) {
     return ret;
 }
 
-struct Pvt {
-    CaenDigitizer *digitizer;
-    uint64_t handle;
-    std::string path;
-    std::string data_type;
-
-    Pvt(CaenDigitizer *digitizer, uint64_t handle, const std::string & path,
-        const std::string & data_type
-    ) : digitizer(digitizer), handle(handle), path(path), data_type(data_type)
-    {}
-};
-
 long init_record_common(dbCommon *prec) {
     static std::regex LINK_RE("([^\\s]+) (INT|DBL|STR|CMD|BOOL) ([^\\s]+)");
 
@@ -127,9 +120,8 @@ long init_record_common(dbCommon *prec) {
         }
 
         auto digitizer = dev->second;
-        uint64_t handle = digitizer->get_handle(path);
-        Pvt *pvt = new Pvt(digitizer, handle, path, data_type);
-        prec->dpvt = pvt;
+        CaenDigitizerParam *p = digitizer->get_parameter(path);
+        prec->dpvt = p;
 
         return 0;
     } catch (std::exception & ex) {
@@ -140,11 +132,11 @@ long init_record_common(dbCommon *prec) {
 }
 
 template<typename R>
-using io_func_t = std::function<void(Pvt*)>;
+using io_func_t = std::function<void(CaenDigitizerParam*)>;
 
 template<typename R>
 long do_param_io(R *prec, long ret, int alarm, io_func_t<R> io_func) {
-    Pvt *pvt = static_cast<Pvt*>(prec->dpvt);
+    CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
 
     try {
         io_func(pvt);
@@ -156,62 +148,70 @@ long do_param_io(R *prec, long ret, int alarm, io_func_t<R> io_func) {
 }
 
 long read_si(stringinRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
-        std::string value(pvt->digitizer->get_value(pvt->handle));
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        std::string value;
+        param->get_value(value);
         snprintf(prec->val, sizeof(prec->val), "%s", value.c_str());
     });
 }
 
 long write_so(stringoutRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
-        pvt->digitizer->set_value(pvt->handle, prec->val);
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        std::string value(prec->val);
+        param->set_value(value);
     });
 }
 
 long read_li(longinRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
-        prec->val = pvt->digitizer->get_int_value(pvt->handle);
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        int64_t value;
+        param->get_value(value);
+        prec->val = value;
     });
 }
 
 long write_lo(longoutRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
-        pvt->digitizer->set_int_value(pvt->handle, prec->val);
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+        int64_t value = prec->val;
+        param->set_value(value);
     });
 }
 
 long read_ai(aiRecord *prec) {
-    return do_param_io(prec, 2, READ_ALARM, [&](Pvt *pvt) {
-        prec->val = pvt->digitizer->get_double_value(pvt->handle);
+    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
+        int64_t value;
+        param->get_value(value);
+        prec->val = value;
     });
 }
 
 long write_ao(aoRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
-        pvt->digitizer->set_double_value(pvt->handle, prec->val);
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+        double value = prec->val;
+        param->set_value(value);
     });
 }
 
 long read_bi(biRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
-        prec->val = pvt->digitizer->get_bool_value(pvt->handle) ? 1 : 0;
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        bool value;
+        param->get_value(value);
+        prec->val = value ? 1 : 0;
     });
 }
 
 long write_bo(boRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
-        pvt->digitizer->set_bool_value(pvt->handle, !!prec->val);
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+        bool value = !!prec->val;
+        param->set_value(value);
     });
 }
 
-std::string str_tolower(std::string s) {
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
-    return s;
-}
-
 long read_mbbi(mbbiRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](Pvt *pvt) {
-        std::string value(str_tolower(pvt->digitizer->get_value(pvt->handle)));
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        std::string value;
+        param->get_value(value);
+        value = str_tolower(value);
 
         size_t i = 0;
         char (*p)[26] = &prec->zrst;
@@ -228,16 +228,17 @@ long read_mbbi(mbbiRecord *prec) {
 }
 
 long write_mbbo(mbboRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
         char (*p)[26] = &prec->zrst;
         p += prec->val;
-        pvt->digitizer->set_value(pvt->handle, *p);
+        std::string value = *p;
+        param->set_value(value);
     });
 }
 
 long send_command_bo(boRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](Pvt *pvt) {
-        pvt->digitizer->send_command(pvt->handle);
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+        param->send_command();
     });
 }
 
