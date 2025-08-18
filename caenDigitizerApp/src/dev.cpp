@@ -19,6 +19,7 @@
 #include <recGbl.h>
 #include <devLib.h>
 #include <alarm.h>
+#include <initHooks.h>
 
 #include <stringinRecord.h>
 #include <stringoutRecord.h>
@@ -40,7 +41,28 @@ static std::string str_tolower(std::string s) {
     return s;
 }
 
-void destroyCaenDigitizer(void *dev);
+// Housekeeping: stop worker threads when IOC is exiting
+void atExitHandler(void *_) {
+    dev_map_t::iterator it;
+    for (it = dev_map.begin(); it != dev_map.end(); ++it) {
+        it->second->stop();
+    }
+}
+
+void initHookHandler(initHookState state) {
+    switch (state) {
+        case initHookAfterIocRunning: {
+            // Start the workers for all created devices on IOC startup
+            dev_map_t::iterator it;
+            for (it = dev_map.begin(); it != dev_map.end(); ++it) {
+                it->second->start();
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 void createCaenDigitizer(const std::string & name, const std::string & addr) {
     try {
@@ -50,16 +72,11 @@ void createCaenDigitizer(const std::string & name, const std::string & addr) {
         }
 
         CaenDigitizer *dev = new CaenDigitizer(name, addr);
-        epicsAtExit(&destroyCaenDigitizer, dev);
         dev_map[name] = dev;
     } catch (std::exception& e) {
         errlogPrintf(ERL_ERROR ": exception thrown in createCaenDigitizer: %s\n", e.what());
         throw e;
     }
-}
-
-void destroyCaenDigitizer(void *dev) {
-    static_cast<CaenDigitizer*>(dev)->destroy();
 }
 
 // Device support
@@ -129,6 +146,13 @@ long init_record_common(dbCommon *prec) {
         errlogPrintf(ERL_ERROR " %s: got exception while initializing: %s\n", prec->name, ex.what());
         return S_dev_badInit;
     }
+}
+
+long get_status_update(int, dbCommon* prec, IOSCANPVT* scan)
+{
+    CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
+    *scan = pvt->get_status_update();
+    return 0;
 }
 
 template<typename R>
@@ -208,7 +232,7 @@ long write_bo(boRecord *prec) {
 }
 
 long read_mbbi(mbbiRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
         std::string value;
         param->get_value(value);
         value = str_tolower(value);
@@ -218,6 +242,7 @@ long read_mbbi(mbbiRecord *prec) {
         for (; i < 16; ++p, ++i) {
             if (str_tolower(*p) == value) {
                 prec->val = i;
+                prec->udf = 0;
                 return;
             }
         }
@@ -256,6 +281,8 @@ void createCaenDigitizerCall(const iocshArgBuf *args) {
 }
 
 void caenDigitizerRegistrar() {
+    initHookRegister(initHookHandler);
+    epicsAtExit(&atExitHandler, NULL);
     iocshRegister(&createCaenDigitizerFuncDef, &createCaenDigitizerCall);
 }
 
@@ -270,20 +297,20 @@ struct dset6 {
     long (*linconv)(R*);
 };
 
-#define DSET(NAME, REC, RW) static dset6<REC ## Record> NAME = \
-    {6, NULL, NULL, &init_record_common, NULL, RW, NULL}; epicsExportAddress(dset, NAME)
+#define DSET(NAME, REC, IOINTR, RW) static dset6<REC ## Record> NAME = \
+    {6, NULL, NULL, &init_record_common, IOINTR, RW, NULL}; epicsExportAddress(dset, NAME)
 
-DSET(devCaenDigParamSi, stringin, &read_si);
-DSET(devCaenDigParamSo, stringout, &write_so);
-DSET(devCaenDigParamLi, longin, &read_li);
-DSET(devCaenDigParamLo, longout, &write_lo);
-DSET(devCaenDigParamAi, ai, &read_ai);
-DSET(devCaenDigParamAo, ao, &write_ao);
-DSET(devCaenDigParamBi, bi, &read_bi);
-DSET(devCaenDigParamBo, bo, &write_bo);
-DSET(devCaenDigParamMbbi, mbbi, &read_mbbi);
-DSET(devCaenDigParamMbbo, mbbo, &write_mbbo);
+DSET(devCaenDigParamSi, stringin, &get_status_update, &read_si);
+DSET(devCaenDigParamSo, stringout, NULL, &write_so);
+DSET(devCaenDigParamLi, longin, &get_status_update, &read_li);
+DSET(devCaenDigParamLo, longout, NULL, &write_lo);
+DSET(devCaenDigParamAi, ai, &get_status_update, &read_ai);
+DSET(devCaenDigParamAo, ao, NULL, &write_ao);
+DSET(devCaenDigParamBi, bi, &get_status_update, &read_bi);
+DSET(devCaenDigParamBo, bo, NULL, &write_bo);
+DSET(devCaenDigParamMbbi, mbbi, &get_status_update, &read_mbbi);
+DSET(devCaenDigParamMbbo, mbbo, NULL, &write_mbbo);
 
-DSET(devCaenDigCmdBo, bo, &send_command_bo);
+DSET(devCaenDigCmdBo, bo, NULL, &send_command_bo);
 
 epicsExportRegistrar(caenDigitizerRegistrar);

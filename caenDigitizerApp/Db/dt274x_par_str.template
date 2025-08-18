@@ -2,7 +2,7 @@ record(stringin, "$(P)$(R)$(NAME)_RBV") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Param")
     field(INP,  "@$(PORT) $(TYPE=STR) $(PATH)")
-    field(PINI, "$(PINI=YES)")
+    field(SCAN, "I/O Intr")
 }
 
 $(W)record(stringout, "$(P)$(R)$(NAME)") {
