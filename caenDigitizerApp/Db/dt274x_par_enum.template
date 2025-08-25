@@ -2,7 +2,7 @@ record(mbbi, "$(P)$(R)$(NAME)_RBV") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Param")
     field(INP,  "@$(PORT) $(TYPE=STR) $(PATH)")
-    field(SCAN, "I/O Intr")
+    field(SCAN, "$(SCAN=I/O Intr)")
     field(ZRVL, "0")  field(ZRST, "$(ZRST=)")
     field(ONVL, "1")  field(ONST, "$(ONST=)")
     field(TWVL, "2")  field(TWST, "$(TWST=)")

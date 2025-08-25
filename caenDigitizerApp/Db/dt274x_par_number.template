@@ -4,7 +4,7 @@ record(ai, "$(P)$(R)$(NAME)_RBV") {
     field(INP,  "@$(PORT) $(TYPE=DBL) $(PATH)")
     field(EGU,  "$(EGU=)")
     field(PREC, "$(PREC=0)")
-    field(PINI, "$(PINI=YES)")
+    field(SCAN, "$(SCAN=I/O Intr)")
 }
 
 $(W)record(ao, "$(P)$(R)$(NAME)") {

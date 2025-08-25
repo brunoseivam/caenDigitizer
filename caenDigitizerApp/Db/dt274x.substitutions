@@ -1,6 +1,6 @@
 file "dt274x_base.db" { {} }
 
-#file "dt274x_ch.db" {
-#pattern { N }
-#{ "0" } { "1" }
-#}
+file "dt274x_ch.db" {
+pattern { N }
+{ "0" } { "1" }
+}

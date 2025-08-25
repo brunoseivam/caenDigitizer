@@ -54,5 +54,5 @@ record(stringin, "$(P)$(R)$(NAME)_RBV") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Param")
     field(INP,  "@$(PORT) $(TYPE=STR) $(PATH)")
-    field(PINI, "$(PINI=YES)")
+    field(SCAN, "$(SCAN=I/O Intr)")
 }

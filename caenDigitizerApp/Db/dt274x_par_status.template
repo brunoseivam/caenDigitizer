@@ -3,8 +3,7 @@ record(longin, "$(P)$(R)$(NAME)_RBV") {
     field(DTYP, "CAEN Dig Param")
     field(INP,  "@$(PORT) $(TYPE=INT) $(PATH)")
     field(EGU,  "$(EGU=)")
-    field(PINI, "$(PINI=YES)")
-    field(SCAN, "$(SCAN=)")
+    field(SCAN, "$(SCAN=I/O Intr)")
     field(FLNK, "$(P)$(R)$(NAME)BITS_RBV PP")
 }
 

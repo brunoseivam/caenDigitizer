@@ -1,6 +1,7 @@
 #pragma once
 
 #include "devSup.h"
+#include "epicsMutex.h"
 #include <cstdint>
 #include <string>
 #include <map>
@@ -12,8 +13,16 @@
 class CaenDigitizer;
 
 class CaenDigitizerParam {
+public:
+    enum Type {
+        Parameter,
+        Command,
+    };
+
+private:
     CaenDigitizer *parent_;
     std::string path_;
+    enum Type type_;
 
     uint64_t handle_;
     std::string value_;
@@ -49,6 +58,31 @@ public:
 };
 
 class CaenDigitizer : public epicsThreadRunable {
+    struct ParameterWriter : epicsThreadRunable {
+        std::string name;
+        bool running;
+        epicsMutex *lock;
+        uint64_t handle;
+
+        // Pending writes to send to the device
+        epicsMessageQueue pending_writes;
+
+        ParameterWriter(const std::string & name, epicsMutex *lock);
+        virtual ~ParameterWriter();
+        virtual void run();
+    };
+
+    struct DataReader : epicsThreadRunable {
+        std::string name;
+        bool running;
+        epicsMutex *lock;
+        uint64_t handle;
+
+        DataReader(const std::string & name, epicsMutex *lock);
+        virtual ~DataReader();
+        virtual void run();
+    };
+
     std::string name_;
     std::string addr_;
 
@@ -58,17 +92,25 @@ class CaenDigitizer : public epicsThreadRunable {
 
     bool running_;
 
-    // Pending writes to send to the device
-    epicsMessageQueue pending_writes_;
-
     std::map<std::string, CaenDigitizerParam*> params_;
 
-    // The worker thread polls the device periodically
-    // and sends pending write requests
-    epicsThread worker_thread_;
+    // Mutex for workers
+    epicsMutex lock_;
 
+    // Worker sub-threads
+    ParameterWriter parameter_writer_;
+    DataReader data_reader_;
+
+    // The worker thread is the parent of the other threads.
+    // It also polls parameters periodically
+    epicsThread worker_thread_;
+    // The command sender sends all pending commands to the device
+    epicsThread parameter_writer_thread_;
+    // The data reader thread reads pending acquisition data
+    epicsThread data_reader_thread_;
+
+    void prepare_scope(uint64_t handle);
     void fetch_all_params(uint64_t handle);
-    void send_all_pending_requests(uint64_t handle);
     void write_parameter(const std::string & path, const std::string & value);
     void send_command(const std::string & path);
 

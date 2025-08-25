@@ -99,6 +99,7 @@ DBLINK* get_dev_link(dbCommon *prec) {
 }
 
 long init_record_common(dbCommon *prec) {
+    // TODO: remove param type from link
     static std::regex LINK_RE("([^\\s]+) (INT|DBL|STR|CMD|BOOL) ([^\\s]+)");
 
     try {
@@ -148,8 +149,7 @@ long init_record_common(dbCommon *prec) {
     }
 }
 
-long get_status_update(int, dbCommon* prec, IOSCANPVT* scan)
-{
+long get_status_update(int, dbCommon* prec, IOSCANPVT* scan) {
     CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
     *scan = pvt->get_status_update();
     return 0;
