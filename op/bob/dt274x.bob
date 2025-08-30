@@ -1,0 +1,4552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2025-08-30 18:25:34 by bmartins-->
+<display version="2.0.0">
+  <name>CAEN DT274x $(P)$(R)</name>
+  <macros>
+    <P>DT274X:</P>
+    <R></R>
+  </macros>
+  <width>1800</width>
+  <height>750</height>
+  <widget type="label" version="2.0.0">
+    <name>Label_40</name>
+    <text>CAEN DT274x - $(P)$(R)</text>
+    <width>1770</width>
+    <height>25</height>
+    <font>
+      <font name="Header 2" family="Liberation Sans" style="BOLD" size="18.0">
+      </font>
+    </font>
+    <transparent>false</transparent>
+    <horizontal_alignment>1</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <wrap_words>false</wrap_words>
+    <actions>
+    </actions>
+    <border_color>
+      <color name="ButtonFG" red="180" green="180" blue="180">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Measurements</name>
+    <x>1310</x>
+    <y>843</y>
+    <width>1120</width>
+    <height>143</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="label" version="2.0.0">
+      <name>Label_63</name>
+      <text>Temperature Units</text>
+      <y>5</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_64</name>
+      <text>Extension Board Temp</text>
+      <y>30</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_65</name>
+      <text>Sensor Int Amb Temp</text>
+      <y>55</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_66</name>
+      <text>Heater Temp</text>
+      <y>80</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_67</name>
+      <text>Color Mode</text>
+      <x>300</x>
+      <y>5</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>Combo_5</name>
+      <pv_name>$(P)$(R)ColorMode</pv_name>
+      <x>460</x>
+      <y>5</y>
+      <width>80</width>
+      <height>20</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <actions>
+      </actions>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_11</name>
+      <pv_name>$(P)$(R)ColorMode_RBV</pv_name>
+      <x>550</x>
+      <y>5</y>
+      <width>45</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_19</name>
+      <pv_name>$(P)$(R)ErrInternTempUnderRng_RBV</pv_name>
+      <x>160</x>
+      <y>55</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_20</name>
+      <pv_name>$(P)$(R)ErrInternTempOverRng_RBV</pv_name>
+      <x>275</x>
+      <y>55</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>Combo_4</name>
+      <pv_name>$(P)$(R)Units</pv_name>
+      <x>185</x>
+      <y>5</y>
+      <width>85</width>
+      <height>20</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <actions>
+      </actions>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_8</name>
+      <pv_name>$(P)$(R)ExtBoardTemp_RBV</pv_name>
+      <x>185</x>
+      <y>30</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_9</name>
+      <pv_name>$(P)$(R)SensIntAmbTemp_RBV</pv_name>
+      <x>185</x>
+      <y>55</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_10</name>
+      <pv_name>$(P)$(R)HeaterTemp_RBV</pv_name>
+      <x>185</x>
+      <y>80</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_21</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempOverRng_RBV</pv_name>
+      <x>160</x>
+      <y>80</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_22</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempOverRng_RBV</pv_name>
+      <x>275</x>
+      <y>80</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_12</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>250</x>
+      <y>30</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_13</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>250</x>
+      <y>55</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_14</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>250</x>
+      <y>80</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_68</name>
+      <text>Tgt Temp 1C Narrow</text>
+      <x>300</x>
+      <y>30</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_69</name>
+      <text>Tgt Temp 1C Wide</text>
+      <x>300</x>
+      <y>55</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_70</name>
+      <text>Tgt Temp 2C</text>
+      <x>300</x>
+      <y>80</y>
+      <width>155</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_15</name>
+      <pv_name>$(P)$(R)TargetTemp1CNarr_RBV</pv_name>
+      <x>485</x>
+      <y>30</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_16</name>
+      <pv_name>$(P)$(R)TargetTemp1CWide_RBV</pv_name>
+      <x>485</x>
+      <y>55</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_17</name>
+      <pv_name>$(P)$(R)TargetTemp2C_RBV</pv_name>
+      <x>485</x>
+      <y>80</y>
+      <width>60</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_18</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>550</x>
+      <y>30</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_19</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>550</x>
+      <y>55</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Model_20</name>
+      <pv_name>$(P)$(R)Units_RBV</pv_name>
+      <x>550</x>
+      <y>80</y>
+      <width>20</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_29</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempUnderRng_RBV</pv_name>
+      <x>460</x>
+      <y>30</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_30</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempOverRng_RBV</pv_name>
+      <x>575</x>
+      <y>30</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_31</name>
+      <pv_name>$(P)$(R)ErrWideBandTempUnderRng_RBV</pv_name>
+      <x>460</x>
+      <y>55</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_32</name>
+      <pv_name>$(P)$(R)ErrWideBandTempOverRng_RBV</pv_name>
+      <x>575</x>
+      <y>55</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_33</name>
+      <pv_name>$(P)$(R)ErrTwoCTempUnderRng_RBV</pv_name>
+      <x>460</x>
+      <y>80</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_34</name>
+      <pv_name>$(P)$(R)ErrTwoCTempOverRng_RBV</pv_name>
+      <x>575</x>
+      <y>80</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_52</name>
+      <macros>
+        <NAME>TriggerStatus</NAME>
+      </macros>
+      <x>605</x>
+      <y>5</y>
+      <width>240</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_103</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>160</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_69</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <width>155</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_53</name>
+      <macros>
+        <NAME>MeasAtten</NAME>
+      </macros>
+      <x>605</x>
+      <y>30</y>
+      <width>240</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_104</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>160</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_70</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <width>155</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_55</name>
+      <macros>
+        <NAME>CurrEmissivity</NAME>
+      </macros>
+      <x>605</x>
+      <y>55</y>
+      <width>240</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_107</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>160</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_72</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <width>155</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_56</name>
+      <macros>
+        <NAME>AnalogInpmA</NAME>
+      </macros>
+      <x>605</x>
+      <y>80</y>
+      <width>240</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_108</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>160</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_73</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <width>155</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_57</name>
+      <macros>
+        <NAME>WidePower</NAME>
+      </macros>
+      <x>855</x>
+      <y>5</y>
+      <width>185</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_109</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>105</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_74</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_58</name>
+      <macros>
+        <NAME>NarrowPower</NAME>
+      </macros>
+      <x>855</x>
+      <y>30</y>
+      <width>185</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_110</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>105</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_75</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV.DESC</pv_name>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Errors</name>
+    <x>520</x>
+    <y>843</y>
+    <height>610</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="led" version="2.0.0">
+      <name>LED_2</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempOverRng_RBV</pv_name>
+      <x>10</x>
+      <y>10</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_4</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempUnderRng_RBV</pv_name>
+      <x>10</x>
+      <y>35</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_5</name>
+      <pv_name>$(P)$(R)ErrInternTempUnderRng_RBV</pv_name>
+      <x>10</x>
+      <y>60</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_6</name>
+      <pv_name>$(P)$(R)ErrInternTempOverRng_RBV</pv_name>
+      <x>10</x>
+      <y>85</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_7</name>
+      <pv_name>$(P)$(R)ErrWideBandDetFail_RBV</pv_name>
+      <x>10</x>
+      <y>110</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_8</name>
+      <pv_name>$(P)$(R)ErrNarrBandDetFail_RBV</pv_name>
+      <x>10</x>
+      <y>135</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_9</name>
+      <pv_name>$(P)$(R)ErrEnergyTooLow_RBV</pv_name>
+      <x>10</x>
+      <y>160</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_10</name>
+      <pv_name>$(P)$(R)ErrAttenTooHigh_RBV</pv_name>
+      <x>10</x>
+      <y>185</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_11</name>
+      <pv_name>$(P)$(R)ErrWideBandTempOverRng_RBV</pv_name>
+      <x>10</x>
+      <y>310</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_12</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempUnderRng_RBV</pv_name>
+      <x>10</x>
+      <y>335</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_13</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempOverRng_RBV</pv_name>
+      <x>10</x>
+      <y>360</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_14</name>
+      <pv_name>$(P)$(R)ErrAlarmDetection_RBV</pv_name>
+      <x>10</x>
+      <y>385</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_15</name>
+      <pv_name>$(P)$(R)ErrAttenOver95Pct_RBV</pv_name>
+      <x>10</x>
+      <y>210</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_16</name>
+      <pv_name>$(P)$(R)ErrTwoCTempUnderRng_RBV</pv_name>
+      <x>10</x>
+      <y>235</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_17</name>
+      <pv_name>$(P)$(R)ErrTwoCTempOverRng_RBV</pv_name>
+      <x>10</x>
+      <y>260</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_18</name>
+      <pv_name>$(P)$(R)ErrWideBandTempUnderRng_RBV</pv_name>
+      <x>10</x>
+      <y>285</y>
+      <off_color>
+        <color red="150" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color red="255" green="0" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+      <labels_from_pv>true</labels_from_pv>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempOverRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>10</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>$(P)$(R)ErrHeatCtlTempUnderRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>35</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_2</name>
+      <pv_name>$(P)$(R)ErrInternTempUnderRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>60</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_3</name>
+      <pv_name>$(P)$(R)ErrInternTempOverRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>85</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_4</name>
+      <pv_name>$(P)$(R)ErrWideBandDetFail_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>110</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_5</name>
+      <pv_name>$(P)$(R)ErrNarrBandDetFail_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>135</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P)$(R)ErrTwoCTempUnderRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>235</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_7</name>
+      <pv_name>$(P)$(R)ErrTwoCTempOverRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>260</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_8</name>
+      <pv_name>$(P)$(R)ErrWideBandTempUnderRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>285</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_9</name>
+      <pv_name>$(P)$(R)ErrAttenOver95Pct_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>210</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_10</name>
+      <pv_name>$(P)$(R)ErrAttenTooHigh_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>185</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_11</name>
+      <pv_name>$(P)$(R)ErrEnergyTooLow_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>160</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_12</name>
+      <pv_name>$(P)$(R)ErrAlarmDetection_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>385</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_13</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempOverRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>360</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_14</name>
+      <pv_name>$(P)$(R)ErrNarrBandTempUnderRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>335</y>
+      <width>210</width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_15</name>
+      <pv_name>$(P)$(R)ErrWideBandTempOverRng_RBV.DESC</pv_name>
+      <x>40</x>
+      <y>310</y>
+      <width>210</width>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Configuration</name>
+    <x>893</x>
+    <y>843</y>
+    <width>1120</width>
+    <height>467</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="group" version="3.0.0">
+      <name>Group</name>
+      <macros>
+        <NAME>BgTempCorr</NAME>
+      </macros>
+      <x>5</x>
+      <y>5</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_16</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_22</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_25</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_1</name>
+      <macros>
+        <NAME>TopOfmARange</NAME>
+      </macros>
+      <x>5</x>
+      <y>30</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_17</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_1</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_35</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_36</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_2</name>
+      <macros>
+        <NAME>AdvHoldThres</NAME>
+      </macros>
+      <x>5</x>
+      <y>80</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_18</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_2</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_37</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_38</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_3</name>
+      <macros>
+        <NAME>BotOfmARange</NAME>
+      </macros>
+      <x>5</x>
+      <y>55</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_19</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_3</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_39</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_40</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_4</name>
+      <macros>
+        <NAME>SetTargetTemp</NAME>
+      </macros>
+      <x>5</x>
+      <y>155</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_20</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_4</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_41</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_42</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_5</name>
+      <macros>
+        <NAME>LowTempLimit</NAME>
+      </macros>
+      <x>5</x>
+      <y>180</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_21</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_5</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_43</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_44</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_6</name>
+      <macros>
+        <NAME>BotOfmATempRange</NAME>
+      </macros>
+      <x>5</x>
+      <y>130</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_22</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_6</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_45</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_46</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_7</name>
+      <macros>
+        <NAME>TopOfmATempRange</NAME>
+      </macros>
+      <x>5</x>
+      <y>105</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_23</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_7</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_47</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_48</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_11</name>
+      <macros>
+        <NAME>AdvHoldHyst</NAME>
+      </macros>
+      <x>5</x>
+      <y>305</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_27</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_11</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_55</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_56</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_12</name>
+      <macros>
+        <NAME>SetpointRelayFunc</NAME>
+      </macros>
+      <x>5</x>
+      <y>280</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_28</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_12</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_57</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_58</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_13</name>
+      <macros>
+        <NAME>DecayRate</NAME>
+      </macros>
+      <x>5</x>
+      <y>255</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_29</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_13</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_59</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_60</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_14</name>
+      <macros>
+        <NAME>Deadband</NAME>
+      </macros>
+      <x>5</x>
+      <y>230</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_30</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_14</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_61</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_62</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_15</name>
+      <macros>
+        <NAME>HighTempLimit</NAME>
+      </macros>
+      <x>5</x>
+      <y>205</y>
+      <width>355</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_31</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_15</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_63</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_64</name>
+        <pv_name>$(P)$(R)Units_RBV</pv_name>
+        <x>335</x>
+        <width>20</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group</name>
+      <macros>
+        <NAME>AdvHoldWithAvg</NAME>
+      </macros>
+      <x>365</x>
+      <y>5</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_32</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_16</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_65</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_17</name>
+      <macros>
+        <NAME>AlrmTopmAOutput</NAME>
+      </macros>
+      <x>365</x>
+      <y>30</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_33</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_17</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_67</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_18</name>
+      <macros>
+        <NAME>AlrmBotmAOutput</NAME>
+      </macros>
+      <x>365</x>
+      <y>55</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_34</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_18</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_68</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_20</name>
+      <macros>
+        <NAME>SensorGain</NAME>
+      </macros>
+      <x>365</x>
+      <y>80</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_37</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_20</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_70</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_21</name>
+      <macros>
+        <NAME>TopSensorGain</NAME>
+      </macros>
+      <x>365</x>
+      <y>105</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_38</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_21</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_71</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_22</name>
+      <macros>
+        <NAME>Emissivity</NAME>
+      </macros>
+      <x>365</x>
+      <y>180</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_39</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_22</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_72</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_23</name>
+      <macros>
+        <NAME>ValleyHoldTime</NAME>
+      </macros>
+      <x>365</x>
+      <y>205</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_40</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_23</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_73</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_24</name>
+      <macros>
+        <NAME>TopSensorOffset</NAME>
+      </macros>
+      <x>365</x>
+      <y>155</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_41</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_24</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_74</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_25</name>
+      <macros>
+        <NAME>SensorOffset</NAME>
+      </macros>
+      <x>365</x>
+      <y>130</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_42</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_25</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_75</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_26</name>
+      <macros>
+        <NAME>AnalogOutOffset</NAME>
+      </macros>
+      <x>365</x>
+      <y>280</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_43</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_26</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_76</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_27</name>
+      <macros>
+        <NAME>PeakHoldTime</NAME>
+      </macros>
+      <x>365</x>
+      <y>305</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_44</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_27</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_77</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_28</name>
+      <macros>
+        <NAME>AnalogOutGain</NAME>
+      </macros>
+      <x>365</x>
+      <y>255</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_45</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_28</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_78</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_29</name>
+      <macros>
+        <NAME>AverageTime</NAME>
+      </macros>
+      <x>365</x>
+      <y>230</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_46</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_29</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_79</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_30</name>
+      <macros>
+        <NAME>Slope</NAME>
+      </macros>
+      <x>365</x>
+      <y>330</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_47</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_30</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_80</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_31</name>
+      <macros>
+        <NAME>AttenForFailsafe</NAME>
+      </macros>
+      <x>365</x>
+      <y>405</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_48</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_31</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_81</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_32</name>
+      <macros>
+        <NAME>AttenToActRelay</NAME>
+      </macros>
+      <x>365</x>
+      <y>380</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_49</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_32</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_82</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_33</name>
+      <macros>
+        <NAME>Transmissivity</NAME>
+      </macros>
+      <x>365</x>
+      <y>355</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_50</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_33</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_83</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group</name>
+      <macros>
+        <NAME>AnalogInpMode</NAME>
+      </macros>
+      <x>700</x>
+      <y>5</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_84</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_51</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_35</name>
+      <macros>
+        <NAME>DigitalFilter</NAME>
+      </macros>
+      <x>700</x>
+      <y>80</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_85</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_1</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_52</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_36</name>
+      <macros>
+        <NAME>EmissSource</NAME>
+      </macros>
+      <x>700</x>
+      <y>105</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_86</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_2</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_53</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_37</name>
+      <macros>
+        <NAME>InvalidCurSmpFlt</NAME>
+      </macros>
+      <x>700</x>
+      <y>155</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_87</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_3</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_54</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_38</name>
+      <macros>
+        <NAME>RelayAlrmOutCtrl</NAME>
+      </macros>
+      <x>700</x>
+      <y>130</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_88</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_4</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_55</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_40</name>
+      <macros>
+        <NAME>AmbCompsCtrl</NAME>
+      </macros>
+      <x>700</x>
+      <y>230</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_90</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_6</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_57</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_41</name>
+      <macros>
+        <NAME>TermResistor</NAME>
+      </macros>
+      <x>700</x>
+      <y>205</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_91</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_7</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_58</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_42</name>
+      <macros>
+        <NAME>SlopeSource</NAME>
+      </macros>
+      <x>700</x>
+      <y>180</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_92</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_8</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_59</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_50</name>
+      <macros>
+        <NAME>TriggerControl</NAME>
+      </macros>
+      <x>700</x>
+      <y>255</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_100</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_16</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_67</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_51</name>
+      <macros>
+        <NAME>AmbCompsCtrl</NAME>
+      </macros>
+      <x>700</x>
+      <y>55</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_102</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_17</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_68</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_39</name>
+      <macros>
+        <NAME>AnalogOutMode</NAME>
+      </macros>
+      <x>700</x>
+      <y>30</y>
+      <width>370</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_89</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>290</x>
+        <width>80</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>Combo Box_5</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>80</width>
+        <height>20</height>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_56</name>
+        <pv_name>$(P)$(R)$(NAME).DESC</pv_name>
+        <width>200</width>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Configuration_1</name>
+    <x>510</x>
+    <y>113</y>
+    <width>1120</width>
+    <height>500</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="xyplot" version="3.0.0">
+      <name>X/Y Plot</name>
+      <x>5</x>
+      <y>7</y>
+      <width>1070</width>
+      <height>450</height>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Unit Status</name>
+    <x>1630</x>
+    <y>40</y>
+    <width>350</width>
+    <height>320</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="group" version="3.0.0">
+      <name>Group</name>
+      <y>35</y>
+      <width>305</width>
+      <height>245</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>Label_59</name>
+        <text>ADC Temp (°C)</text>
+        <y>25</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_60</name>
+        <text>Fan Speeds (rpm)</text>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_148</name>
+        <pv_name>$(P)$(R)SpeedSensFan1_RBV</pv_name>
+        <x>140</x>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Serial Number_41</name>
+        <text>Air Temp (°C)</text>
+        <y>125</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Serial Number_43</name>
+        <text>DC/DC Conv (V)</text>
+        <y>150</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Serial Number_45</name>
+        <text>Input Range</text>
+        <y>175</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Serial Number_46</name>
+        <pv_name>$(P)$(R)InputRange_RBV</pv_name>
+        <x>125</x>
+        <y>175</y>
+        <width>180</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_151</name>
+        <pv_name>$(P)$(R)SpeedSensFan2_RBV</pv_name>
+        <x>235</x>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_72</name>
+        <text>1</text>
+        <x>125</x>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_73</name>
+        <text>2</text>
+        <x>220</x>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_78</name>
+        <text>7</text>
+        <x>220</x>
+        <y>100</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_156</name>
+        <pv_name>$(P)$(R)TempSensAdc7_RBV</pv_name>
+        <x>235</x>
+        <y>100</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_77</name>
+        <text>6</text>
+        <x>125</x>
+        <y>100</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_155</name>
+        <pv_name>$(P)$(R)TempSensAdc6_RBV</pv_name>
+        <x>140</x>
+        <y>100</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_80</name>
+        <text>5</text>
+        <x>220</x>
+        <y>75</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_158</name>
+        <pv_name>$(P)$(R)TempSensAdc5_RBV</pv_name>
+        <x>235</x>
+        <y>75</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_79</name>
+        <text>4</text>
+        <x>125</x>
+        <y>75</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_157</name>
+        <pv_name>$(P)$(R)TempSensAdc4_RBV</pv_name>
+        <x>140</x>
+        <y>75</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_76</name>
+        <text>3</text>
+        <x>220</x>
+        <y>50</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_154</name>
+        <pv_name>$(P)$(R)TempSensAdc3_RBV</pv_name>
+        <x>235</x>
+        <y>50</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_75</name>
+        <text>2</text>
+        <x>125</x>
+        <y>50</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_153</name>
+        <pv_name>$(P)$(R)TempSensAdc2_RBV</pv_name>
+        <x>140</x>
+        <y>50</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_71</name>
+        <text>0</text>
+        <x>125</x>
+        <y>25</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_147</name>
+        <pv_name>$(P)$(R)TempSensAdc0_RBV</pv_name>
+        <x>140</x>
+        <y>25</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_74</name>
+        <text>1</text>
+        <x>220</x>
+        <y>25</y>
+        <width>15</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_152</name>
+        <pv_name>$(P)$(R)TempSensAdc1_RBV</pv_name>
+        <x>235</x>
+        <y>25</y>
+        <width>70</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_81</name>
+        <text>In</text>
+        <x>125</x>
+        <y>125</y>
+        <width>30</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_159</name>
+        <pv_name>$(P)$(R)TempSensAdc0_RBV</pv_name>
+        <x>155</x>
+        <y>125</y>
+        <width>55</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_82</name>
+        <text>Out</text>
+        <x>220</x>
+        <y>125</y>
+        <width>30</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_160</name>
+        <pv_name>$(P)$(R)TempSensAdc1_RBV</pv_name>
+        <x>250</x>
+        <y>125</y>
+        <width>55</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_83</name>
+        <text>In</text>
+        <x>125</x>
+        <y>150</y>
+        <width>30</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_161</name>
+        <pv_name>$(P)$(R)VInSensDcDc_RBV</pv_name>
+        <x>155</x>
+        <y>150</y>
+        <width>55</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_84</name>
+        <text>Out</text>
+        <x>220</x>
+        <y>150</y>
+        <width>30</width>
+        <horizontal_alignment>1</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_162</name>
+        <pv_name>$(P)$(R)VOutSensDcDc_RBV</pv_name>
+        <x>250</x>
+        <y>150</y>
+        <width>55</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <show_units>false</show_units>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_61</name>
+        <text>SFP Link</text>
+        <y>225</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_62</name>
+        <text>Input Imped</text>
+        <y>200</y>
+        <width>115</width>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_150</name>
+        <pv_name>$(P)$(R)InputImpedance_RBV</pv_name>
+        <x>125</x>
+        <y>200</y>
+        <width>180</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)SfpLinkPresence_RBV</pv_name>
+        <x>125</x>
+        <y>225</y>
+        <width>85</width>
+        <off_label>Present</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Present</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_3</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)SfpLinkActive_RBV</pv_name>
+        <x>220</x>
+        <y>225</y>
+        <width>85</width>
+        <off_label>Active</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Active</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_25</name>
+      <class>ON_OFF</class>
+      <pv_name>$(P)$(R)BoardReady_RBV</pv_name>
+      <y>5</y>
+      <width>150</width>
+      <off_label>Board Ready</off_label>
+      <off_color use_class="true">
+        <color name="Off" red="60" green="100" blue="60">
+        </color>
+      </off_color>
+      <on_label>Board Ready</on_label>
+      <on_color use_class="true">
+        <color name="On" red="0" green="255" blue="0">
+        </color>
+      </on_color>
+      <square>true</square>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_5</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>dt274x_info.bob</file>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>Unit Info</text>
+      <x>155</x>
+      <y>5</y>
+      <width>150</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Control</name>
+    <x>510</x>
+    <y>40</y>
+    <width>1120</width>
+    <height>73</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Arm</text>
+      <x>5</x>
+      <y>5</y>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_1</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Disarm</text>
+      <x>110</x>
+      <y>5</y>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_2</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>S/W Trig</text>
+      <x>215</x>
+      <y>5</y>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_3</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Start Acq</text>
+      <x>320</x>
+      <y>5</y>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_4</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Stop Acq</text>
+      <x>425</x>
+      <y>5</y>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_9</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Reload Calib</text>
+      <x>975</x>
+      <y>5</y>
+      <foreground_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <tooltip>$(actions)</tooltip>
+      <show_confirm_dialog>true</show_confirm_dialog>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_8</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Reboot</text>
+      <x>870</x>
+      <y>5</y>
+      <foreground_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <tooltip>$(actions)</tooltip>
+      <show_confirm_dialog>true</show_confirm_dialog>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_7</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Reset Board</text>
+      <x>765</x>
+      <y>5</y>
+      <foreground_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <tooltip>$(actions)</tooltip>
+      <show_confirm_dialog>true</show_confirm_dialog>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_6</name>
+      <actions>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <text>Clear Data</text>
+      <x>660</x>
+      <y>5</y>
+      <foreground_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <tooltip>$(actions)</tooltip>
+      <show_confirm_dialog>true</show_confirm_dialog>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Channels</name>
+    <x>1630</x>
+    <y>360</y>
+    <width>350</width>
+    <height>253</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="group" version="3.0.0">
+      <name>Group</name>
+      <macros>
+        <CH>0</CH>
+      </macros>
+      <x>5</x>
+      <y>5</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_19</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_1</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_23</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_8</name>
+      <macros>
+        <CH>1</CH>
+      </macros>
+      <x>105</x>
+      <y>5</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_20</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_2</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_24</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Configuration</name>
+    <x>10</x>
+    <y>30</y>
+    <width>400</width>
+    <height>253</height>
+    <foreground_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </foreground_color>
+    <line_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="group" version="3.0.0">
+      <name>Group_9</name>
+      <macros>
+        <DESC>DAC Out Channel</DESC>
+        <NAME>DacOutChanSelect</NAME>
+      </macros>
+      <y>5</y>
+      <width>330</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>Text Update_35</name>
+        <text>$(DESC)</text>
+        <width>200</width>
+        <background_color>
+          <color name="Read_Background" red="240" green="240" blue="240">
+          </color>
+        </background_color>
+        <transparent>false</transparent>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>Text Entry_19</name>
+        <pv_name>$(P)$(R)$(NAME)</pv_name>
+        <x>205</x>
+        <width>60</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Model_66</name>
+        <pv_name>$(P)$(R)$(NAME)_RBV</pv_name>
+        <x>270</x>
+        <width>60</width>
+        <background_color>
+          <color red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <horizontal_alignment>2</horizontal_alignment>
+        <vertical_alignment>1</vertical_alignment>
+        <wrap_words>false</wrap_words>
+        <actions>
+        </actions>
+        <border_color>
+          <color red="0" green="128" blue="255">
+          </color>
+        </border_color>
+      </widget>
+    </widget>
+  </widget>
+</display>
