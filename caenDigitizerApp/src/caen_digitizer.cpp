@@ -220,8 +220,11 @@ void CaenDigitizer::DataReader::run() {
             case CAEN_FELib_Timeout: printf("TIMEOUT\n"); break;
             case CAEN_FELib_Stop: printf("GOT STOP\n"); break;
             default:
-                throw_if_err(ec, "Got error while trying to get data");
+                printf("Got error while trying to get data\n");
+                //throw_if_err(ec, "Got error while trying to get data");
         }
+
+        epicsThreadSleep(5.0);
     }
 }
 

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-08-30 18:24:08 by bmartins-->
+<!--Saved on 2025-08-30 18:46:15 by bmartins-->
 <display version="2.0.0">
   <name>$(P)$(R)</name>
-  <macros>
-    <PR>$(P)$(R)Ch$(CH)</PR>
-  </macros>
   <width>370</width>
-  <height>590</height>
+  <height>615</height>
   <widget type="label" version="2.0.0">
     <name>Label_40</name>
     <text>$(P)$(R)</text>
@@ -32,7 +29,7 @@
     <x>10</x>
     <y>30</y>
     <width>350</width>
-    <height>440</height>
+    <height>470</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
@@ -81,74 +78,6 @@
         </color>
       </border_color>
     </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>FW Version_2</name>
-      <pv_name>$(P)$(R)SerialNum_RBV</pv_name>
-      <x>125</x>
-      <y>55</y>
-      <width>180</width>
-      <background_color>
-        <color red="255" green="255" blue="255">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>FW Version_3</name>
-      <text>Serial Number</text>
-      <y>55</y>
-      <width>115</width>
-      <horizontal_alignment>2</horizontal_alignment>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Serial Number</name>
-      <pv_name>$(P)$(R)CupVersion_RBV</pv_name>
-      <x>125</x>
-      <y>80</y>
-      <width>180</width>
-      <background_color>
-        <color red="255" green="255" blue="255">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Serial Number_1</name>
-      <text>Cup Version</text>
-      <y>80</y>
-      <width>115</width>
-      <horizontal_alignment>2</horizontal_alignment>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
     <widget type="label" version="2.0.0">
       <name>Label_57</name>
       <text>Model Code</text>
@@ -184,9 +113,111 @@
       </border_color>
     </widget>
     <widget type="label" version="2.0.0">
+      <name>FW Version_10</name>
+      <text>Family Code</text>
+      <y>55</y>
+      <width>115</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>FW Version_11</name>
+      <pv_name>$(P)$(R)FamilyCode_RBV</pv_name>
+      <x>125</x>
+      <y>55</y>
+      <width>180</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>FW Version_2</name>
+      <pv_name>$(P)$(R)SerialNum_RBV</pv_name>
+      <x>125</x>
+      <y>80</y>
+      <width>180</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>FW Version_3</name>
+      <text>Serial Number</text>
+      <y>80</y>
+      <width>115</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Serial Number</name>
+      <pv_name>$(P)$(R)CupVersion_RBV</pv_name>
+      <x>125</x>
+      <y>105</y>
+      <width>180</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Serial Number_1</name>
+      <text>Cup Version</text>
+      <y>105</y>
+      <width>115</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
       <name>Serial Number_15</name>
       <text>Form Factor</text>
-      <y>105</y>
+      <y>130</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -202,7 +233,7 @@
       <name>Serial Number_16</name>
       <pv_name>$(P)$(R)FormFactor_RBV</pv_name>
       <x>125</x>
-      <y>105</y>
+      <y>130</y>
       <width>180</width>
       <background_color>
         <color red="255" green="255" blue="255">
@@ -220,7 +251,7 @@
     <widget type="label" version="2.0.0">
       <name>Serial Number_19</name>
       <text>FPGA FW Vers</text>
-      <y>130</y>
+      <y>155</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -236,7 +267,7 @@
       <name>Serial Number_20</name>
       <pv_name>$(P)$(R)FpgaFwVers_RBV</pv_name>
       <x>125</x>
-      <y>130</y>
+      <y>155</y>
       <width>180</width>
       <background_color>
         <color red="255" green="255" blue="255">
@@ -254,7 +285,7 @@
     <widget type="label" version="2.0.0">
       <name>Serial Number_21</name>
       <text>FW Type</text>
-      <y>155</y>
+      <y>180</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -269,40 +300,6 @@
     <widget type="textupdate" version="2.0.0">
       <name>Serial Number_22</name>
       <pv_name>$(P)$(R)FwType_RBV</pv_name>
-      <x>125</x>
-      <y>155</y>
-      <width>180</width>
-      <background_color>
-        <color red="255" green="255" blue="255">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Serial Number_23</name>
-      <text>Form Factor</text>
-      <y>180</y>
-      <width>115</width>
-      <horizontal_alignment>2</horizontal_alignment>
-      <vertical_alignment>1</vertical_alignment>
-      <wrap_words>false</wrap_words>
-      <actions>
-      </actions>
-      <border_color>
-        <color red="0" green="128" blue="255">
-        </color>
-      </border_color>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Serial Number_24</name>
-      <pv_name>$(P)$(R)FormFactor_RBV</pv_name>
       <x>125</x>
       <y>180</y>
       <width>180</width>
@@ -489,11 +486,45 @@
         </color>
       </border_color>
     </widget>
+    <widget type="label" version="2.0.0">
+      <name>Serial Number_31</name>
+      <text>License Rem Time</text>
+      <y>330</y>
+      <width>115</width>
+      <horizontal_alignment>2</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Serial Number_32</name>
+      <pv_name>$(P)$(R)LicenseRemTime_RBV</pv_name>
+      <x>125</x>
+      <y>330</y>
+      <width>180</width>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Model_148</name>
-      <pv_name>$(P)$(R)PCBRev_MB_RBV</pv_name>
+      <pv_name>$(P)$(R)PcbRevMB_RBV</pv_name>
       <x>125</x>
-      <y>355</y>
+      <y>380</y>
       <width>180</width>
       <background_color>
         <color red="255" green="255" blue="255">
@@ -511,7 +542,7 @@
     <widget type="label" version="2.0.0">
       <name>Label_61</name>
       <text>PCB Rev MB</text>
-      <y>355</y>
+      <y>380</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -525,9 +556,9 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>FW Version_8</name>
-      <pv_name>$(P)$(R)PCBRev_PB_RBV</pv_name>
+      <pv_name>$(P)$(R)PcbRevPB_RBV</pv_name>
       <x>125</x>
-      <y>380</y>
+      <y>405</y>
       <width>180</width>
       <background_color>
         <color red="255" green="255" blue="255">
@@ -545,7 +576,7 @@
     <widget type="label" version="2.0.0">
       <name>FW Version_9</name>
       <text>PCB Rev PB</text>
-      <y>380</y>
+      <y>405</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -560,7 +591,7 @@
     <widget type="label" version="2.0.0">
       <name>Label_62</name>
       <text>PB Code</text>
-      <y>330</y>
+      <y>355</y>
       <width>115</width>
       <horizontal_alignment>2</horizontal_alignment>
       <vertical_alignment>1</vertical_alignment>
@@ -576,7 +607,7 @@
       <name>Model_149</name>
       <pv_name>$(P)$(R)PBCode_RBV</pv_name>
       <x>125</x>
-      <y>330</y>
+      <y>355</y>
       <width>180</width>
       <background_color>
         <color red="255" green="255" blue="255">
@@ -595,7 +626,7 @@
   <widget type="group" version="3.0.0">
     <name>Network Info</name>
     <x>10</x>
-    <y>470</y>
+    <y>500</y>
     <width>350</width>
     <height>115</height>
     <foreground_color>

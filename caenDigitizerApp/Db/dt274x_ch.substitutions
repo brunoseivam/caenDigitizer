@@ -1,15 +1,15 @@
+file "dt274x_par_bool.template" {
+pattern
+{ W,   NAME,                PATH,                     DESC                              }
+{ "",  "Ch\$(N):Enable",    "/ch/\$(N)/par/chenable", "Enable channel for acquisition"  }
+}
+
 file "dt274x_par_number.template" {
 pattern
 { W,   NAME,                 PATH,                       PREC, EGU, DRVL,   DRVH,  DESC                          }
 { "#", "Ch\$(N):AdcToVolts", "/ch/\$(N)/par/adctovolts", "9",  "",  "",     "",    "Factor to convert cts to V"  }
 { "",  "Ch\$(N):DCOffset",   "/ch/\$(N)/par/dcoffset",   "3",  "%", "-100", "100", "DC Offset"                   }
 { "",  "Ch\$(N):GainFactor", "/ch/\$(N)/par/gainfactor", "6",  "",  "",     "",    "ADC Gain"                    }
-}
-
-file "dt274x_par_bool.template" {
-pattern
-{ W,   NAME,                PATH,                     DESC                              }
-{ "",  "Ch\$(N):Enable",    "/ch/\$(N)/par/chenable", "Enable channel for acquisition"  }
 }
 
 file "dt274x_par_integer.template" {

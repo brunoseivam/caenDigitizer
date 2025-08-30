@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-08-30 18:25:34 by bmartins-->
+<!--Saved on 2025-08-30 19:09:39 by bmartins-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
@@ -3497,6 +3497,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3580,6 +3581,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3646,6 +3648,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3682,6 +3685,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3718,6 +3722,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3754,6 +3759,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3790,6 +3796,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3826,6 +3833,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3862,6 +3870,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3898,6 +3907,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3934,6 +3944,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -3970,6 +3981,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -4006,6 +4018,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -4042,6 +4055,7 @@
           </color>
         </background_color>
         <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
         <vertical_alignment>1</vertical_alignment>
         <wrap_words>false</wrap_words>
         <actions>
@@ -4107,7 +4121,7 @@
         <x>125</x>
         <y>225</y>
         <width>85</width>
-        <off_label>Present</off_label>
+        <off_label>Not Present</off_label>
         <off_color use_class="true">
           <color name="Off" red="60" green="100" blue="60">
           </color>
@@ -4126,7 +4140,7 @@
         <x>220</x>
         <y>225</y>
         <width>85</width>
-        <off_label>Active</off_label>
+        <off_label>Not Active</off_label>
         <off_color use_class="true">
           <color name="Off" red="60" green="100" blue="60">
           </color>
@@ -4145,7 +4159,7 @@
       <pv_name>$(P)$(R)BoardReady_RBV</pv_name>
       <y>5</y>
       <width>150</width>
-      <off_label>Board Ready</off_label>
+      <off_label>Board Not Ready</off_label>
       <off_color use_class="true">
         <color name="Off" red="60" green="100" blue="60">
         </color>
@@ -4203,11 +4217,12 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:ArmAcquisition</pv_name>
       <text>Arm</text>
       <x>5</x>
       <y>5</y>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_1</name>
@@ -4218,11 +4233,12 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:DisarmAcquisition</pv_name>
       <text>Disarm</text>
       <x>110</x>
       <y>5</y>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_2</name>
@@ -4233,11 +4249,12 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:SendSWTrigger</pv_name>
       <text>S/W Trig</text>
       <x>215</x>
       <y>5</y>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_3</name>
@@ -4248,11 +4265,12 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:SWStartAcquisition</pv_name>
       <text>Start Acq</text>
       <x>320</x>
       <y>5</y>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_4</name>
@@ -4263,11 +4281,12 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:SWStopAcquisition</pv_name>
       <text>Stop Acq</text>
       <x>425</x>
       <y>5</y>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_9</name>
@@ -4278,7 +4297,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:ReloadCalibration</pv_name>
       <text>Reload Calib</text>
       <x>975</x>
       <y>5</y>
@@ -4287,6 +4306,7 @@
         </color>
       </foreground_color>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
       <show_confirm_dialog>true</show_confirm_dialog>
     </widget>
     <widget type="action_button" version="3.0.0">
@@ -4298,7 +4318,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:Reboot</pv_name>
       <text>Reboot</text>
       <x>870</x>
       <y>5</y>
@@ -4307,6 +4327,7 @@
         </color>
       </foreground_color>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
       <show_confirm_dialog>true</show_confirm_dialog>
     </widget>
     <widget type="action_button" version="3.0.0">
@@ -4318,7 +4339,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:Reset</pv_name>
       <text>Reset Board</text>
       <x>765</x>
       <y>5</y>
@@ -4327,6 +4348,7 @@
         </color>
       </foreground_color>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
       <show_confirm_dialog>true</show_confirm_dialog>
     </widget>
     <widget type="action_button" version="3.0.0">
@@ -4338,7 +4360,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)ArmAcquisition</pv_name>
+      <pv_name>$(P)$(R)Cmd:ClearData</pv_name>
       <text>Clear Data</text>
       <x>660</x>
       <y>5</y>
@@ -4347,6 +4369,7 @@
         </color>
       </foreground_color>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
       <show_confirm_dialog>true</show_confirm_dialog>
     </widget>
   </widget>
@@ -4354,8 +4377,8 @@
     <name>Channels</name>
     <x>1630</x>
     <y>360</y>
-    <width>350</width>
-    <height>253</height>
+    <width>139</width>
+    <height>320</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
@@ -4427,8 +4450,8 @@
       <macros>
         <CH>1</CH>
       </macros>
-      <x>105</x>
-      <y>5</y>
+      <x>5</x>
+      <y>30</y>
       <width>90</width>
       <height>20</height>
       <style>3</style>
@@ -4461,6 +4484,318 @@
       </widget>
       <widget type="led" version="2.0.0">
         <name>LED_24</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_10</name>
+      <macros>
+        <CH>2</CH>
+      </macros>
+      <x>5</x>
+      <y>55</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_21</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_3</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_26</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_16</name>
+      <macros>
+        <CH>3</CH>
+      </macros>
+      <x>5</x>
+      <y>80</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_22</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_4</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_27</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_19</name>
+      <macros>
+        <CH>4</CH>
+      </macros>
+      <x>5</x>
+      <y>105</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_23</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_5</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_28</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_34</name>
+      <macros>
+        <CH>5</CH>
+      </macros>
+      <x>5</x>
+      <y>130</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_24</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_6</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_35</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_43</name>
+      <macros>
+        <CH>6</CH>
+      </macros>
+      <x>5</x>
+      <y>155</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_25</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_7</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_36</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+        <x>70</x>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Group_44</name>
+      <macros>
+        <CH>7</CH>
+      </macros>
+      <x>5</x>
+      <y>180</y>
+      <width>90</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_26</name>
+        <actions>
+          <action type="open_display">
+            <description>Configure Channel</description>
+            <file>dt274x_ch.bob</file>
+            <macros>
+              <CH>$(CH)</CH>
+              <P>$(P)</P>
+              <R>$(R)</R>
+            </macros>
+            <target>tab</target>
+          </action>
+        </actions>
+        <text>$(CH)</text>
+        <width>40</width>
+        <height>20</height>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="checkbox" version="2.0.0">
+        <name>Check Box_8</name>
+        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+        <label></label>
+        <x>45</x>
+        <width>20</width>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_37</name>
         <class>ON_OFF</class>
         <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
         <x>70</x>
@@ -4546,6 +4881,510 @@
           <color red="0" green="128" blue="255">
           </color>
         </border_color>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Group</name>
+    <x>1980</x>
+    <y>40</y>
+    <width>220</width>
+    <height>736</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="group" version="3.0.0">
+      <name>Acquisition Status</name>
+      <width>220</width>
+      <height>243</height>
+      <foreground_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </foreground_color>
+      <line_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="240" green="240" blue="240">
+        </color>
+      </background_color>
+      <actions>
+      </actions>
+      <widget type="led" version="2.0.0">
+        <name>LED_65</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:Armed_RBV</pv_name>
+        <y>30</y>
+        <width>180</width>
+        <off_label>Armed</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Armed</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_66</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:Run_RBV</pv_name>
+        <y>55</y>
+        <width>180</width>
+        <off_label>Run</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Run</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_67</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:RunMw_RBV</pv_name>
+        <y>80</y>
+        <width>180</width>
+        <off_label>Run MW</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Run MW</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_68</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:LicenseFail_RBV</pv_name>
+        <y>180</y>
+        <width>180</width>
+        <off_label>License Fail</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>License Fail</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_69</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:PreTrigRdy_RBV</pv_name>
+        <y>155</y>
+        <width>180</width>
+        <off_label>Pre-Trigger Ready</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Pre-Trigger Ready</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_70</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:Busy_RBV</pv_name>
+        <y>130</y>
+        <width>180</width>
+        <off_label>Busy</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Busy</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_71</name>
+        <class>ON_OFF</class>
+        <pv_name>$(P)$(R)AcqSts:JesdClkVld_RBV</pv_name>
+        <y>105</y>
+        <width>180</width>
+        <off_label>JESD Clock Valid</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>JESD Clock Valid</on_label>
+        <on_color use_class="true">
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_25</name>
+        <pv_name>$(P)$(R)AcqSts_RBV</pv_name>
+        <y>5</y>
+        <width>180</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <format>4</format>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Error Flags</name>
+      <y>243</y>
+      <width>220</width>
+      <height>493</height>
+      <foreground_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </foreground_color>
+      <line_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="240" green="240" blue="240">
+        </color>
+      </background_color>
+      <actions>
+      </actions>
+      <widget type="led" version="2.0.0">
+        <name>LED_46</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:AdcShutDown_RBV</pv_name>
+        <y>430</y>
+        <width>180</width>
+        <off_label>ADC Shutdown</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>ADC Shutdown</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_47</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:PowerFail_RBV</pv_name>
+        <y>30</y>
+        <width>180</width>
+        <off_label>Power Failure</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Power Failure</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_48</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:BoardInitFail_RBV</pv_name>
+        <y>55</y>
+        <width>180</width>
+        <off_label>Board Init Fail</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Board Init Fail</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_49</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:SI5341Unlck_RBV</pv_name>
+        <y>80</y>
+        <width>180</width>
+        <off_label>SI5341 Unlock</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>SI5341 Unlock</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_50</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:DdrPlB0CalibFail_RBV</pv_name>
+        <y>180</y>
+        <width>180</width>
+        <off_label>DDR PLL B0 Calib Failure</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>DDR PLL B0 Calib Failure</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_51</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:JesdUnlck_RBV</pv_name>
+        <y>155</y>
+        <width>180</width>
+        <off_label>JESD Unlock</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>JESD Unlock</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_52</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:LMK04832Unlck_RBV</pv_name>
+        <y>130</y>
+        <width>180</width>
+        <off_label>LMK04832 Unlock</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>LMK04832 Unlock</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_53</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:SI5395Unlck_RBV</pv_name>
+        <y>105</y>
+        <width>180</width>
+        <off_label>SI5395 Unlock</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>SI5395 Unlock</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_62</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:ClkInMiss_RBV</pv_name>
+        <y>405</y>
+        <width>180</width>
+        <off_label>Clock In Miss</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Clock In Miss</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>Text Update_24</name>
+        <pv_name>$(P)$(R)ErrFlags_RBV</pv_name>
+        <y>5</y>
+        <width>180</width>
+        <background_color>
+          <color name="Background" red="255" green="255" blue="255">
+          </color>
+        </background_color>
+        <format>4</format>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_54</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:DcDcOverTemp_RBV</pv_name>
+        <y>380</y>
+        <width>180</width>
+        <off_label>DC/DC Over Temperature</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>DC/DC Over Temperature</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_55</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:FpgaOverTemp_RBV</pv_name>
+        <y>355</y>
+        <width>180</width>
+        <off_label>FPGA Over Temperature</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>FPGA Over Temperature</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_56</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:AirOverTemp_RBV</pv_name>
+        <y>330</y>
+        <width>180</width>
+        <off_label>Air Over Temperature</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>Air Over Temperature</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_57</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:AdcOverTemp_RBV</pv_name>
+        <y>305</y>
+        <width>180</width>
+        <off_label>ADC Over Temperature</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>ADC Over Temperature</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_58</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:BicErr_RBV</pv_name>
+        <y>280</y>
+        <width>180</width>
+        <off_label>BIC Error</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>BIC Error</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_59</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:FpgaCfgFail_RBV</pv_name>
+        <y>255</y>
+        <width>180</width>
+        <off_label>FPGA Config Fail</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>FPGA Config Fail</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_60</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:DdrPsCalibFail_RBV</pv_name>
+        <y>230</y>
+        <width>180</width>
+        <off_label>DDR PS Calib Fail</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>DDR PS Calib Fail</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
+      </widget>
+      <widget type="led" version="2.0.0">
+        <name>LED_63</name>
+        <class>ERROR</class>
+        <pv_name>$(P)$(R)ErrFlags:DdrPlB1CalibFail_RBV</pv_name>
+        <y>205</y>
+        <width>180</width>
+        <off_label>DDR PLL B1 Calib Failure</off_label>
+        <off_color use_class="true">
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </off_color>
+        <on_label>DDR PLL B1 Calib Failure</on_label>
+        <on_color use_class="true">
+          <color name="MAJOR" red="255" green="0" blue="0">
+          </color>
+        </on_color>
+        <square>true</square>
       </widget>
     </widget>
   </widget>
