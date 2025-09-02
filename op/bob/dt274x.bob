@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-09-01 22:01:28 by bmartins-->
+<!--Saved on 2025-09-01 22:34:08 by bmartins-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
@@ -2649,7 +2649,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2700,7 +2706,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2751,7 +2763,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2802,7 +2820,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2853,7 +2877,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2904,7 +2934,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -2955,7 +2991,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>
@@ -3006,7 +3048,13 @@
         </on_color>
         <square>true</square>
         <rules>
-          <rule name="LabelOff" prop_id="on_label" out_exp="true">
+          <rule name="LabelOff" prop_id="off_label" out_exp="true">
+            <exp bool_exp="true">
+              <expression>pvStr0</expression>
+            </exp>
+            <pv_name>$(pv_name).DESC</pv_name>
+          </rule>
+          <rule name="LabelOn" prop_id="on_label" out_exp="true">
             <exp bool_exp="true">
               <expression>pvStr0</expression>
             </exp>

@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <ctime>
 #include <stdexcept>
 #include <string>
 
@@ -156,10 +157,10 @@ void CaenDigitizer::ParameterWriter::run() {
     while (running) {
         PendingWrite pw = {};
         if (pending_writes.receive(&pw, sizeof(pw), WAIT_FOR_WRITE_SECS) > 0) {
+            // Drop all writes while we're not connected
             if (handle == NO_HANDLE)
                 continue;
 
-            //printf("GOT PENDING REQUEST '%s' '%s'\n", pw.path, pw.value);
             switch (pw.type) {
                 case PendingWrite::Type::Param: {
                     int ec = CAEN_FELib_SetValue(handle, pw.path, pw.value);
@@ -198,16 +199,51 @@ void CaenDigitizer::DataReader::run() {
 
         // Note: this data follows the data format as set by
         // CAEN_FELib_SetReadDataFormat
+        size_t max_samples = 1024*1024;
         uint64_t timestamp;
         double timestamp_us;
         uint32_t trigger_id;
         size_t event_size;
-        uint16_t **waveform;
-        size_t *n_samples;
-        size_t *n_allocated_samples;
-        size_t n_channels;
+        size_t n_channels = 1;
+        size_t *n_samples = (size_t*)malloc(
+            n_channels*sizeof(*n_samples)
+        );
+        size_t *n_allocated_samples = (size_t*)malloc(
+            n_channels*sizeof(*n_allocated_samples)
+        );
+        uint16_t **waveform = (uint16_t **)malloc(
+            n_channels*sizeof(*waveform)
+        );
+        for (size_t i = 0; i < n_channels; ++i) {
+            n_allocated_samples[i] = max_samples;
+            waveform[i] = (uint16_t*)malloc(
+                n_allocated_samples[i]*sizeof(*waveform[i])
+            );
+        }
 
-        int ec = CAEN_FELib_ReadData(handle, WAIT_FOR_DATA_MSECS,
+        printf(
+            "timestamp=%p "
+            "trigger_id=%p "
+            "waveform=%p "
+            "n_samples=%p "
+            "event_size=%p\n",
+            &timestamp, &trigger_id,
+            waveform, n_samples, &event_size
+        );
+
+        uint64_t ep_handle = NO_HANDLE;
+        int ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", &ep_handle);
+
+        ec = CAEN_FELib_HasData(ep_handle, WAIT_FOR_DATA_MSECS);
+        switch (ec) {
+            case CAEN_FELib_Success: break; // got data, continue
+            case CAEN_FELib_Timeout:
+                continue; // Timed-out waiting for data, try again
+            default:
+                throw std::runtime_error("TODO: BETTER HANDLING");
+        }
+
+        ec = CAEN_FELib_ReadData(ep_handle, WAIT_FOR_DATA_MSECS,
             &timestamp,
             &trigger_id,
             waveform,
@@ -219,9 +255,17 @@ void CaenDigitizer::DataReader::run() {
             case CAEN_FELib_Success: printf("GOT DATA\n"); break;
             case CAEN_FELib_Timeout: printf("TIMEOUT\n"); break;
             case CAEN_FELib_Stop: printf("GOT STOP\n"); break;
-            default:
-                printf("Got error while trying to get data\n");
+            default: {
+                //printf("Got error while trying to get data\n");
+                char err_name[512];
+                char err_desc[512];
+                CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
+                CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
+                char exc_desc[2048];
+                printf("%d %s: %s. %s\n", ec, "Got error on read data", err_name, err_desc);
                 //throw_if_err(ec, "Got error while trying to get data");
+            }
+
         }
 
         epicsThreadSleep(5.0);
