@@ -53,7 +53,7 @@ pattern
 { "",  "TestPulseHiLvl",            "/par/TestPulseHighLevel",  "ct",   "0",        "65535",       "Test Pulse High Level"             }
 { "",  "TestPulseLoLvl",            "/par/TestPulseLowLevel",   "ct",   "0",        "65535",       "Test Pulse Low Level"              }
 { "",  "TestPulsePeriod",           "/par/TestPulsePeriod",     "ns",   "0",        "34359738360", "Test Pulse Period"                 }
-{ "",  "TestPulseWidth",            "/par/TestPulsePeriod",     "ns",   "0",        "34359738360", "Test Pulse Width"                  }
+{ "",  "TestPulseWidth",            "/par/TestPulseWidth",      "ns",   "0",        "34359738360", "Test Pulse Width"                  }
 { "#", "TrigCount",                 "/par/TriggerCnt",          "",     "",         "",            "Count of Triggers by FPGA"         }
 { "",  "TriggerDelayS",             "/par/TriggerDelayS",       "samp", "0",        "4294967295",  "Trigger delay in samples"          }
 { "",  "TriggerDelayT",             "/par/TriggerDelayT",       "ns",   "0",        "34359738360", "Trigger delay time"                }

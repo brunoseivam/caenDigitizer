@@ -36,7 +36,7 @@ dbpf $(PREFIX)AcqTrigSource_C03 1
 dbpf $(PREFIX)AcqTrigSource_C11 1
 
 # Configure test pulse
-dbpf $(PREFIX)TestPulsePeriod 100e6
+dbpf $(PREFIX)TestPulsePeriod 100000000
 dbpf $(PREFIX)TestPulseWidth 1000
 
 # Configure DC offset

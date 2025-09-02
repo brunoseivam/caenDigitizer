@@ -236,11 +236,9 @@ void CaenDigitizer::DataReader::run() {
 
         ec = CAEN_FELib_HasData(ep_handle, WAIT_FOR_DATA_MSECS);
         switch (ec) {
-            case CAEN_FELib_Success: break; // got data, continue
-            case CAEN_FELib_Timeout:
-                continue; // Timed-out waiting for data, try again
-            default:
-                throw std::runtime_error("TODO: BETTER HANDLING");
+            case CAEN_FELib_Success: printf("HAS DATA\n"); break;
+            case CAEN_FELib_Timeout: printf("NO DATA\n"); continue;
+            default: throw std::logic_error("TODO: FIXME");
         }
 
         ec = CAEN_FELib_ReadData(ep_handle, WAIT_FOR_DATA_MSECS,
@@ -268,7 +266,7 @@ void CaenDigitizer::DataReader::run() {
 
         }
 
-        epicsThreadSleep(5.0);
+        //epicsThreadSleep(5.0);
     }
 }
 
