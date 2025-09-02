@@ -217,10 +217,11 @@ long write_ao(aoRecord *prec) {
 }
 
 long read_bi(biRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
         bool value;
         param->get_value(value);
         prec->val = value ? 1 : 0;
+        prec->udf = 0;
     });
 }
 

@@ -1,15 +1,15 @@
-record(bo, "$(P)$(R)$(NAME)_C01") { field(DESC, "$(DESC) $(C01)")  field(FLNK, "$(P)$(R)$(NAME)_C01S PP") }
-record(bo, "$(P)$(R)$(NAME)_C02") { field(DESC, "$(DESC) $(C02)")  field(FLNK, "$(P)$(R)$(NAME)_C02S PP") }
-record(bo, "$(P)$(R)$(NAME)_C03") { field(DESC, "$(DESC) $(C03)")  field(FLNK, "$(P)$(R)$(NAME)_C03S PP") }
-record(bo, "$(P)$(R)$(NAME)_C04") { field(DESC, "$(DESC) $(C04)")  field(FLNK, "$(P)$(R)$(NAME)_C04S PP") }
-record(bo, "$(P)$(R)$(NAME)_C05") { field(DESC, "$(DESC) $(C05)")  field(FLNK, "$(P)$(R)$(NAME)_C05S PP") }
-record(bo, "$(P)$(R)$(NAME)_C06") { field(DESC, "$(DESC) $(C06)")  field(FLNK, "$(P)$(R)$(NAME)_C06S PP") }
-record(bo, "$(P)$(R)$(NAME)_C07") { field(DESC, "$(DESC) $(C07)")  field(FLNK, "$(P)$(R)$(NAME)_C07S PP") }
-record(bo, "$(P)$(R)$(NAME)_C08") { field(DESC, "$(DESC) $(C08)")  field(FLNK, "$(P)$(R)$(NAME)_C08S PP") }
-record(bo, "$(P)$(R)$(NAME)_C09") { field(DESC, "$(DESC) $(C09)")  field(FLNK, "$(P)$(R)$(NAME)_C09S PP") }
-record(bo, "$(P)$(R)$(NAME)_C10") { field(DESC, "$(DESC) $(C10)")  field(FLNK, "$(P)$(R)$(NAME)_C10S PP") }
-record(bo, "$(P)$(R)$(NAME)_C11") { field(DESC, "$(DESC) $(C11)")  field(FLNK, "$(P)$(R)$(NAME)_C11S PP") }
-record(bo, "$(P)$(R)$(NAME)_C12") { field(DESC, "$(DESC) $(C12)")  field(FLNK, "$(P)$(R)$(NAME)_C12S PP") }
+record(bo, "$(P)$(R)$(NAME)_C01") { field(DESC, "$(C01)")  field(FLNK, "$(P)$(R)$(NAME)_C01S PP") }
+record(bo, "$(P)$(R)$(NAME)_C02") { field(DESC, "$(C02)")  field(FLNK, "$(P)$(R)$(NAME)_C02S PP") }
+record(bo, "$(P)$(R)$(NAME)_C03") { field(DESC, "$(C03)")  field(FLNK, "$(P)$(R)$(NAME)_C03S PP") }
+record(bo, "$(P)$(R)$(NAME)_C04") { field(DESC, "$(C04)")  field(FLNK, "$(P)$(R)$(NAME)_C04S PP") }
+record(bo, "$(P)$(R)$(NAME)_C05") { field(DESC, "$(C05)")  field(FLNK, "$(P)$(R)$(NAME)_C05S PP") }
+record(bo, "$(P)$(R)$(NAME)_C06") { field(DESC, "$(C06)")  field(FLNK, "$(P)$(R)$(NAME)_C06S PP") }
+record(bo, "$(P)$(R)$(NAME)_C07") { field(DESC, "$(C07)")  field(FLNK, "$(P)$(R)$(NAME)_C07S PP") }
+record(bo, "$(P)$(R)$(NAME)_C08") { field(DESC, "$(C08)")  field(FLNK, "$(P)$(R)$(NAME)_C08S PP") }
+record(bo, "$(P)$(R)$(NAME)_C09") { field(DESC, "$(C09)")  field(FLNK, "$(P)$(R)$(NAME)_C09S PP") }
+record(bo, "$(P)$(R)$(NAME)_C10") { field(DESC, "$(C10)")  field(FLNK, "$(P)$(R)$(NAME)_C10S PP") }
+record(bo, "$(P)$(R)$(NAME)_C11") { field(DESC, "$(C11)")  field(FLNK, "$(P)$(R)$(NAME)_C11S PP") }
+record(bo, "$(P)$(R)$(NAME)_C12") { field(DESC, "$(C12)")  field(FLNK, "$(P)$(R)$(NAME)_C12S PP") }
 
 record(scalcout, "$(P)$(R)$(NAME)_C01S") { field(INPA, "$(P)$(R)$(NAME)_C01")  field(CALC, "A>0 && \"$(C01)\"!=\"\" ? \"|$(C01)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
 record(scalcout, "$(P)$(R)$(NAME)_C02S") { field(INPA, "$(P)$(R)$(NAME)_C02")  field(CALC, "A>0 && \"$(C02)\"!=\"\" ? \"|$(C02)\" : \"\"")  field(FLNK, "$(P)$(R)$(NAME) PP") }
