@@ -26,8 +26,11 @@ static const uint64_t NO_HANDLE = -1;
 // How many pending write messages can there be
 static const size_t MAX_PENDING_WRITES = 1024;
 
-// Maximum size of an individual value to be written
-static const size_t MAX_PENDING_WRITE_LEN = 2048;
+// How many pending events can there be
+static const size_t MAX_PENDING_EVENTS = 32;
+
+// Maximum number of samples per waveform
+static const size_t MAX_NUM_SAMPLES = 1024*1024;
 
 // Maximum time to wait for a write parameter command
 static const double WAIT_FOR_WRITE_SECS = 1.0f;
@@ -36,27 +39,64 @@ static const double WAIT_FOR_WRITE_SECS = 1.0f;
 static const int WAIT_FOR_DATA_MSECS = 100;
 
 // Maximum time to wait for all threads to join (when exiting)
-static const double WAIT_FOR_THEADS_SECS = 5.0f;
+static const double WAIT_FOR_THREADS_SECS = 5.0f;
 
-// Expected configuration for the device
-static const std::string ACTIVE_ENDPOINT("/par/ActiveEndpoint");
-static const std::string SCOPE("scope");
-static const std::string DATA_FORMAT("\
-    [ \
-        { \"name\" : \"TIMESTAMP\", \"type\" : \"U64\" }, \
-        { \"name\" : \"TRIGGER_ID\", \"type\" : \"U32\" }, \
-        { \"name\" : \"WAVEFORM\", \"type\" : \"U16\", \"dim\" : 2 }, \
-        { \"name\" : \"WAVEFORM_SIZE\", \"type\" : \"SIZE_T\", \"dim\" : 1 }, \
-        { \"name\" : \"EVENT_SIZE\", \"type\" : \"SIZE_T\" } \
-    ] \
-");
-
-
+// Stores a pending write parameter message, or pending send command message
 struct PendingWrite {
     enum Type { Param, Command } type;
-    char path[128];
-    char value[MAX_PENDING_WRITE_LEN-sizeof(type)-sizeof(path)];
+    std::string path;
+    std::string value;
+
+    PendingWrite(const std::string & path)
+    : type(Type::Command), path(path), value()
+    {}
+
+    PendingWrite(const std::string & path, const std::string & value)
+    : type(Type::Param), path(path), value(value)
+    {}
+
+    ~PendingWrite() {}
 };
+
+// Stores an acquisition event from the scope
+struct Event {
+    static const std::string DATA_FORMAT;
+    size_t n_channels;
+    uint64_t timestamp;
+    uint32_t trigger_id;
+    uint16_t **waveform;
+    size_t *n_samples;
+    size_t event_size;
+
+    Event(size_t n_channels, size_t max_samples)
+    : n_channels(n_channels), timestamp(0), trigger_id(0),
+      waveform(new uint16_t*[n_channels]),
+      n_samples(new size_t[n_channels]),
+      event_size(0)
+    {
+        for (size_t ch = 0; ch < n_channels; ++ch) {
+            n_samples[ch] = max_samples;
+            waveform[ch] = new uint16_t[max_samples];
+        }
+    }
+
+    ~Event() {
+        delete[] n_samples;
+        for (size_t ch = 0; ch < n_channels; ++ch)
+            delete[] waveform[ch];
+        delete[] waveform;
+    }
+};
+
+const std::string Event::DATA_FORMAT = std::string("\
+       [ \
+           { \"name\" : \"TIMESTAMP\", \"type\" : \"U64\" }, \
+           { \"name\" : \"TRIGGER_ID\", \"type\" : \"U32\" }, \
+           { \"name\" : \"WAVEFORM\", \"type\" : \"U16\", \"dim\" : 2 }, \
+           { \"name\" : \"WAVEFORM_SIZE\", \"type\" : \"SIZE_T\", \"dim\" : 1 }, \
+           { \"name\" : \"EVENT_SIZE\", \"type\" : \"SIZE_T\" } \
+       ] \
+   ");
 
 static std::string str_tolower(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) {
@@ -148,32 +188,39 @@ void CaenDigitizerParam::send_command() {
 }
 
 CaenDigitizer::ParameterWriter::ParameterWriter(const std::string & name, epicsMutex *lock)
-: name(name), running(false), lock(lock), handle(NO_HANDLE), pending_writes(MAX_PENDING_WRITES, MAX_PENDING_WRITE_LEN)
+: name(name), running(false), lock(lock), handle(NO_HANDLE), pending_writes(MAX_PENDING_WRITES, sizeof(PendingWrite*))
 {}
 
 CaenDigitizer::ParameterWriter::~ParameterWriter() {}
 
 void CaenDigitizer::ParameterWriter::run() {
     while (running) {
-        PendingWrite pw = {};
+        PendingWrite *pw = NULL;
         if (pending_writes.receive(&pw, sizeof(pw), WAIT_FOR_WRITE_SECS) > 0) {
+            // Copy to local vars so that pw can be deallocated early
+            enum PendingWrite::Type type = pw->type;
+            std::string path = pw->path;
+            std::string value = pw->value;
+            delete pw;
+            pw = NULL;
+
             // Drop all writes while we're not connected
             if (handle == NO_HANDLE)
                 continue;
 
-            switch (pw.type) {
+            switch (type) {
                 case PendingWrite::Type::Param: {
-                    int ec = CAEN_FELib_SetValue(handle, pw.path, pw.value);
+                    int ec = CAEN_FELib_SetValue(handle, path.c_str(), value.c_str());
                     if (ec < 0) {
-                        errlogPrintf(ERL_ERROR " %s: Failed to set value for path '%s'\n", name.c_str(), pw.path);
+                        errlogPrintf(ERL_ERROR " %s: Failed to set value for path '%s'\n", name.c_str(), path.c_str());
                     }
                     break;
                 }
                 case PendingWrite::Type::Command: {
-                    int ec = CAEN_FELib_SendCommand(handle, pw.path);
+                    int ec = CAEN_FELib_SendCommand(handle, path.c_str());
                     if (ec < 0) {
                         // TODO: better error handling
-                        errlogPrintf(ERL_ERROR " %s: Failed to send command '%s'\n", name.c_str(), pw.path);
+                        errlogPrintf(ERL_ERROR " %s: Failed to send command '%s'\n", name.c_str(), path.c_str());
                     }
                     break;
                 }
@@ -185,88 +232,74 @@ void CaenDigitizer::ParameterWriter::run() {
 }
 
 CaenDigitizer::DataReader::DataReader(const std::string & name, epicsMutex *lock)
-: name(name), running(false), lock(lock), handle(NO_HANDLE)
+: name(name), running(false), lock(lock), pending_events(MAX_PENDING_EVENTS, sizeof(Event *)),
+  handle(NO_HANDLE)
 {}
 
 CaenDigitizer::DataReader::~DataReader() {}
 
 void CaenDigitizer::DataReader::run() {
-    while(running) {
+    while (running) {
         if (handle == NO_HANDLE) {
             epicsThreadSleep(WAIT_FOR_DATA_MSECS / 1000.0);
             continue;
         }
 
-        // Note: this data follows the data format as set by
-        // CAEN_FELib_SetReadDataFormat
-        size_t max_samples = 1024*1024;
-        uint64_t timestamp;
-        double timestamp_us;
-        uint32_t trigger_id;
-        size_t event_size;
-        size_t n_channels = 1;
-        size_t *n_samples = (size_t*)malloc(
-            n_channels*sizeof(*n_samples)
-        );
-        size_t *n_allocated_samples = (size_t*)malloc(
-            n_channels*sizeof(*n_allocated_samples)
-        );
-        uint16_t **waveform = (uint16_t **)malloc(
-            n_channels*sizeof(*waveform)
-        );
-        for (size_t i = 0; i < n_channels; ++i) {
-            n_allocated_samples[i] = max_samples;
-            waveform[i] = (uint16_t*)malloc(
-                n_allocated_samples[i]*sizeof(*waveform[i])
-            );
-        }
-
-        printf(
-            "timestamp=%p "
-            "trigger_id=%p "
-            "waveform=%p "
-            "n_samples=%p "
-            "event_size=%p\n",
-            &timestamp, &trigger_id,
-            waveform, n_samples, &event_size
-        );
-
         uint64_t ep_handle = NO_HANDLE;
         int ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", &ep_handle);
+        throw_if_err(ec, "Failed to get scope endpoint");
+
+        // Get number of channels
+        char value[32];
+        ec = CAEN_FELib_GetValue(handle, "/par/NumCh", value);
+        throw_if_err(ec, "Failed to get number of channels");
+        size_t num_channels = std::stoul(value);
+
+        // TODO: wrap the following in a function, acquire with try/catch
 
         ec = CAEN_FELib_HasData(ep_handle, WAIT_FOR_DATA_MSECS);
         switch (ec) {
             case CAEN_FELib_Success: printf("HAS DATA\n"); break;
             case CAEN_FELib_Timeout: printf("NO DATA\n"); continue;
-            default: throw std::logic_error("TODO: FIXME");
+            default: printf("hmmm\n"); continue;
+            //default: throw std::logic_error("TODO: FIXME");
         }
 
+        // TODO: num_channels should come from the device itself
+        struct Event *event = new Event(num_channels, MAX_NUM_SAMPLES);
+
         ec = CAEN_FELib_ReadData(ep_handle, WAIT_FOR_DATA_MSECS,
-            &timestamp,
-            &trigger_id,
-            waveform,
-            n_samples,
-            &event_size
+            &event->timestamp,
+            &event->trigger_id,
+            event->waveform,
+            event->n_samples,
+            &event->event_size
         );
 
         switch (ec) {
-            case CAEN_FELib_Success: printf("GOT DATA\n"); break;
-            case CAEN_FELib_Timeout: printf("TIMEOUT\n"); break;
-            case CAEN_FELib_Stop: printf("GOT STOP\n"); break;
-            default: {
-                //printf("Got error while trying to get data\n");
-                char err_name[512];
-                char err_desc[512];
-                CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
-                CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
-                char exc_desc[2048];
-                printf("%d %s: %s. %s\n", ec, "Got error on read data", err_name, err_desc);
-                //throw_if_err(ec, "Got error while trying to get data");
+            case CAEN_FELib_Success: {
+                if (pending_events.trySend(&event, sizeof(event)) < 0) {
+                    delete event;
+                    errlogPrintf(ERL_ERROR " DataReader::run(): Failed to enqueue new event (queue is full)\n");
+                }
+                continue;
             }
 
-        }
+            case CAEN_FELib_Timeout:
+                delete event;
+                printf("TIMEOUT\n");
+                break;
 
-        //epicsThreadSleep(5.0);
+            case CAEN_FELib_Stop:
+                delete event;
+                printf("GOT STOP\n");
+                break;
+
+            default: {
+                delete event;
+                throw_if_err(ec, "Failed to read data from scope");
+            }
+        }
     }
 }
 
@@ -317,7 +350,7 @@ void CaenDigitizer::start() {
 }
 
 static void wait_for_thread(const std::string & prefix, epicsThread *t, const char *n, epicsTime started_waiting_at) {
-    double wait_for_secs = WAIT_FOR_THEADS_SECS - (epicsTime::getCurrent() - started_waiting_at);
+    double wait_for_secs = WAIT_FOR_THREADS_SECS - (epicsTime::getCurrent() - started_waiting_at);
     if (!t->exitWait(wait_for_secs))
         errlogPrintf(ERL_ERROR " %s: Waited for %.1f sec, but '%s' hasn't stopped...\n", prefix.c_str(), wait_for_secs, n);
 }
@@ -378,12 +411,21 @@ void CaenDigitizer::run() {
         CAEN_FELib_Close(handle);
 }
 
-// Ensure that the device is in 'scope' mode and configure data format
 void CaenDigitizer::prepare_scope(uint64_t handle) {
-    int ec = CAEN_FELib_SetValue(handle, ACTIVE_ENDPOINT.c_str(), SCOPE.c_str());
+    // Ensure we are in 'scope' mode
+    int ec = CAEN_FELib_SetValue(handle, "/par/ActiveEndpoint", "scope");
     throw_if_err(ec, "Failed to set device to 'scope' mode");
 
-    ec = CAEN_FELib_SetReadDataFormat(handle, DATA_FORMAT.c_str());
+    // Stop any ongoing acquisition
+    ec = CAEN_FELib_SendCommand(handle, "/cmd/SWStopAcquisition");
+    throw_if_err(ec, "Failed to stop ongoing acquisitions");
+
+    // Disarm it
+    ec = CAEN_FELib_SendCommand(handle, "/cmd/DisarmAcquisition");
+    throw_if_err(ec, "Failed to disarm scope");
+
+    // Configure data format
+    ec = CAEN_FELib_SetReadDataFormat(handle, Event::DATA_FORMAT.c_str());
     throw_if_err(ec, "Failed to set data format");
 }
 
@@ -464,11 +506,7 @@ void CaenDigitizer::fetch_all_params(uint64_t handle) {
 
 void CaenDigitizer::write_parameter(const std::string & path, const std::string & value) {
     const std::string lpath(str_tolower(path));
-    auto pw = PendingWrite {};
-
-    pw.type = PendingWrite::Type::Param;
-    strncpy(pw.path, lpath.c_str(), sizeof(pw.path)-1);
-    strncpy(pw.value, value.c_str(), sizeof(pw.value)-1);
+    PendingWrite *pw = new PendingWrite(lpath, value);
 
     if (parameter_writer_.pending_writes.trySend(&pw, sizeof(pw)) < 0) {
         // TODO: better error
@@ -478,10 +516,7 @@ void CaenDigitizer::write_parameter(const std::string & path, const std::string 
 
 void CaenDigitizer::send_command(const std::string & path) {
     const std::string lpath(str_tolower(path));
-    auto pw = PendingWrite {};
-
-    pw.type = PendingWrite::Type::Command;
-    strncpy(pw.path, lpath.c_str(), sizeof(pw.path)-1);
+    PendingWrite *pw = new PendingWrite(lpath);
 
     if (parameter_writer_.pending_writes.trySend(&pw, sizeof(pw)) < 0) {
         // TODO: better error
@@ -497,6 +532,23 @@ void CaenDigitizer::run_with(uint64_t handle) {
         fetch_all_params(handle);
         scanIoRequest(status_update);
         //double duration = epicsTime::getCurrent() - start;
+
+        struct Event *event = NULL;
+        // TODO: better timeout
+        while (data_reader_.pending_events.receive(&event, sizeof(event), WAIT_FOR_WRITE_SECS) > 0) {
+            printf("GOT EVENT\n");
+            printf("timestamp = %lu\n", event->timestamp);
+            printf("trigger_id = %u\n", event->trigger_id);
+            printf("event_size = %lu\n", event->event_size);
+            printf("n_channels = %lu\n", event->n_channels);
+            printf("n_samples = [");
+            for (size_t ch = 0; ch < event->n_channels; ++ch) {
+                printf("%lu ", event->n_samples[ch]);
+            }
+            printf("]\n");
+            delete event;
+            event = NULL;
+        }
 
         //printf("Fetched bytes in %.3f sec\n", duration);
 

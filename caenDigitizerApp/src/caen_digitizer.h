@@ -78,6 +78,8 @@ class CaenDigitizer : public epicsThreadRunable {
         epicsMutex *lock;
         uint64_t handle;
 
+        epicsMessageQueue pending_events;
+
         DataReader(const std::string & name, epicsMutex *lock);
         virtual ~DataReader();
         virtual void run();
@@ -90,11 +92,13 @@ class CaenDigitizer : public epicsThreadRunable {
     size_t device_tree_buffer_len_;
     char *device_tree_buffer_;
 
+    // Flag to control running state of all threads
     bool running_;
 
     std::map<std::string, CaenDigitizerParam*> params_;
 
     // Mutex for workers
+    // TODO: is this needed?
     epicsMutex lock_;
 
     // Worker sub-threads
