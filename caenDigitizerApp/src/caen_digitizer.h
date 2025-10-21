@@ -11,6 +11,9 @@
 #include <dbScan.h>
 
 class CaenDigitizer;
+class CaenDigitizerParam;
+
+typedef std::map<std::string, CaenDigitizerParam *> ParameterMap;
 
 class CaenDigitizerParam {
 public:
@@ -58,16 +61,36 @@ public:
 };
 
 class CaenDigitizer : public epicsThreadRunable {
+    struct ParameterReader : epicsThreadRunable {
+        std::string name;
+        bool running;
+        IOSCANPVT *scan;
+        ParameterMap *params;
+
+        size_t device_tree_buffer_len;
+        char *device_tree_buffer;
+
+        // Commands to control this task
+        epicsMessageQueue task_commands;
+
+        ParameterReader(const std::string & name, IOSCANPVT *scan, ParameterMap *params);
+        virtual ~ParameterReader();
+        virtual void run();
+
+        void fetch_all_params(uint64_t handle);
+    };
+
     struct ParameterWriter : epicsThreadRunable {
         std::string name;
         bool running;
-        epicsMutex *lock;
-        uint64_t handle;
+
+        // Commands to control this task
+        epicsMessageQueue task_commands;
 
         // Pending writes to send to the device
         epicsMessageQueue pending_writes;
 
-        ParameterWriter(const std::string & name, epicsMutex *lock);
+        ParameterWriter(const std::string & name);
         virtual ~ParameterWriter();
         virtual void run();
     };
@@ -75,46 +98,44 @@ class CaenDigitizer : public epicsThreadRunable {
     struct DataReader : epicsThreadRunable {
         std::string name;
         bool running;
-        epicsMutex *lock;
-        uint64_t handle;
+        IOSCANPVT *scan;
 
+        // Commands to control this task
+        epicsMessageQueue task_commands;
+
+        // Pending events read from the device
         epicsMessageQueue pending_events;
 
-        DataReader(const std::string & name, epicsMutex *lock);
+        DataReader(const std::string & name, IOSCANPVT *scan);
         virtual ~DataReader();
         virtual void run();
+
+        struct Event *read_data(uint64_t ep_handle, size_t num_channels, double wait_for_msec);
     };
 
     std::string name_;
     std::string addr_;
 
-    // Buffer to hold the device tree json
-    size_t device_tree_buffer_len_;
-    char *device_tree_buffer_;
-
     // Flag to control running state of all threads
     bool running_;
 
-    std::map<std::string, CaenDigitizerParam*> params_;
-
-    // Mutex for workers
-    // TODO: is this needed?
-    epicsMutex lock_;
+    ParameterMap params_;
 
     // Worker sub-threads
+    ParameterReader parameter_reader_;
     ParameterWriter parameter_writer_;
     DataReader data_reader_;
 
     // The worker thread is the parent of the other threads.
-    // It also polls parameters periodically
     epicsThread worker_thread_;
+    // The parameter reader that polls the device for all params
+    epicsThread parameter_reader_thread_;
     // The command sender sends all pending commands to the device
     epicsThread parameter_writer_thread_;
     // The data reader thread reads pending acquisition data
     epicsThread data_reader_thread_;
 
-    void prepare_scope(uint64_t handle);
-    void fetch_all_params(uint64_t handle);
+    void prepare_scope(uint64_t handle, uint64_t *ep_handle, size_t *num_channels);
     void write_parameter(const std::string & path, const std::string & value);
     void send_command(const std::string & path);
 

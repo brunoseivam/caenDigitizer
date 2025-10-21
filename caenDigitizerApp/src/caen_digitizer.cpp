@@ -1,4 +1,6 @@
 #include "caen_digitizer.h"
+#include "dbScan.h"
+#include "devSup.h"
 
 #include <CAEN_FELib.h>
 
@@ -7,6 +9,8 @@
 #include <cstdio>
 #include <cstring>
 #include <ctime>
+#include <exception>
+#include <iterator>
 #include <stdexcept>
 #include <string>
 
@@ -22,6 +26,9 @@ typedef epicsGuardRelease<epicsMutex> UnGuard;
 using json = nlohmann::json;
 
 static const uint64_t NO_HANDLE = -1;
+
+// Maximum amount of pending task commands
+static const size_t MAX_PENDING_TASK_COMMANDS = 2;
 
 // How many pending write messages can there be
 static const size_t MAX_PENDING_WRITES = 1024;
@@ -40,6 +47,36 @@ static const int WAIT_FOR_DATA_MSECS = 100;
 
 // Maximum time to wait for all threads to join (when exiting)
 static const double WAIT_FOR_THREADS_SECS = 5.0f;
+
+struct TaskCommand {
+    enum TaskCommandType {
+        TASK_START,
+        TASK_STOP,
+    } type;
+    struct {
+        uint64_t handle;
+        uint64_t ep_handle;
+        size_t num_channels;
+    } data;
+
+    static TaskCommand create_start(uint64_t handle, uint64_t ep_handle, size_t num_channels) {
+        return TaskCommand {
+            .type = TASK_START,
+            .data = {
+                .handle = handle,
+                .ep_handle = ep_handle,
+                .num_channels = num_channels
+            }
+        };
+    }
+
+    static TaskCommand create_stop() {
+        return TaskCommand {
+            .type = TASK_STOP,
+            .data = {}
+        };
+    }
+};
 
 // Stores a pending write parameter message, or pending send command message
 struct PendingWrite {
@@ -187,14 +224,156 @@ void CaenDigitizerParam::send_command() {
     parent_->send_command(path_);
 }
 
-CaenDigitizer::ParameterWriter::ParameterWriter(const std::string & name, epicsMutex *lock)
-: name(name), running(false), lock(lock), handle(NO_HANDLE), pending_writes(MAX_PENDING_WRITES, sizeof(PendingWrite*))
+CaenDigitizer::ParameterReader::ParameterReader(const std::string & name, IOSCANPVT *scan, ParameterMap *params)
+: name(name), running(false), scan(scan), params(params), device_tree_buffer_len(4*1024*1024),
+  device_tree_buffer(new char[device_tree_buffer_len]),
+  task_commands(MAX_PENDING_TASK_COMMANDS, sizeof(struct TaskCommand))
+{}
+
+CaenDigitizer::ParameterReader::~ParameterReader() {
+    delete[] device_tree_buffer;
+}
+
+void CaenDigitizer::ParameterReader::run() {
+    uint64_t handle = NO_HANDLE;
+
+    while (running) {
+        TaskCommand tc;
+        if (task_commands.tryReceive(&tc, sizeof(tc)) > 0) {
+            switch (tc.type) {
+                case TaskCommand::TASK_START:
+                    handle = tc.data.handle;
+                    break;
+
+                case TaskCommand::TASK_STOP:
+                    handle = NO_HANDLE;
+                    break;
+            }
+        }
+
+        if (handle == NO_HANDLE) {
+            epicsThreadSleep(0.1);
+            continue;
+        }
+
+        try {
+            fetch_all_params(handle);
+            scanIoRequest(*scan);
+        } catch (std::exception & ex) {
+            errlogPrintf(ERL_ERROR " %s: Got exception while running: %s\n", name.c_str(), ex.what());
+        }
+
+        epicsThreadSleep(0.5);
+    }
+}
+
+// Read the device tree from the device, parse it as JSON
+// Then, for each registered parameter (from EPICS side)
+// Find their corresponding value in the device tree
+// and set that as the record value
+void CaenDigitizer::ParameterReader::fetch_all_params(uint64_t handle) {
+    for (;;) {
+        int ec = CAEN_FELib_GetDeviceTree(handle, device_tree_buffer, device_tree_buffer_len);
+        throw_if_err(ec, "Failed to Get Device Tree");
+
+        if (static_cast<size_t>(ec) > device_tree_buffer_len) {
+            // We don't have enough space to read the device tree,
+            // resize the buffer and try again
+            delete[] device_tree_buffer;
+            device_tree_buffer_len *= 2;
+            device_tree_buffer = new char[device_tree_buffer_len];
+            continue;
+        }
+        break;
+    }
+
+    // Parse device tree contents into JSON
+    auto device_tree = json::parse(device_tree_buffer);
+
+    // For every registered parameter, search for its corresponding value in the device tree contents
+    for (auto it = params->begin(); it != params->end(); ++it) {
+        const std::string & path = it->first;
+        CaenDigitizerParam *param = it->second;
+
+        // If the parameter is a command, skip trying to get its value (it makes no sense for a command to have a value)
+        if (param->type_ == CaenDigitizerParam::Type::Command)
+            continue;
+
+        auto node = device_tree[json::json_pointer(path)];
+
+        if (node == nullptr) {
+            errlogPrintf(ERL_ERROR " %s: Failed to find parameter '%s'\n", name.c_str(), path.c_str());
+            continue;
+        }
+
+        auto param_handle_node = node["handle"];
+        auto param_value_node = node["value"];
+
+        if (param_handle_node == nullptr) {
+            errlogPrintf(ERL_ERROR " %s: Failed to get handle for parameter '%s'\n", name.c_str(), path.c_str());
+            continue;
+        }
+
+        if (param_value_node == nullptr) {
+            errlogPrintf(ERL_ERROR " %s: Failed to get value for parameter '%s'\n", name.c_str(), path.c_str());
+            continue;
+        }
+
+        uint64_t param_handle = NO_HANDLE;
+        std::string param_value;
+
+        try {
+            param_handle = param_handle_node.template get<uint64_t>();
+        } catch (json::exception & ex) {
+            // TODO: improve error message
+            errlogPrintf(ERL_ERROR " %s: Failed to get handle for parameter '%s'\n", name.c_str(), path.c_str());
+            continue;
+        }
+
+        try {
+            param_value = param_value_node.template get<std::string>();
+        } catch (json::exception & ex) {
+            errlogPrintf(ERL_ERROR " %s: Failed to get value for parameter '%s'\n", name.c_str(), path.c_str());
+            continue;
+        }
+
+        param->set(param_handle, param_value);
+        //printf("P[%s] (%lu) = %s\n", path.c_str(), param->handle_, param->value_.c_str());
+    }
+}
+
+CaenDigitizer::ParameterWriter::ParameterWriter(const std::string & name)
+: name(name), running(false), task_commands(MAX_PENDING_TASK_COMMANDS, sizeof(struct TaskCommand)),
+  pending_writes(MAX_PENDING_WRITES, sizeof(PendingWrite*))
 {}
 
 CaenDigitizer::ParameterWriter::~ParameterWriter() {}
 
 void CaenDigitizer::ParameterWriter::run() {
+    size_t num_starts = 0;
+    uint64_t handle = NO_HANDLE;
+
     while (running) {
+        TaskCommand tc;
+        if (task_commands.tryReceive(&tc, sizeof(tc)) > 0) {
+            switch (tc.type) {
+                case TaskCommand::TASK_START:
+                    handle = tc.data.handle;
+                    ++num_starts;
+                    break;
+
+                case TaskCommand::TASK_STOP:
+                    handle = NO_HANDLE;
+                    break;
+            }
+        }
+
+        // If we never connected, keep waiting (so we don't drop writes near IOC init)
+        if (num_starts == 0 && handle == NO_HANDLE) {
+            epicsThreadSleep(0.1);
+            continue;
+        }
+
         PendingWrite *pw = NULL;
         if (pending_writes.receive(&pw, sizeof(pw), WAIT_FOR_WRITE_SECS) > 0) {
             // Copy to local vars so that pw can be deallocated early
@@ -211,7 +390,7 @@ void CaenDigitizer::ParameterWriter::run() {
             switch (type) {
                 case PendingWrite::Type::Param: {
                     int ec = CAEN_FELib_SetValue(handle, path.c_str(), value.c_str());
-                    //printf("SET [%d] %s '%s'\n", ec, path.c_str(), value.c_str());
+                    printf("SET [%d] %s '%s'\n", ec, path.c_str(), value.c_str());
                     if (ec < 0) {
                         errlogPrintf(ERL_ERROR " %s: Failed to set value for path '%s'\n", name.c_str(), path.c_str());
                     }
@@ -219,7 +398,7 @@ void CaenDigitizer::ParameterWriter::run() {
                 }
                 case PendingWrite::Type::Command: {
                     int ec = CAEN_FELib_SendCommand(handle, path.c_str());
-                    //printf("CMD [%d] %s\n", ec, path.c_str());
+                    printf("CMD [%d] %s\n", ec, path.c_str());
                     if (ec < 0) {
                         // TODO: better error handling
                         errlogPrintf(ERL_ERROR " %s: Failed to send command '%s'\n", name.c_str(), path.c_str());
@@ -233,87 +412,88 @@ void CaenDigitizer::ParameterWriter::run() {
     }
 }
 
-CaenDigitizer::DataReader::DataReader(const std::string & name, epicsMutex *lock)
-: name(name), running(false), lock(lock), pending_events(MAX_PENDING_EVENTS, sizeof(Event *)),
-  handle(NO_HANDLE)
+CaenDigitizer::DataReader::DataReader(const std::string & name, IOSCANPVT *scan)
+: name(name), running(false), scan(scan), task_commands(MAX_PENDING_TASK_COMMANDS, sizeof(struct TaskCommand)),
+  pending_events(MAX_PENDING_EVENTS, sizeof(Event *))
 {}
 
 CaenDigitizer::DataReader::~DataReader() {}
 
 void CaenDigitizer::DataReader::run() {
+    uint64_t ep_handle = NO_HANDLE;
+    size_t num_channels = 0;
+
     while (running) {
-        if (handle == NO_HANDLE) {
-            epicsThreadSleep(WAIT_FOR_DATA_MSECS / 1000.0);
+        TaskCommand tc;
+        if (task_commands.tryReceive(&tc, sizeof(tc)) > 0) {
+            switch (tc.type) {
+                case TaskCommand::TASK_START:
+                    ep_handle = tc.data.ep_handle;
+                    num_channels = tc.data.num_channels;
+                    break;
+
+                case TaskCommand::TASK_STOP:
+                    ep_handle = NO_HANDLE;
+                    num_channels = 0;
+                    break;
+            }
+        }
+
+        if (ep_handle == NO_HANDLE) {
+            epicsThreadSleep(0.1);
             continue;
         }
 
-        uint64_t ep_handle = NO_HANDLE;
-        int ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", &ep_handle);
-        throw_if_err(ec, "Failed to get scope endpoint");
-
-        // Get number of channels
-        char value[32];
-        ec = CAEN_FELib_GetValue(handle, "/par/NumCh", value);
-        throw_if_err(ec, "Failed to get number of channels");
-        size_t num_channels = std::stoul(value);
-
-        // TODO: wrap the following in a function, acquire with try/catch
-
-        ec = CAEN_FELib_HasData(ep_handle, WAIT_FOR_DATA_MSECS);
-        switch (ec) {
-            case CAEN_FELib_Success: printf("HAS DATA\n"); break;
-            case CAEN_FELib_Timeout: printf("NO DATA\n"); continue;
-            default: printf("hmmm\n"); continue;
-            //default: throw std::logic_error("TODO: FIXME");
-        }
-
-        // TODO: num_channels should come from the device itself
-        struct Event *event = new Event(num_channels, MAX_NUM_SAMPLES);
-
-        ec = CAEN_FELib_ReadData(ep_handle, WAIT_FOR_DATA_MSECS,
-            &event->timestamp,
-            &event->trigger_id,
-            event->waveform,
-            event->n_samples,
-            &event->event_size
-        );
-
-        switch (ec) {
-            case CAEN_FELib_Success: {
+        try {
+            struct Event *event = read_data(ep_handle, num_channels, WAIT_FOR_DATA_MSECS);
+            if (event) {
                 if (pending_events.trySend(&event, sizeof(event)) < 0) {
                     delete event;
-                    errlogPrintf(ERL_ERROR " DataReader::run(): Failed to enqueue new event (queue is full)\n");
+                    errlogPrintf(ERL_ERROR " %s::run(): Failed to enqueue new event (queue is full)\n", name.c_str());
                 }
-                continue;
             }
-
-            case CAEN_FELib_Timeout:
-                delete event;
-                printf("TIMEOUT\n");
-                break;
-
-            case CAEN_FELib_Stop:
-                delete event;
-                printf("GOT STOP\n");
-                break;
-
-            default: {
-                delete event;
-                throw_if_err(ec, "Failed to read data from scope");
-            }
+        } catch (std::exception & ex) {
+            errlogPrintf(ERL_ERROR " %s::run(): Got exception while reading data: %s\n", name.c_str(), ex.what());
         }
     }
 }
 
+struct Event *CaenDigitizer::DataReader::read_data(uint64_t ep_handle, size_t num_channels, double wait_for_msec) {
+    struct Event *event = new Event(num_channels, MAX_NUM_SAMPLES);
+
+    int ec = CAEN_FELib_ReadData(ep_handle, wait_for_msec,
+        &event->timestamp,
+        &event->trigger_id,
+        event->waveform,
+        event->n_samples,
+        &event->event_size
+    );
+
+    if (ec == CAEN_FELib_Success)
+        return event;
+
+    delete event;
+
+    switch (ec) {
+        case CAEN_FELib_Timeout: /*printf("TIMEOUT\n");*/ break;
+        case CAEN_FELib_Stop: printf("GOT STOP\n"); break;
+        default: throw_if_err(ec, "Failed to read data from scope"); break;
+    }
+
+    return NULL;
+}
 CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
-: name_(name), addr_(addr), device_tree_buffer_len_(4*1024*1024),
-  device_tree_buffer_(new char[device_tree_buffer_len_]),
-  running_(false),
-  lock_(),
-  parameter_writer_(name, &lock_),
-  data_reader_(name, &lock_),
+: name_(name), addr_(addr), running_(false),
+  parameter_reader_(name + "::ParameterReader", &status_update, &params_),
+  parameter_writer_(name + "::ParameterWriter"),
+  data_reader_(name + "::DataReader", &data_update),
   worker_thread_(
       *this, "DT274X_Worker",
+      epicsThreadGetStackSize(epicsThreadStackMedium),
+      epicsThreadPriorityMedium
+  ),
+  parameter_reader_thread_(
+      parameter_reader_, "DT274X_ParamReader",
       epicsThreadGetStackSize(epicsThreadStackMedium),
       epicsThreadPriorityMedium
   ),
@@ -334,16 +514,17 @@ CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
 }
 
 CaenDigitizer::~CaenDigitizer() {
-    delete[] device_tree_buffer_;
 }
 
 void CaenDigitizer::start() {
     if (!running_) {
         running_ = true;
 
+        parameter_reader_.running = true;
         parameter_writer_.running = true;
         data_reader_.running = true;
 
+        parameter_reader_thread_.start();
         parameter_writer_thread_.start();
         data_reader_thread_.start();
 
@@ -360,13 +541,15 @@ static void wait_for_thread(const std::string & prefix, epicsThread *t, const ch
 void CaenDigitizer::stop() {
     if (running_) {
         running_ = false;
+        parameter_reader_.running = false;
         parameter_writer_.running = false;
         data_reader_.running = false;
 
         epicsTime start_wait_time = epicsTime::getCurrent();
-        wait_for_thread(name_, &worker_thread_,           "worker",           start_wait_time);
-        wait_for_thread(name_, &parameter_writer_thread_, "parameter writer", start_wait_time);
-        wait_for_thread(name_, &data_reader_thread_,      "data reader",      start_wait_time);
+        wait_for_thread(name_, &worker_thread_,           "worker",       start_wait_time);
+        wait_for_thread(name_, &parameter_reader_thread_, "param reader", start_wait_time);
+        wait_for_thread(name_, &parameter_writer_thread_, "param writer", start_wait_time);
+        wait_for_thread(name_, &data_reader_thread_,      "data reader",  start_wait_time);
     }
 }
 
@@ -388,18 +571,15 @@ void CaenDigitizer::run() {
             continue;
         }
 
-        // Set the current handle on the sub-threads
-        parameter_writer_.handle = handle;
-        data_reader_.handle = handle;
-
         try {
             run_with(handle);
         } catch (std::exception & ex) {
             errlogPrintf(ERL_ERROR " %s: Got exception while running: %s\n", name_.c_str(), ex.what());
 
-            // Clear handle on sub-threads
-            parameter_writer_.handle = NO_HANDLE;
-            data_reader_.handle = NO_HANDLE;
+            TaskCommand stop = TaskCommand::create_stop();
+            parameter_reader_.task_commands.send(&stop, sizeof(stop));
+            parameter_writer_.task_commands.send(&stop, sizeof(stop));
+            data_reader_.task_commands.send(&stop, sizeof(stop));
 
             CAEN_FELib_Close(handle);
 
@@ -413,18 +593,22 @@ void CaenDigitizer::run() {
         CAEN_FELib_Close(handle);
 }
 
-void CaenDigitizer::prepare_scope(uint64_t handle) {
+void CaenDigitizer::prepare_scope(uint64_t handle, uint64_t *ep_handle, size_t *num_channels) {
     // Ensure we are in 'scope' mode
     int ec = CAEN_FELib_SetValue(handle, "/endpoint/par/ActiveEndpoint", "scope");
     throw_if_err(ec, "Failed to set device to 'scope' mode");
 
     // Get handle to the 'scope' endpoint
-    uint64_t ep_handle = NO_HANDLE;
-    ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", &ep_handle);
+    ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", ep_handle);
     throw_if_err(ec, "Failed to get endpoint handle");
 
+    char value[32];
+    ec = CAEN_FELib_GetValue(handle, "/par/NumCh", value);
+    throw_if_err(ec, "Failed to get number of channels");
+    *num_channels = std::stoul(value);
+
     // Configure data format
-    ec = CAEN_FELib_SetReadDataFormat(ep_handle, Event::DATA_FORMAT.c_str());
+    ec = CAEN_FELib_SetReadDataFormat(*ep_handle, Event::DATA_FORMAT.c_str());
     throw_if_err(ec, "Failed to set data format");
 
     // Stop any ongoing acquisition
@@ -436,80 +620,6 @@ void CaenDigitizer::prepare_scope(uint64_t handle) {
     throw_if_err(ec, "Failed to disarm scope");
 }
 
-// Read the device tree from the device, parse it as JSON
-// Then, for each registered parameter (from EPICS side)
-// Find their corresponding value in the device tree
-// and set that as the record value
-void CaenDigitizer::fetch_all_params(uint64_t handle) {
-    for (;;) {
-        int ec = CAEN_FELib_GetDeviceTree(handle, device_tree_buffer_, device_tree_buffer_len_);
-        throw_if_err(ec, "Failed to Get Device Tree");
-
-        if (static_cast<size_t>(ec) > device_tree_buffer_len_) {
-            // We don't have enough space to read the device tree,
-            // resize the buffer and try again
-            delete[] device_tree_buffer_;
-            device_tree_buffer_len_ *= 2;
-            device_tree_buffer_ = new char[device_tree_buffer_len_];
-            continue;
-        }
-        break;
-    }
-
-    // Parse device tree contents into JSON
-    auto device_tree = json::parse(device_tree_buffer_);
-
-    // For every registered parameter, search for its corresponding value in the device tree contents
-    for (auto it = params_.begin(); it != params_.end(); ++it) {
-        const std::string & path = it->first;
-        CaenDigitizerParam *param = it->second;
-
-        // If the parameter is a command, skip trying to get its value (it makes no sense for a command to have a value)
-        if (param->type_ == CaenDigitizerParam::Type::Command)
-            continue;
-
-        auto node = device_tree[json::json_pointer(path)];
-
-        if (node == nullptr) {
-            errlogPrintf(ERL_ERROR " %s: Failed to find parameter '%s' in device '%s'\n", name_.c_str(), path.c_str(), addr_.c_str());
-            continue;
-        }
-
-        auto param_handle_node = node["handle"];
-        auto param_value_node = node["value"];
-
-        if (param_handle_node == nullptr) {
-            errlogPrintf(ERL_ERROR " %s: Failed to get handle for parameter '%s'\n", name_.c_str(), path.c_str());
-            continue;
-        }
-
-        if (param_value_node == nullptr) {
-            errlogPrintf(ERL_ERROR " %s: Failed to get value for parameter '%s'\n", name_.c_str(), path.c_str());
-            continue;
-        }
-
-        uint64_t param_handle = NO_HANDLE;
-        std::string param_value;
-
-        try {
-            param_handle = param_handle_node.template get<uint64_t>();
-        } catch (json::exception & ex) {
-            // TODO: improve error message
-            errlogPrintf(ERL_ERROR " %s: Failed to get handle for parameter '%s'\n", name_.c_str(), path.c_str());
-            continue;
-        }
-
-        try {
-            param_value = param_value_node.template get<std::string>();
-        } catch (json::exception & ex) {
-            errlogPrintf(ERL_ERROR " %s: Failed to get value for parameter '%s'\n", name_.c_str(), path.c_str());
-            continue;
-        }
-
-        param->set(param_handle, param_value);
-        //printf("P[%s] (%lu) = %s\n", path.c_str(), param->handle_, param->value_.c_str());
-    }
-}
 
 void CaenDigitizer::write_parameter(const std::string & path, const std::string & value) {
     const std::string lpath(str_tolower(path));
@@ -533,18 +643,21 @@ void CaenDigitizer::send_command(const std::string & path) {
 
 void CaenDigitizer::run_with(uint64_t handle) {
     // Force scope mode
-    prepare_scope(handle);
+    uint64_t ep_handle = NO_HANDLE;
+    size_t num_channels = 0;
+    prepare_scope(handle, &ep_handle, &num_channels);
+
+    TaskCommand task_start = TaskCommand::create_start(handle, ep_handle, num_channels);
+    parameter_reader_.task_commands.send(&task_start, sizeof(task_start));
+    parameter_writer_.task_commands.send(&task_start, sizeof(task_start));
+    data_reader_.task_commands.send(&task_start, sizeof(task_start));
 
     while (running_) {
-        //epicsTime start = epicsTime::getCurrent();
-        fetch_all_params(handle);
-        scanIoRequest(status_update);
-        //double duration = epicsTime::getCurrent() - start;
+        // Fetch all parameter values from the device
+        epicsTime start = epicsTime::getCurrent();
 
         struct Event *event = NULL;
-        // TODO: better timeout
         while (data_reader_.pending_events.receive(&event, sizeof(event), WAIT_FOR_WRITE_SECS) > 0) {
-            printf("GOT EVENT\n");
             printf("timestamp = %lu\n", event->timestamp);
             printf("trigger_id = %u\n", event->trigger_id);
             printf("event_size = %lu\n", event->event_size);
@@ -558,10 +671,12 @@ void CaenDigitizer::run_with(uint64_t handle) {
             event = NULL;
         }
 
-        //printf("Fetched bytes in %.3f sec\n", duration);
+        double duration = epicsTime::getCurrent() - start;
+        if (duration < 1.0) {
+            epicsThreadSleep(1.0 - duration);
+        }
 
-        // TODO: smarter throttle, configurable period
-        epicsThreadSleep(1.0);
+        //printf("Fetched bytes in %.3f sec\n", duration);
     }
 }
 
