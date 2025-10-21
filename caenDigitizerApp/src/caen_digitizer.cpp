@@ -211,6 +211,7 @@ void CaenDigitizer::ParameterWriter::run() {
             switch (type) {
                 case PendingWrite::Type::Param: {
                     int ec = CAEN_FELib_SetValue(handle, path.c_str(), value.c_str());
+                    //printf("SET [%d] %s '%s'\n", ec, path.c_str(), value.c_str());
                     if (ec < 0) {
                         errlogPrintf(ERL_ERROR " %s: Failed to set value for path '%s'\n", name.c_str(), path.c_str());
                     }
@@ -218,6 +219,7 @@ void CaenDigitizer::ParameterWriter::run() {
                 }
                 case PendingWrite::Type::Command: {
                     int ec = CAEN_FELib_SendCommand(handle, path.c_str());
+                    //printf("CMD [%d] %s\n", ec, path.c_str());
                     if (ec < 0) {
                         // TODO: better error handling
                         errlogPrintf(ERL_ERROR " %s: Failed to send command '%s'\n", name.c_str(), path.c_str());
@@ -413,8 +415,17 @@ void CaenDigitizer::run() {
 
 void CaenDigitizer::prepare_scope(uint64_t handle) {
     // Ensure we are in 'scope' mode
-    int ec = CAEN_FELib_SetValue(handle, "/par/ActiveEndpoint", "scope");
+    int ec = CAEN_FELib_SetValue(handle, "/endpoint/par/ActiveEndpoint", "scope");
     throw_if_err(ec, "Failed to set device to 'scope' mode");
+
+    // Get handle to the 'scope' endpoint
+    uint64_t ep_handle = NO_HANDLE;
+    ec = CAEN_FELib_GetHandle(handle, "/endpoint/scope", &ep_handle);
+    throw_if_err(ec, "Failed to get endpoint handle");
+
+    // Configure data format
+    ec = CAEN_FELib_SetReadDataFormat(ep_handle, Event::DATA_FORMAT.c_str());
+    throw_if_err(ec, "Failed to set data format");
 
     // Stop any ongoing acquisition
     ec = CAEN_FELib_SendCommand(handle, "/cmd/SWStopAcquisition");
@@ -423,10 +434,6 @@ void CaenDigitizer::prepare_scope(uint64_t handle) {
     // Disarm it
     ec = CAEN_FELib_SendCommand(handle, "/cmd/DisarmAcquisition");
     throw_if_err(ec, "Failed to disarm scope");
-
-    // Configure data format
-    ec = CAEN_FELib_SetReadDataFormat(handle, Event::DATA_FORMAT.c_str());
-    throw_if_err(ec, "Failed to set data format");
 }
 
 // Read the device tree from the device, parse it as JSON
@@ -526,6 +533,7 @@ void CaenDigitizer::send_command(const std::string & path) {
 
 void CaenDigitizer::run_with(uint64_t handle) {
     // Force scope mode
+    prepare_scope(handle);
 
     while (running_) {
         //epicsTime start = epicsTime::getCurrent();
