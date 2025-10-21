@@ -33,3 +33,9 @@ pattern
 { "",  "Ch\$(N):TrigThreshMode",  "/ch/\$(N)/par/triggerthrmode",  "Trigger Thresh Mode", "Relative", "Absolute",        "",              "",             "",              "",     "",    ""           }
 { "",  "Ch\$(N):WaveDataSource",  "/ch/\$(N)/par/wavedatasource",  "Wave Data Source",    "ADC_DATA", "ADC_TEST_TOGGLE", "ADC_TEST_RAMP", "ADC_TEST_SIN", "ADC_TEST_PRBS", "Ramp", "IPE", "SquareWave" }
 }
+
+file "dt274x_ch_data.template" {
+pattern
+{ NAME,            DESC            }
+{ "Ch\$(N):Data",  "Ch \$(N) Data" }
+}

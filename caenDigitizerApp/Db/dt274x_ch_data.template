@@ -1,0 +1,8 @@
+record(waveform, "$(P)$(R)$(NAME)_RBV") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "CAEN Dig Chan Data")
+    field(INP,  "@$(PORT) $(N)")
+    field(FTVL, "USHORT")
+    field(NELM, "$(NELM=1048576)")
+    field(SCAN, "$(SCAN=I/O Intr)")
+}

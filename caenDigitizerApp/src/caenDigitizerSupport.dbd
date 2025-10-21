@@ -11,4 +11,6 @@ device(mbbo, INST_IO, devCaenDigParamMbbo, "CAEN Dig Param")
 
 device(bo, INST_IO, devCaenDigCmdBo, "CAEN Dig Cmd")
 
+device(waveform, INST_IO, devCaenDigChDataWf, "CAEN Dig Chan Data")
+
 registrar(caenDigitizerRegistrar)

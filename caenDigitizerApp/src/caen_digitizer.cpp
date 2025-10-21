@@ -1,6 +1,4 @@
 #include "caen_digitizer.h"
-#include "dbScan.h"
-#include "devSup.h"
 
 #include <CAEN_FELib.h>
 
@@ -10,7 +8,6 @@
 #include <cstring>
 #include <ctime>
 #include <exception>
-#include <iterator>
 #include <stdexcept>
 #include <string>
 
@@ -19,6 +16,9 @@
 #include <epicsThread.h>
 #include <epicsTime.h>
 #include <errlog.h>
+#include <dbScan.h>
+#include <devSup.h>
+#include <epicsGuard.h>
 
 typedef epicsGuard<epicsMutex> Guard;
 typedef epicsGuardRelease<epicsMutex> UnGuard;
@@ -33,9 +33,6 @@ static const size_t MAX_PENDING_TASK_COMMANDS = 2;
 // How many pending write messages can there be
 static const size_t MAX_PENDING_WRITES = 1024;
 
-// How many pending events can there be
-static const size_t MAX_PENDING_EVENTS = 32;
-
 // Maximum number of samples per waveform
 static const size_t MAX_NUM_SAMPLES = 1024*1024;
 
@@ -48,6 +45,7 @@ static const int WAIT_FOR_DATA_MSECS = 100;
 // Maximum time to wait for all threads to join (when exiting)
 static const double WAIT_FOR_THREADS_SECS = 5.0f;
 
+// A command that is sent between threads
 struct TaskCommand {
     enum TaskCommandType {
         TASK_START,
@@ -96,34 +94,24 @@ struct PendingWrite {
 };
 
 // Stores an acquisition event from the scope
-struct Event {
-    static const std::string DATA_FORMAT;
-    size_t n_channels;
-    uint64_t timestamp;
-    uint32_t trigger_id;
-    uint16_t **waveform;
-    size_t *n_samples;
-    size_t event_size;
-
-    Event(size_t n_channels, size_t max_samples)
-    : n_channels(n_channels), timestamp(0), trigger_id(0),
-      waveform(new uint16_t*[n_channels]),
-      n_samples(new size_t[n_channels]),
-      event_size(0)
-    {
-        for (size_t ch = 0; ch < n_channels; ++ch) {
-            n_samples[ch] = max_samples;
-            waveform[ch] = new uint16_t[max_samples];
-        }
+Event::Event(size_t n_channels, size_t max_samples)
+: n_channels(n_channels), timestamp(0), trigger_id(0),
+  waveform(new uint16_t*[n_channels]),
+  n_samples(new size_t[n_channels]),
+  event_size(0)
+{
+    for (size_t ch = 0; ch < n_channels; ++ch) {
+        n_samples[ch] = max_samples;
+        waveform[ch] = new uint16_t[max_samples];
     }
+}
 
-    ~Event() {
-        delete[] n_samples;
-        for (size_t ch = 0; ch < n_channels; ++ch)
-            delete[] waveform[ch];
-        delete[] waveform;
-    }
-};
+Event::~Event() {
+    delete[] n_samples;
+    for (size_t ch = 0; ch < n_channels; ++ch)
+        delete[] waveform[ch];
+    delete[] waveform;
+}
 
 const std::string Event::DATA_FORMAT = std::string("\
        [ \
@@ -412,9 +400,11 @@ void CaenDigitizer::ParameterWriter::run() {
     }
 }
 
-CaenDigitizer::DataReader::DataReader(const std::string & name, IOSCANPVT *scan)
-: name(name), running(false), scan(scan), task_commands(MAX_PENDING_TASK_COMMANDS, sizeof(struct TaskCommand)),
-  pending_events(MAX_PENDING_EVENTS, sizeof(Event *))
+CaenDigitizer::DataReader::DataReader(const std::string & name, IOSCANPVT *scan,
+    Event **latest_event, epicsMutex *latest_event_lock)
+: name(name), running(false), scan(scan),
+  latest_event(latest_event), latest_event_lock(latest_event_lock),
+  task_commands(MAX_PENDING_TASK_COMMANDS, sizeof(struct TaskCommand))
 {}
 
 CaenDigitizer::DataReader::~DataReader() {}
@@ -447,10 +437,15 @@ void CaenDigitizer::DataReader::run() {
         try {
             struct Event *event = read_data(ep_handle, num_channels, WAIT_FOR_DATA_MSECS);
             if (event) {
-                if (pending_events.trySend(&event, sizeof(event)) < 0) {
-                    delete event;
-                    errlogPrintf(ERL_ERROR " %s::run(): Failed to enqueue new event (queue is full)\n", name.c_str());
+                {
+                    Guard G(*latest_event_lock);
+
+                    if (*latest_event)
+                        delete *latest_event;
+
+                    *latest_event = event;
                 }
+                scanIoRequest(*scan);
             }
         } catch (std::exception & ex) {
             errlogPrintf(ERL_ERROR " %s::run(): Got exception while reading data: %s\n", name.c_str(), ex.what());
@@ -484,9 +479,10 @@ struct Event *CaenDigitizer::DataReader::read_data(uint64_t ep_handle, size_t nu
 }
 CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
 : name_(name), addr_(addr), running_(false),
+  latest_event_(NULL), latest_event_lock_(),
   parameter_reader_(name + "::ParameterReader", &status_update, &params_),
   parameter_writer_(name + "::ParameterWriter"),
-  data_reader_(name + "::DataReader", &data_update),
+  data_reader_(name + "::DataReader", &data_update, &latest_event_, &latest_event_lock_),
   worker_thread_(
       *this, "DT274X_Worker",
       epicsThreadGetStackSize(epicsThreadStackMedium),
@@ -656,7 +652,10 @@ void CaenDigitizer::run_with(uint64_t handle) {
         // Fetch all parameter values from the device
         epicsTime start = epicsTime::getCurrent();
 
-        struct Event *event = NULL;
+        // TODO: periodically fetch a random value just to check device health
+
+        // TODO: cleanup
+        /*struct Event *event = NULL;
         while (data_reader_.pending_events.receive(&event, sizeof(event), WAIT_FOR_WRITE_SECS) > 0) {
             printf("timestamp = %lu\n", event->timestamp);
             printf("trigger_id = %u\n", event->trigger_id);
@@ -669,7 +668,7 @@ void CaenDigitizer::run_with(uint64_t handle) {
             printf("]\n");
             delete event;
             event = NULL;
-        }
+            }*/
 
         double duration = epicsTime::getCurrent() - start;
         if (duration < 1.0) {
@@ -692,4 +691,13 @@ CaenDigitizerParam *CaenDigitizer::get_parameter(const std::string & path) {
     CaenDigitizerParam *param = new CaenDigitizerParam(this, lpath);
     params_[lpath] = param;
     return param;
+}
+
+IOSCANPVT CaenDigitizer::get_data_update() {
+    return data_update;
+}
+
+void CaenDigitizer::with_latest_event(std::function<void(Event*)> f) {
+    Guard G(latest_event_lock_);
+    f(latest_event_);
 }

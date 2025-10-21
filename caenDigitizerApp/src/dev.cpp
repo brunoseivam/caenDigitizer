@@ -1,6 +1,7 @@
 #include "caen_digitizer.h"
 
 #include <algorithm>
+#include <cstring>
 #include <exception>
 #include <stdexcept>
 #include <string>
@@ -20,6 +21,7 @@
 #include <devLib.h>
 #include <alarm.h>
 #include <initHooks.h>
+#include <menuFtype.h>
 
 #include <stringinRecord.h>
 #include <stringoutRecord.h>
@@ -32,9 +34,19 @@
 #include <mbbiRecord.h>
 #include <mbboRecord.h>
 #include <mbbiDirectRecord.h>
+#include <waveformRecord.h>
 
 typedef std::map<std::string, CaenDigitizer*> dev_map_t;
 static dev_map_t dev_map;
+
+struct ChannelPvt {
+    CaenDigitizer *dev;
+    size_t chan;
+
+    ChannelPvt(CaenDigitizer *dev, size_t chan)
+    : dev(dev), chan(chan)
+    {}
+};
 
 static std::string str_tolower(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
@@ -81,8 +93,8 @@ void createCaenDigitizer(const std::string & name, const std::string & addr) {
 
 // Device support
 
-DBLINK* get_dev_link(dbCommon *prec) {
-    DBLINK *ret = NULL;
+long get_dev_link_match(dbCommon *prec, const std::regex & re, std::cmatch & m) {
+    DBLINK *plink = NULL;
     DBENTRY ent;
 
     dbInitEntry(pdbbase, &ent);
@@ -91,11 +103,32 @@ DBLINK* get_dev_link(dbCommon *prec) {
     assert(ent.precnode->precord==(void*)prec);
 
     if (dbFindField(&ent, "INP") == 0 || dbFindField(&ent, "OUT") == 0) {
-        ret = (DBLINK*)((char*)prec + ent.pflddes->offset);
+        plink = (DBLINK*)((char*)prec + ent.pflddes->offset);
     }
 
     dbFinishEntry(&ent);
-    return ret;
+
+    if (!plink) {
+        recGblRecordError(S_db_badField, prec, "can't find dev link");
+        errlogPrintf(ERL_ERROR " %s: can't find dev link\n", prec->name);
+        return S_db_badField;
+    }
+
+    if (plink->type != INST_IO) {
+        recGblRecordError(S_db_badField, prec, "unexpected link type");
+        errlogPrintf(ERL_ERROR " %s: expected link type INST_IO, got %d\n", prec->name, plink->type);
+        return S_db_badField;
+    }
+
+    const char *link = plink->value.instio.string;
+
+    if (!std::regex_match(link, m, re)) {
+        recGblRecordError(S_db_badField, prec, "unexpected link format");
+        errlogPrintf(ERL_ERROR " %s: link '%s' does not match the expected format\n", prec->name, link);
+        return S_db_badField;
+    }
+
+    return 0;
 }
 
 long init_record_common(dbCommon *prec) {
@@ -103,27 +136,10 @@ long init_record_common(dbCommon *prec) {
     static std::regex LINK_RE("([^\\s]+) (INT|DBL|STR|CMD|BOOL) ([^\\s]+)");
 
     try {
-        DBLINK *plink = get_dev_link(prec);
-        if (!plink) {
-            recGblRecordError(S_db_badField, prec, "can't find dev link");
-            errlogPrintf(ERL_ERROR " %s: can't find dev link\n", prec->name);
-            return S_db_badField;
-        }
-
-        if (plink->type != INST_IO) {
-            recGblRecordError(S_db_badField, prec, "unexpected link type");
-            errlogPrintf(ERL_ERROR " %s: expected link type INST_IO, got %d\n", prec->name, plink->type);
-            return S_db_badField;
-        }
-
-        const char *link = plink->value.instio.string;
-
         std::cmatch m;
-        if (!std::regex_match(link, m, LINK_RE)) {
-            recGblRecordError(S_db_badField, prec, "unexpected link format");
-            errlogPrintf(ERL_ERROR " %s: link '%s' does not match the expected format\n", prec->name, link);
-            return S_db_badField;
-        }
+        long ret = get_dev_link_match(prec, LINK_RE, m);
+        if (ret)
+            return ret;
 
         std::string dev_name = m[1].str();
         std::string data_type = m[2].str();
@@ -132,8 +148,8 @@ long init_record_common(dbCommon *prec) {
         auto dev = dev_map.find(dev_name);
         if (dev == dev_map.end()) {
             recGblRecordError(S_db_badField, prec, "failed to find device");
-            errlogPrintf(ERL_ERROR " %s: link '%s' failed to find device named '%s'."
-                " Make sure to create one using createCaenDigitizer.\n", prec->name, link, dev_name.c_str());
+            errlogPrintf(ERL_ERROR " %s: failed to find device named '%s'."
+                " Make sure to create one using createCaenDigitizer.\n", prec->name, dev_name.c_str());
             return S_db_badField;
         }
 
@@ -149,9 +165,47 @@ long init_record_common(dbCommon *prec) {
     }
 }
 
+long init_record_chan(dbCommon *prec) {
+    static std::regex LINK_RE("([^\\s]+) (\\d|\\d\\d)");
+
+    try {
+        std::cmatch m;
+        long ret = get_dev_link_match(prec, LINK_RE, m);
+        if (ret)
+            return ret;
+
+        std::string dev_name = m[1].str();
+        std::string chan_str = m[2].str();
+
+        auto dev = dev_map.find(dev_name);
+        if (dev == dev_map.end()) {
+            recGblRecordError(S_db_badField, prec, "failed to find device");
+            errlogPrintf(ERL_ERROR " %s: failed to find device named '%s'."
+                " Make sure to create one using createCaenDigitizer.\n", prec->name, dev_name.c_str());
+            return S_db_badField;
+        }
+
+        auto digitizer = dev->second;
+        size_t chan = std::stoul(chan_str);
+        prec->dpvt = new ChannelPvt(digitizer, chan);
+
+        return 0;
+    } catch (std::exception & ex) {
+        recGblRecordError(S_dev_badInit, prec, "failed to initialize record");
+        errlogPrintf(ERL_ERROR " %s: got exception while initializing: %s\n", prec->name, ex.what());
+        return S_dev_badInit;
+    }
+}
+
 long get_status_update(int, dbCommon* prec, IOSCANPVT* scan) {
     CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
     *scan = pvt->get_status_update();
+    return 0;
+}
+
+long get_data_update(int, dbCommon* prec, IOSCANPVT* scan) {
+    ChannelPvt *pvt = static_cast<ChannelPvt*>(prec->dpvt);
+    *scan = pvt->dev->get_data_update();
     return 0;
 }
 
@@ -268,6 +322,40 @@ long send_command_bo(boRecord *prec) {
     });
 }
 
+long read_chan_data(waveformRecord *prec) {
+    assert(prec->ftvl==menuFtypeUSHORT);
+
+    ChannelPvt *pvt = static_cast<ChannelPvt*>(prec->dpvt);
+    uint16_t *bptr = (uint16_t *)prec->bptr;
+
+    try {
+        pvt->dev->with_latest_event([&](Event *event) {
+            size_t ch = pvt->chan;
+
+            size_t nelm_record = prec->nelm;
+            size_t nelm_event = event->n_samples[ch];
+
+            size_t nord = std::min(nelm_record, nelm_event);
+
+            if (!nord)
+                return;
+
+            memcpy(bptr, event->waveform[ch], nord*sizeof(*bptr));
+            prec->nord = nord;
+
+            /*
+            TODO: derive time from event->timestamp
+            if(prec->tse==epicsTimeEventDeviceTime) {
+            prec->time = info->dev->updatetime;
+            */
+        });
+    } catch (std::exception & ex) {
+        recGblSetSevr(prec, READ_ALARM, INVALID_ALARM);
+        errlogPrintf(ERL_ERROR " %s: got exception while processing record: %s\n", prec->name, ex.what());
+    }
+    return 0;
+}
+
 // EPICS Registration
 const iocshArg createCaenDigitizerArg0 = {"name", iocshArgString};
 const iocshArg createCaenDigitizerArg1 = {"addr", iocshArgString};
@@ -298,20 +386,22 @@ struct dset6 {
     long (*linconv)(R*);
 };
 
-#define DSET(NAME, REC, IOINTR, RW) static dset6<REC ## Record> NAME = \
-    {6, NULL, NULL, &init_record_common, IOINTR, RW, NULL}; epicsExportAddress(dset, NAME)
+#define DSET(NAME, REC, INIT, IOINTR, RW) static dset6<REC ## Record> NAME = \
+    {6, NULL, NULL, INIT, IOINTR, RW, NULL}; epicsExportAddress(dset, NAME)
 
-DSET(devCaenDigParamSi, stringin, &get_status_update, &read_si);
-DSET(devCaenDigParamSo, stringout, NULL, &write_so);
-DSET(devCaenDigParamLi, longin, &get_status_update, &read_li);
-DSET(devCaenDigParamLo, longout, NULL, &write_lo);
-DSET(devCaenDigParamAi, ai, &get_status_update, &read_ai);
-DSET(devCaenDigParamAo, ao, NULL, &write_ao);
-DSET(devCaenDigParamBi, bi, &get_status_update, &read_bi);
-DSET(devCaenDigParamBo, bo, NULL, &write_bo);
-DSET(devCaenDigParamMbbi, mbbi, &get_status_update, &read_mbbi);
-DSET(devCaenDigParamMbbo, mbbo, NULL, &write_mbbo);
+DSET(devCaenDigParamSi,   stringin,  &init_record_common, &get_status_update, &read_si);
+DSET(devCaenDigParamSo,   stringout, &init_record_common, NULL,               &write_so);
+DSET(devCaenDigParamLi,   longin,    &init_record_common, &get_status_update, &read_li);
+DSET(devCaenDigParamLo,   longout,   &init_record_common, NULL,               &write_lo);
+DSET(devCaenDigParamAi,   ai,        &init_record_common, &get_status_update, &read_ai);
+DSET(devCaenDigParamAo,   ao,        &init_record_common, NULL,               &write_ao);
+DSET(devCaenDigParamBi,   bi,        &init_record_common, &get_status_update, &read_bi);
+DSET(devCaenDigParamBo,   bo,        &init_record_common, NULL,               &write_bo);
+DSET(devCaenDigParamMbbi, mbbi,      &init_record_common, &get_status_update, &read_mbbi);
+DSET(devCaenDigParamMbbo, mbbo,      &init_record_common, NULL,               &write_mbbo);
 
-DSET(devCaenDigCmdBo, bo, NULL, &send_command_bo);
+DSET(devCaenDigCmdBo,     bo,        &init_record_common, NULL,               &send_command_bo);
+
+DSET(devCaenDigChDataWf, waveform,  &init_record_chan,   &get_data_update,   &read_chan_data);
 
 epicsExportRegistrar(caenDigitizerRegistrar);

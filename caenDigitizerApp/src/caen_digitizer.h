@@ -1,11 +1,12 @@
 #pragma once
 
-#include "devSup.h"
-#include "epicsMutex.h"
 #include <cstdint>
 #include <string>
 #include <map>
+#include <functional>
 
+#include <devSup.h>
+#include <epicsMutex.h>
 #include <epicsThread.h>
 #include <epicsMessageQueue.h>
 #include <dbScan.h>
@@ -14,6 +15,20 @@ class CaenDigitizer;
 class CaenDigitizerParam;
 
 typedef std::map<std::string, CaenDigitizerParam *> ParameterMap;
+
+// Acquisition event from the scope
+struct Event {
+    static const std::string DATA_FORMAT;
+    size_t n_channels;
+    uint64_t timestamp;
+    uint32_t trigger_id;
+    uint16_t **waveform;
+    size_t *n_samples;
+    size_t event_size;
+
+    Event(size_t n_channels, size_t max_samples);
+    ~Event();
+};
 
 class CaenDigitizerParam {
 public:
@@ -100,13 +115,15 @@ class CaenDigitizer : public epicsThreadRunable {
         bool running;
         IOSCANPVT *scan;
 
+        // Pointers to the latest event that is stored in the parent
+        Event **latest_event;
+        epicsMutex *latest_event_lock;
+
         // Commands to control this task
         epicsMessageQueue task_commands;
 
-        // Pending events read from the device
-        epicsMessageQueue pending_events;
-
-        DataReader(const std::string & name, IOSCANPVT *scan);
+        DataReader(const std::string & name, IOSCANPVT *scan,
+            Event **latest_event, epicsMutex *latest_event_mutex);
         virtual ~DataReader();
         virtual void run();
 
@@ -120,6 +137,9 @@ class CaenDigitizer : public epicsThreadRunable {
     bool running_;
 
     ParameterMap params_;
+
+    Event *latest_event_;
+    epicsMutex latest_event_lock_;
 
     // Worker sub-threads
     ParameterReader parameter_reader_;
@@ -157,4 +177,9 @@ public:
 
     CaenDigitizerParam *get_parameter(const std::string & path);
 
+    IOSCANPVT get_data_update();
+
+    // Run the function f with latest_event_lock locked, passing in
+    // latest_event
+    void with_latest_event(std::function<void(Event*)> f);
 };
