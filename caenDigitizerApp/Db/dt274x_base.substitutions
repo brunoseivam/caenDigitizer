@@ -27,7 +27,7 @@ pattern
 { "#", "AdcSampleRate",             "/par/ADC_SamplRate",       "Msps", "",         "",            "ADC Sample Rate"                   }
 { "",  "DacOutChanSelect",          "/par/DacOutChSelect",      "",     "0",        "63",          "DAC Out Channel Select"            }
 { "",  "DacOutStaticLevel",         "/par/DacOutStaticLevel",   "",     "0",        "16383",       "DAC Out Static Level"              }
-{ "#", "DeadTimeMonitor",           "/par/DeadTimeMonitor",     "ns",   "",         "",            "DeadTime measured by the FPGA"     }
+{ "#", "DeadTimeMonitor",           "/par/DeadTimeMonitor",     "ns",   "",         "",            "DeadTime"                          }
 { "",  "ErrFlagDataMask",           "/par/ErrorFlagDataMask",   "",     "",         "",            "Data Error Mask"                   }
 { "",  "ErrFlagMask",               "/par/ErrorFlagMask",       "",     "",         "",            "Error Mask"                        }
 { "#", "FamilyCode",                "/par/FamilyCode",          "",     "",         "",            "Family Code"                       }
@@ -38,25 +38,25 @@ pattern
 { "",  "ITLB:MajLevel",             "/par/ITLBMajorityLev",     "",     "0",        "63",          "ITLB Majority Level"               }
 { "",  "ITLB:Mask",                 "/par/ITLBMask",            "",     "",         "",            "ITLB Enable Mask"                  }
 { "#", "LicenseRemTime",            "/par/LicenseRemainingTime","s",    "",         "",            "License Remaining Time"            }
-{ "#", "LiveTimeMonitor",           "/par/LiveTimeMonitor",     "ns",   "",         "",            "LiveTime measured by the FPGA"     }
-{ "#", "LostTriggerCount",          "/par/LostTriggerCnt",      "",     "",         "",            "Num triggers received when busy"   }
+{ "#", "LiveTimeMonitor",           "/par/LiveTimeMonitor",     "ns",   "",         "",            "LiveTime"                          }
+{ "#", "LostTriggerCount",          "/par/LostTriggerCnt",      "",     "",         "",            "Lost Triggers Count"               }
 { "",  "LvdsIoReg",                 "/par/LVDSIOReg",           "",     "",         "",            "LVDS I/O status"                   }
-{ "#", "MaxRawDataSize",            "/par/MaxRawDataSize",      "byte", "",         "",            "Max size returned from GetData"    }
-{ "",  "PreTriggerS",               "/par/PreTriggerS",         "samp", "0",        "2042",        "Num samp before trigger pos in wf" }
-{ "",  "PreTriggerT",               "/par/PreTriggerT",         "ns",   "0",        "16336",       "WF len from before trig pos in wf" }
-{ "#", "RealTimeMonitor",           "/par/RealTimeMonitor",     "ns",   "0",        "16336",       "RealTime measured by the FPGA"     }
-{ "",  "RecordLenS",                "/par/RecordLengthS",       "samp", "4",        "10485760",    "Num samp in WF"                    }
-{ "",  "RecordLenT",                "/par/RecordLengthT",       "ns",   "32",       "83886080",    "WF duration"                       }
-{ "",  "RunDelay",                  "/par/RunDelay",            "ns",   "0",        "524280",      "Delay from rising edge of RUN sig" }
-{ "#", "SpeedSensFan1",             "/par/SpeedSensFan1",       "rpm",  "",         "",            "Speed of the Fan 1"                }
-{ "#", "SpeedSensFan2",             "/par/SpeedSensFan2",       "rpm",  "",         "",            "Speed of the Fan 2"                }
+{ "#", "MaxRawDataSize",            "/par/MaxRawDataSize",      "byte", "",         "",            "Max size from GetData"             }
+{ "",  "PreTriggerS",               "/par/PreTriggerS",         "samp", "0",        "2042",        "Pre-Trigger (samples)"             }
+{ "",  "PreTriggerT",               "/par/PreTriggerT",         "ns",   "0",        "16336",       "Pre-Trigger (time)"                }
+{ "#", "RealTimeMonitor",           "/par/RealTimeMonitor",     "ns",   "0",        "16336",       "RealTime"                          }
+{ "",  "RecordLenS",                "/par/RecordLengthS",       "samp", "4",        "10485760",    "Waveform samples"                  }
+{ "",  "RecordLenT",                "/par/RecordLengthT",       "ns",   "32",       "83886080",    "Waveform duration"                 }
+{ "",  "RunDelay",                  "/par/RunDelay",            "ns",   "0",        "524280",      "Delay Rising edge of RUN sig"      }
+{ "#", "SpeedSensFan1",             "/par/SpeedSensFan1",       "rpm",  "",         "",            "Fan 1 Speed"                       }
+{ "#", "SpeedSensFan2",             "/par/SpeedSensFan2",       "rpm",  "",         "",            "Fan 2 Speed"                       }
 { "",  "TestPulseHiLvl",            "/par/TestPulseHighLevel",  "ct",   "0",        "65535",       "Test Pulse High Level"             }
 { "",  "TestPulseLoLvl",            "/par/TestPulseLowLevel",   "ct",   "0",        "65535",       "Test Pulse Low Level"              }
 { "",  "TestPulsePeriod",           "/par/TestPulsePeriod",     "ns",   "0",        "34359738360", "Test Pulse Period"                 }
 { "",  "TestPulseWidth",            "/par/TestPulseWidth",      "ns",   "0",        "34359738360", "Test Pulse Width"                  }
-{ "#", "TrigCount",                 "/par/TriggerCnt",          "",     "",         "",            "Count of Triggers by FPGA"         }
-{ "",  "TriggerDelayS",             "/par/TriggerDelayS",       "samp", "0",        "4294967295",  "Trigger delay in samples"          }
-{ "",  "TriggerDelayT",             "/par/TriggerDelayT",       "ns",   "0",        "34359738360", "Trigger delay time"                }
+{ "#", "TrigCount",                 "/par/TriggerCnt",          "",     "",         "",            "Triggers Count"                    }
+{ "",  "TriggerDelayS",             "/par/TriggerDelayS",       "samp", "0",        "4294967295",  "Trigger delay (samples)"           }
+{ "",  "TriggerDelayT",             "/par/TriggerDelayT",       "ns",   "0",        "34359738360", "Trigger delay (time)"              }
 { "",  "VetoWidth",                 "/par/VetoWidth",           "ns",   "0",        "34359738360", "Veto Width"                        }
 }
 
@@ -66,21 +66,21 @@ pattern
 { "#", "InputRange",                "/par/InputRange",             "V",    "1",   "",                     "",                    "Input dynamic range"             }
 { "#", "IOutSensDcDc",              "/par/IOutSensDcDc",           "A",    "3",   "",                     "",                    "DCDC Current Out"                }
 { "",  "PermClkOutDly",             "/par/PermanentClockOutDelay", "ps",   "13",  "-18888.8888888888905", "18888.8888888888905", "Clock Out Delay in Flash mem"    }
-{ "#", "TempSensAdc0",              "/par/TempSensAdc0",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #0"           }
-{ "#", "TempSensAdc1",              "/par/TempSensAdc1",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #1"           }
-{ "#", "TempSensAdc2",              "/par/TempSensAdc2",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #2"           }
-{ "#", "TempSensAdc3",              "/par/TempSensAdc3",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #3"           }
-{ "#", "TempSensAdc4",              "/par/TempSensAdc4",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #4"           }
-{ "#", "TempSensAdc5",              "/par/TempSensAdc5",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #5"           }
-{ "#", "TempSensAdc6",              "/par/TempSensAdc6",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #6"           }
-{ "#", "TempSensAdc7",              "/par/TempSensAdc7",           "degC", "1",   "",                     "",                    "Temp at ADC sensor #7"           }
-{ "#", "TempSensAirIn",             "/par/TempSensAirIn",          "degC", "1",   "",                     "",                    "Temp at board air entrance"      }
-{ "#", "TempSensAirOut",            "/par/TempSensAirOut",         "degC", "1",   "",                     "",                    "Temp at board air exit"          }
-{ "#", "TempSensCore",              "/par/TempSensCore",           "degC", "1",   "",                     "",                    "Temp at FPGA core"               }
-{ "#", "TempSensDcDc",              "/par/TempSensDcDc",           "degC", "1",   "",                     "",                    "Temp at DCDC converter"          }
-{ "#", "TempSensFirstAdc",          "/par/TempSensFirstAdc",       "degC", "1",   "",                     "",                    "Temp at first ADC"               }
-{ "#", "TempSensHottestAdc",        "/par/TempSensHottestAdc",     "degC", "1",   "",                     "",                    "Temp at hottest ADC"             }
-{ "#", "TempSensLastAdc",           "/par/TempSensLastAdc",        "degC", "1",   "",                     "",                    "Temp at last ADC"                }
+{ "#", "TempSensAdc0",              "/par/TempSensAdc0",           "degC", "1",   "",                     "",                    "Temp ADC sensor #0"              }
+{ "#", "TempSensAdc1",              "/par/TempSensAdc1",           "degC", "1",   "",                     "",                    "Temp ADC sensor #1"              }
+{ "#", "TempSensAdc2",              "/par/TempSensAdc2",           "degC", "1",   "",                     "",                    "Temp ADC sensor #2"              }
+{ "#", "TempSensAdc3",              "/par/TempSensAdc3",           "degC", "1",   "",                     "",                    "Temp ADC sensor #3"              }
+{ "#", "TempSensAdc4",              "/par/TempSensAdc4",           "degC", "1",   "",                     "",                    "Temp ADC sensor #4"              }
+{ "#", "TempSensAdc5",              "/par/TempSensAdc5",           "degC", "1",   "",                     "",                    "Temp ADC sensor #5"              }
+{ "#", "TempSensAdc6",              "/par/TempSensAdc6",           "degC", "1",   "",                     "",                    "Temp ADC sensor #6"              }
+{ "#", "TempSensAdc7",              "/par/TempSensAdc7",           "degC", "1",   "",                     "",                    "Temp ADC sensor #7"              }
+{ "#", "TempSensAirIn",             "/par/TempSensAirIn",          "degC", "1",   "",                     "",                    "Temp board air entrance"         }
+{ "#", "TempSensAirOut",            "/par/TempSensAirOut",         "degC", "1",   "",                     "",                    "Temp board air exit"             }
+{ "#", "TempSensCore",              "/par/TempSensCore",           "degC", "1",   "",                     "",                    "Temp FPGA core"                  }
+{ "#", "TempSensDcDc",              "/par/TempSensDcDc",           "degC", "1",   "",                     "",                    "Temp DCDC converter"             }
+{ "#", "TempSensFirstAdc",          "/par/TempSensFirstAdc",       "degC", "1",   "",                     "",                    "Temp first ADC"                  }
+{ "#", "TempSensHottestAdc",        "/par/TempSensHottestAdc",     "degC", "1",   "",                     "",                    "Temp hottest ADC"                }
+{ "#", "TempSensLastAdc",           "/par/TempSensLastAdc",        "degC", "1",   "",                     "",                    "Temp last ADC"                   }
 { "#", "VInSensDcDc",               "/par/VInSensDcDc",            "V",    "3",   "",                     "",                    "VIn of DCDC converter"           }
 { "",  "VolClkOutDly",              "/par/VolatileClockOutDelay",  "ps",   "13",  "-18888.8888888888905", "18888.8888888888905", "Volatile Clock Out Delay"        }
 { "#", "VOutSensDcDc",              "/par/VOutSensDcDc",           "V",    "3",   "",                     "",                    "VOut of DCDC converter"          }
@@ -102,39 +102,39 @@ pattern
 
 file "dt274x_par_bool.template" {
 pattern
-{ W,   NAME,                 PATH,                       DESC                                 }
-{ "#", "BoardReady",         "/par/BoardReady",          "Board Ready"                        }
-{ "",  "AutoDisarmAcq",      "/par/EnAutoDisarmAcq",     "Disarm acq at stop of run"          }
-{ "",  "ChannelSuppr",       "/par/EnChSuppr",           "Enable channel suppression"         }
-{ "",  "ClockOutFP",         "/par/EnClockOutFP",        "Enable clock output on Front Panel" }
-{ "",  "MultiWinRun",        "/par/EnMultiWindowRun",    "Enale Multi-Window Run"             }
-{ "",  "OffsetCalib",        "/par/EnOffsetCalibration", "Enale Offset Calibration"           }
-{ "",  "TrigOverlap",        "/par/EnTriggerOverlap",    "Enale Trigger Overlap"              }
-{ "",  "ITLA:Retrigger",     "/par/ITLAEnRetrigger",     "Enable ITLA Retrigger"              }
-{ "",  "ITLB:Retrigger",     "/par/ITLBEnRetrigger",     "Enable ITLB Retrigger"              }
-{ "#", "SfpLinkActive",      "/par/SFPLinkActive",       "SFP Link Status"                    }
-{ "#", "SfpLinkPresence",    "/par/SFPLinkPresence",     "SFP Link Presence"                  }
+{ W,   NAME,                 PATH,                       DESC                            }
+{ "#", "BoardReady",         "/par/BoardReady",          "Board Ready"                   }
+{ "",  "AutoDisarmAcq",      "/par/EnAutoDisarmAcq",     "Disarm acq at stop of run"     }
+{ "",  "ChannelSuppr",       "/par/EnChSuppr",           "Enable channel suppression"    }
+{ "",  "ClockOutFP",         "/par/EnClockOutFP",        "Enable clk out on Front Panel" }
+{ "",  "MultiWinRun",        "/par/EnMultiWindowRun",    "Enale Multi-Window Run"        }
+{ "",  "OffsetCalib",        "/par/EnOffsetCalibration", "Enale Offset Calibration"      }
+{ "",  "TrigOverlap",        "/par/EnTriggerOverlap",    "Enale Trigger Overlap"         }
+{ "",  "ITLA:Retrigger",     "/par/ITLAEnRetrigger",     "Enable ITLA Retrigger"         }
+{ "",  "ITLB:Retrigger",     "/par/ITLBEnRetrigger",     "Enable ITLB Retrigger"         }
+{ "#", "SfpLinkActive",      "/par/SFPLinkActive",       "SFP Link Status"               }
+{ "#", "SfpLinkPresence",    "/par/SFPLinkPresence",     "SFP Link Presence"             }
 }
 
 file "dt274x_par_enum.template" {
 pattern
 { W,   NAME,             PATH,                      DESC,                           ZRST,           ONST,             TWST,          THST,           FRST,   FVST,           SXST,           SVST,             EIST,           NIST,           TEST,    ELST,  TVST,     TTST,        FTST,   FFST         }
-{ "",  "BusyInSource",   "/par/BusyInSource",       "Source of Busy Input",         "Disabled",     "SIN",            "GPIO",        "LVDS",         "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "ClockSource",    "/par/ClockSource",        "Source of System Clock",       "Internal",     "FPClkIn",        "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "DacOutMode",     "/par/DacOutMode",         "Mode of the DAC Output",       "Static",       "Ramp",           "Sin5MHz",     "Square",       "IPE",  "ChInput",      "MemOccupancy", "ChSum",          "OverThrSum",   "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "BusyInSource",   "/par/BusyInSource",       "Busy Input Source",            "Disabled",     "SIN",            "GPIO",        "LVDS",         "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "ClockSource",    "/par/ClockSource",        "System Clock Source",          "Internal",     "FPClkIn",        "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "DacOutMode",     "/par/DacOutMode",         "DAC Output Mode",              "Static",       "Ramp",           "Sin5MHz",     "Square",       "IPE",  "ChInput",      "MemOccupancy", "ChSum",          "OverThrSum",   "",             "",      "",    "",       "",          "",     ""           }
 { "",  "DecimationFac",  "/par/DecimationFactor",   "ADC Decimation Factor",        "1",            "2",              "4",           "8",            "16",   "32",           "64",           "128",            "256",          "512",          "1024",  "",    "",       "",          "",     ""           }
 # NOTE: For GPIO Mode, we're missing the last two possible values, Fixed0 and Fixed1, which didn't fit into mbbi/mbbo
 { "",  "GpioMode",       "/par/GpioMode",           "GPIO Mode",                    "Disabled",     "TrgIn",          "P0",          "SIN",          "LVDS", "ITLA",         "ITLB",         "ITLA_AND_ITLB",  "ITLA_OR_ITLB", "EncodedClkIn", "SwTrg", "Run", "RefClk", "TestPulse", "Busy", "UserGPO"    }
 { "#", "InputType",      "/par/InputType",          "Input Type",                   "SE",           "Differential",   "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
 { "#", "IOLevel",        "/par/IOLevel",            "Electrical logic I/O Level",   "NIM",          "TTL",            "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "ITLA:MainLogic", "/par/ITLAMainLogic",      "Set the logic of ITLA",        "OR",           "AND",            "Majority",    "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "ITLA:PairLogic", "/par/ITLAPairLogic",      "ITLA Pairs comb logic",        "OR",           "AND",            "NONE",        "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "ITLA:MainLogic", "/par/ITLAMainLogic",      "ITLA Main Logic",              "OR",           "AND",            "Majority",    "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "ITLA:PairLogic", "/par/ITLAPairLogic",      "ITLA Pair Logic",              "OR",           "AND",            "NONE",        "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
 { "",  "ITLA:Polarity",  "/par/ITLAPolarity",       "ITLA Polarity",                "Direct",       "Inverted",       "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "ITLB:MainLogic", "/par/ITLBMainLogic",      "Set the logic of ITLB",        "OR",           "AND",            "Majority",    "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "ITLB:PairLogic", "/par/ITLBPairLogic",      "ITLB Pairs comb logic",        "OR",           "AND",            "NONE",        "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "ITLB:MainLogic", "/par/ITLBMainLogic",      "ITLB Main Logic",              "OR",           "AND",            "Majority",    "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "ITLB:PairLogic", "/par/ITLBPairLogic",      "ITLB Pair logic",              "OR",           "AND",            "NONE",        "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
 { "",  "ITLB:Polarity",  "/par/ITLBPolarity",       "ITLB Polarity",                "Direct",       "Inverted",       "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "PauseTimeStamp", "/par/PauseTimeStamp",     "TS to stop or run dur pauses", "Hold",         "Run",            "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
-{ "",  "StartSource",    "/par/StartSource",        "Source for the start of Run",  "EncodedClkIn", "SINlevel",       "SINedge",     "SWcmd",        "LVDS", "FirstTrigger", "P0",           "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "PauseTimeStamp", "/par/PauseTimeStamp",     "Pause TimeStamp",              "Hold",         "Run",            "",            "",             "",     "",             "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
+{ "",  "StartSource",    "/par/StartSource",        "Start of Run Source",          "EncodedClkIn", "SINlevel",       "SINedge",     "SWcmd",        "LVDS", "FirstTrigger", "P0",           "",               "",             "",             "",      "",    "",       "",          "",     ""           }
 { "",  "SyncOutMode",    "/par/SyncOutMode",        "SyncOut Mode",                 "Disabled",     "SyncIn",         "TestPulse",   "IntClk",       "Run",  "User",         "",             "",               "",             "",             "",      "",    "",       "",          "",     ""           }
 # NOTE: For Trigger Out Mode, we're missing the last few possible values: Fixed0, Fixed1, SyncIn, SIN, GPIO, LBinClk, AcceptTrg, TrgClk
 { "",  "TrigOutMode",    "/par/TrgOutMode",         "Trigger Out Mode",             "Disabled",     "TrgIn",          "P0",          "SwTrg",        "LVDS", "ITLA",         "ITLB",         "ITLA_AND_ITLB",  "ITLA_OR_ITLB", "EncodedClkIn", "SwTrg", "Run", "RefClk", "TestPulse", "Busy", "UserTrgOut" }
@@ -146,14 +146,14 @@ pattern
 
 file "dt274x_cmd.template" {
 pattern
-{ NAME,                 PATH,                      DESC                                       }
-{ "ArmAcquisition",     "/cmd/armacquisition",     "Arms digitizer to start the acquisition"  }
-{ "ClearData",          "/cmd/cleardata",          "Clear data from memories"                 }
-{ "DisarmAcquisition",  "/cmd/disarmacquisition",  "Disarms acq and prevents new run"         }
-{ "Reboot",             "/cmd/reboot",             "Reboots the board after 4 seconds"        }
-{ "ReloadCalibration",  "/cmd/reloadcalibration",  "Del calib file and reload, or use def"    }
-{ "Reset",              "/cmd/reset",              "Resets the board"                         }
-{ "SendSWTrigger",      "/cmd/sendswtrigger",      "Send a software trigger"                  }
-{ "SWStartAcquisition", "/cmd/swstartacquisition", "Start the acquisition"                    }
-{ "SWStopAcquisition",  "/cmd/swstopacquisition",  "Stop the acquisition"                     }
+{ NAME,                 PATH,                      DESC                       }
+{ "ArmAcquisition",     "/cmd/armacquisition",     "Arm Digitizer"            }
+{ "ClearData",          "/cmd/cleardata",          "Clear data from memories" }
+{ "DisarmAcquisition",  "/cmd/disarmacquisition",  "Disarm acquisition"       }
+{ "Reboot",             "/cmd/reboot",             "Reboot the board"         }
+{ "ReloadCalibration",  "/cmd/reloadcalibration",  "Del calib file and reload"}
+{ "Reset",              "/cmd/reset",              "Resets the board"         }
+{ "SendSWTrigger",      "/cmd/sendswtrigger",      "Send Software Trigger"    }
+{ "SWStartAcquisition", "/cmd/swstartacquisition", "Start Acquisition"        }
+{ "SWStopAcquisition",  "/cmd/swstopacquisition",  "Stop Acquisition"         }
 }
