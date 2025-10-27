@@ -1,7 +1,7 @@
 record(longin, "$(P)$(R)$(NAME)_RBV") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Param")
-    field(INP,  "@$(PORT) $(TYPE=INT) $(PATH)")
+    field(INP,  "@$(PORT) $(PATH)")
     field(EGU,  "$(EGU=)")
     field(SCAN, "$(SCAN=I/O Intr)")
 }
@@ -9,7 +9,7 @@ record(longin, "$(P)$(R)$(NAME)_RBV") {
 $(W)record(longout, "$(P)$(R)$(NAME)") {
 $(W)    field(DESC, "$(DESC)")
 $(W)    field(DTYP, "CAEN Dig Param")
-$(W)    field(OUT,  "@$(PORT) $(TYPE=INT) $(PATH)")
+$(W)    field(OUT,  "@$(PORT) $(PATH)")
 $(W)    field(DRVL, "$(DRVL=)")
 $(W)    field(DRVH, "$(DRVH=)")
 $(W)    field(EGU,  "$(EGU=)")

@@ -1,7 +1,7 @@
 record(longin, "$(P)$(R)$(NAME)_RBV") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Param")
-    field(INP,  "@$(PORT) $(TYPE=INT) $(PATH)")
+    field(INP,  "@$(PORT) $(PATH)")
     field(EGU,  "$(EGU=)")
     field(SCAN, "$(SCAN=I/O Intr)")
     field(FLNK, "$(P)$(R)$(NAME)BITS_RBV PP")

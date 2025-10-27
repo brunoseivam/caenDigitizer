@@ -1,5 +1,5 @@
 record(bo, "$(P)$(R)Cmd:$(NAME)") {
     field(DESC, "$(DESC)")
     field(DTYP, "CAEN Dig Cmd")
-    field(OUT,  "@$(PORT) CMD $(PATH)")
+    field(OUT,  "@$(PORT) $(PATH)")
 }

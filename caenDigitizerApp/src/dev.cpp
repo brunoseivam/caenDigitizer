@@ -132,8 +132,7 @@ long get_dev_link_match(dbCommon *prec, const std::regex & re, std::cmatch & m) 
 }
 
 long init_record_common(dbCommon *prec) {
-    // TODO: remove param type from link
-    static std::regex LINK_RE("([^\\s]+) (INT|DBL|STR|CMD|BOOL) ([^\\s]+)");
+    static std::regex LINK_RE("([^\\s]+) ([^\\s]+)");
 
     try {
         std::cmatch m;
@@ -142,8 +141,7 @@ long init_record_common(dbCommon *prec) {
             return ret;
 
         std::string dev_name = m[1].str();
-        std::string data_type = m[2].str();
-        std::string path = m[3].str();
+        std::string path = m[2].str();
 
         auto dev = dev_map.find(dev_name);
         if (dev == dev_map.end()) {
