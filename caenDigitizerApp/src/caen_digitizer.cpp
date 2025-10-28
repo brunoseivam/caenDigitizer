@@ -471,7 +471,7 @@ struct Event *CaenDigitizer::DataReader::read_data(uint64_t ep_handle, size_t nu
 
     switch (ec) {
         case CAEN_FELib_Timeout: /*printf("TIMEOUT\n");*/ break;
-        case CAEN_FELib_Stop: printf("GOT STOP\n"); break;
+        case CAEN_FELib_Stop: /*printf("GOT STOP\n");*/ break;
         default: throw_if_err(ec, "Failed to read data from scope"); break;
     }
 
@@ -551,6 +551,10 @@ void CaenDigitizer::stop() {
 
 void CaenDigitizer::run() {
     uint64_t handle = NO_HANDLE;
+    static double MIN_WAIT = 1.0f;
+    static double MAX_WAIT = 60.0f;
+    double wait_for = MIN_WAIT;
+
     while (running_) {
         // Clear all parameters
         for (auto it = params_.begin(); it != params_.end(); ++it)
@@ -562,9 +566,16 @@ void CaenDigitizer::run() {
             char err_desc[512];
             CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
             CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
-            errlogPrintf(ERL_ERROR " %s: Failed to open device: %s: %s\n", name_.c_str(), err_name, err_desc);
-            epicsThreadSleep(1.0);
+            errlogPrintf(
+                ERL_ERROR " %s: Failed to open device: %s: %s (next attempt in %.0f sec)\n",
+                name_.c_str(), err_name, err_desc, wait_for
+            );
+
+            epicsThreadSleep(wait_for);
+            wait_for = std::min(wait_for*2, MAX_WAIT);
             continue;
+        } else {
+            wait_for = MIN_WAIT;
         }
 
         try {
@@ -578,9 +589,6 @@ void CaenDigitizer::run() {
             data_reader_.task_commands.send(&stop, sizeof(stop));
 
             CAEN_FELib_Close(handle);
-
-            // TODO: exponential back off
-            epicsThreadSleep(1.0);
         }
     }
 
@@ -649,33 +657,12 @@ void CaenDigitizer::run_with(uint64_t handle) {
     data_reader_.task_commands.send(&task_start, sizeof(task_start));
 
     while (running_) {
-        // Fetch all parameter values from the device
-        epicsTime start = epicsTime::getCurrent();
-
-        // TODO: periodically fetch a random value just to check device health
-
-        // TODO: cleanup
-        /*struct Event *event = NULL;
-        while (data_reader_.pending_events.receive(&event, sizeof(event), WAIT_FOR_WRITE_SECS) > 0) {
-            printf("timestamp = %lu\n", event->timestamp);
-            printf("trigger_id = %u\n", event->trigger_id);
-            printf("event_size = %lu\n", event->event_size);
-            printf("n_channels = %lu\n", event->n_channels);
-            printf("n_samples = [");
-            for (size_t ch = 0; ch < event->n_channels; ++ch) {
-                printf("%lu ", event->n_samples[ch]);
-            }
-            printf("]\n");
-            delete event;
-            event = NULL;
-            }*/
-
-        double duration = epicsTime::getCurrent() - start;
-        if (duration < 1.0) {
-            epicsThreadSleep(1.0 - duration);
-        }
-
-        //printf("Fetched bytes in %.3f sec\n", duration);
+        // Periodically fetch a value as a health indicator. Throw in case of failure, so that
+        // the connection can be closed and re-attempted by the outer loop
+        char value[32];
+        int ec = CAEN_FELib_GetValue(handle, "/par/BoardReady", value);
+        throw_if_err(ec, "Failed to get board status");
+        epicsThreadSleep(1.0);
     }
 }
 
