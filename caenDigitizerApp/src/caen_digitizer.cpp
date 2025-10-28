@@ -130,14 +130,24 @@ static std::string str_tolower(std::string s) {
     return s;
 }
 
+static std::string get_err_name(int ec) {
+    char err_name[512];
+    CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
+    return std::string(err_name);
+}
+
+static std::string get_err_desc(int ec) {
+    char err_desc[512];
+    CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
+    return std::string(err_desc);
+}
+
 static void throw_if_err(int ec, const std::string & msg) {
     if (ec < 0) {
-        char err_name[512];
-        char err_desc[512];
-        CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
-        CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
+        std::string err_name = get_err_name(ec);
+        std::string err_desc = get_err_desc(ec);
         char exc_desc[2048];
-        snprintf(exc_desc, sizeof(exc_desc), "%s: %s. %s", msg.c_str(), err_name, err_desc);
+        snprintf(exc_desc, sizeof(exc_desc), "%s: %s. %s", msg.c_str(), err_name.c_str(), err_desc.c_str());
         throw std::runtime_error(exc_desc);
     }
 }
@@ -378,18 +388,23 @@ void CaenDigitizer::ParameterWriter::run() {
             switch (type) {
                 case PendingWrite::Type::Param: {
                     int ec = CAEN_FELib_SetValue(handle, path.c_str(), value.c_str());
-                    printf("SET [%d] %s '%s'\n", ec, path.c_str(), value.c_str());
+                    //printf("SET [%d] %s '%s'\n", ec, path.c_str(), value.c_str());
                     if (ec < 0) {
-                        errlogPrintf(ERL_ERROR " %s: Failed to set value for path '%s'\n", name.c_str(), path.c_str());
+                        errlogPrintf(
+                            ERL_ERROR " %s: Failed to set value for '%s' (%s: %s)\n",
+                            name.c_str(), path.c_str(), get_err_name(ec).c_str(), get_err_desc(ec).c_str()
+                        );
                     }
                     break;
                 }
                 case PendingWrite::Type::Command: {
                     int ec = CAEN_FELib_SendCommand(handle, path.c_str());
-                    printf("CMD [%d] %s\n", ec, path.c_str());
+                    //printf("CMD [%d] %s\n", ec, path.c_str());
                     if (ec < 0) {
-                        // TODO: better error handling
-                        errlogPrintf(ERL_ERROR " %s: Failed to send command '%s'\n", name.c_str(), path.c_str());
+                        errlogPrintf(
+                            ERL_ERROR " %s: Failed to send command '%s' (%s: %s)\n",
+                            name.c_str(), path.c_str(), get_err_name(ec).c_str(), get_err_desc(ec).c_str()
+                        );
                     }
                     break;
                 }
@@ -562,13 +577,9 @@ void CaenDigitizer::run() {
 
         int ec = CAEN_FELib_Open(addr_.c_str(), &handle);
         if (ec < 0) {
-            char err_name[512];
-            char err_desc[512];
-            CAEN_FELib_GetErrorName(static_cast<CAEN_FELib_ErrorCode>(ec), err_name);
-            CAEN_FELib_GetErrorDescription(static_cast<CAEN_FELib_ErrorCode>(ec), err_desc);
             errlogPrintf(
                 ERL_ERROR " %s: Failed to open device: %s: %s (next attempt in %.0f sec)\n",
-                name_.c_str(), err_name, err_desc, wait_for
+                name_.c_str(), get_err_name(ec).c_str(), get_err_desc(ec).c_str(), wait_for
             );
 
             epicsThreadSleep(wait_for);
