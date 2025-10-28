@@ -22,11 +22,11 @@ iocInit()
 # Wait for connection
 epicsThreadSleep 2.0
 
-# Enable channel 0, disable rest
+# Enable channels 0-3, disable rest
 dbpf $(PREFIX)Ch0:Enable 1
-dbpf $(PREFIX)Ch1:Enable 0
-dbpf $(PREFIX)Ch2:Enable 0
-dbpf $(PREFIX)Ch3:Enable 0
+dbpf $(PREFIX)Ch1:Enable 1
+dbpf $(PREFIX)Ch2:Enable 1
+dbpf $(PREFIX)Ch3:Enable 1
 dbpf $(PREFIX)Ch4:Enable 0
 dbpf $(PREFIX)Ch5:Enable 0
 dbpf $(PREFIX)Ch6:Enable 0
@@ -89,10 +89,10 @@ dbpf $(PREFIX)Ch62:Enable 0
 dbpf $(PREFIX)Ch63:Enable 0
 
 # Setup number of samples for acquisition
-dbpf $(PREFIX)RecordLenS 1024
+dbpf $(PREFIX)RecordLenS 4096
 
 # Setup number of samples for pre-trigger
-dbpf $(PREFIX)PreTriggerS 100
+dbpf $(PREFIX)PreTriggerS 128
 
 # Setup Trigger Source
 dbpf $(PREFIX)AcqTrigSource_C03 1
@@ -101,9 +101,6 @@ dbpf $(PREFIX)AcqTrigSource_C11 1
 # Configure test pulse
 dbpf $(PREFIX)TestPulsePeriod 100000000
 dbpf $(PREFIX)TestPulseWidth 1000
-
-# Configure DC offset
-dbpf $(PREFIX)Ch0:DCOffset 50.0
 
 # Arm and start acquisition
 dbpf $(PREFIX)Cmd:ArmAcquisition 1
