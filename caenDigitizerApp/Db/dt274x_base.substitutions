@@ -27,7 +27,6 @@ pattern
 { "#", "AdcSampleRate",             "/par/ADC_SamplRate",       "Msps", "",         "",            "ADC Sample Rate"                   }
 { "",  "DacOutChanSelect",          "/par/DacOutChSelect",      "",     "0",        "63",          "DAC Out Channel Select"            }
 { "",  "DacOutStaticLevel",         "/par/DacOutStaticLevel",   "",     "0",        "16383",       "DAC Out Static Level"              }
-{ "#", "DeadTimeMonitor",           "/par/DeadTimeMonitor",     "ns",   "",         "",            "DeadTime"                          }
 { "",  "ErrFlagDataMask",           "/par/ErrorFlagDataMask",   "",     "",         "",            "Data Error Mask"                   }
 { "",  "ErrFlagMask",               "/par/ErrorFlagMask",       "",     "",         "",            "Error Mask"                        }
 { "#", "FamilyCode",                "/par/FamilyCode",          "",     "",         "",            "Family Code"                       }
@@ -38,13 +37,11 @@ pattern
 { "",  "ITLB:MajLevel",             "/par/ITLBMajorityLev",     "",     "0",        "63",          "ITLB Majority Level"               }
 { "",  "ITLB:Mask",                 "/par/ITLBMask",            "",     "",         "",            "ITLB Enable Mask"                  }
 { "#", "LicenseRemTime",            "/par/LicenseRemainingTime","s",    "",         "",            "License Remaining Time"            }
-{ "#", "LiveTimeMonitor",           "/par/LiveTimeMonitor",     "ns",   "",         "",            "LiveTime"                          }
 { "#", "LostTriggerCount",          "/par/LostTriggerCnt",      "",     "",         "",            "Lost Triggers Count"               }
 { "",  "LvdsIoReg",                 "/par/LVDSIOReg",           "",     "",         "",            "LVDS I/O status"                   }
 { "#", "MaxRawDataSize",            "/par/MaxRawDataSize",      "byte", "",         "",            "Max size from GetData"             }
 { "",  "PreTriggerS",               "/par/PreTriggerS",         "samp", "0",        "2042",        "Pre-Trigger (samples)"             }
 { "",  "PreTriggerT",               "/par/PreTriggerT",         "ns",   "0",        "16336",       "Pre-Trigger (time)"                }
-{ "#", "RealTimeMonitor",           "/par/RealTimeMonitor",     "ns",   "0",        "16336",       "RealTime"                          }
 { "",  "RecordLenS",                "/par/RecordLengthS",       "samp", "4",        "10485760",    "Waveform samples"                  }
 { "",  "RecordLenT",                "/par/RecordLengthT",       "ns",   "32",       "83886080",    "Waveform duration"                 }
 { "",  "RunDelay",                  "/par/RunDelay",            "ns",   "0",        "524280",      "Delay Rising edge of RUN sig"      }
@@ -58,6 +55,14 @@ pattern
 { "",  "TriggerDelayS",             "/par/TriggerDelayS",       "samp", "0",        "4294967295",  "Trigger delay (samples)"           }
 { "",  "TriggerDelayT",             "/par/TriggerDelayT",       "ns",   "0",        "34359738360", "Trigger delay (time)"              }
 { "",  "VetoWidth",                 "/par/VetoWidth",           "ns",   "0",        "34359738360", "Veto Width"                        }
+}
+
+file "dt274x_par_bigint.template" {
+pattern
+{ W,   NAME,                        PATH,                       EGU,    DRVL,       DRVH,          DESC                                }
+{ "#", "DeadTimeMonitor",           "/par/DeadTimeMonitor",     "ns",   "",         "",            "DeadTime"                          }
+{ "#", "LiveTimeMonitor",           "/par/LiveTimeMonitor",     "ns",   "",         "",            "LiveTime"                          }
+{ "#", "RealTimeMonitor",           "/par/RealTimeMonitor",     "ns",   "",         "",            "RealTime"                          }
 }
 
 file "dt274x_par_number.template" {

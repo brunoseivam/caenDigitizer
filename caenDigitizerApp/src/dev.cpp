@@ -27,6 +27,8 @@
 #include <stringoutRecord.h>
 #include <longinRecord.h>
 #include <longoutRecord.h>
+#include <int64inRecord.h>
+#include <int64outRecord.h>
 #include <aiRecord.h>
 #include <aoRecord.h>
 #include <biRecord.h>
@@ -253,6 +255,21 @@ long write_lo(longoutRecord *prec) {
     });
 }
 
+long read_int64in(int64inRecord *prec) {
+    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+        int64_t value;
+        param->get_value(value);
+        prec->val = value;
+    });
+}
+
+long write_int64out(int64outRecord *prec) {
+    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+        int64_t value = prec->val;
+        param->set_value(value);
+    });
+}
+
 long read_ai(aiRecord *prec) {
     return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
         int64_t value;
@@ -387,19 +404,19 @@ struct dset6 {
 #define DSET(NAME, REC, INIT, IOINTR, RW) static dset6<REC ## Record> NAME = \
     {6, NULL, NULL, INIT, IOINTR, RW, NULL}; epicsExportAddress(dset, NAME)
 
-DSET(devCaenDigParamSi,   stringin,  &init_record_common, &get_status_update, &read_si);
-DSET(devCaenDigParamSo,   stringout, &init_record_common, NULL,               &write_so);
-DSET(devCaenDigParamLi,   longin,    &init_record_common, &get_status_update, &read_li);
-DSET(devCaenDigParamLo,   longout,   &init_record_common, NULL,               &write_lo);
-DSET(devCaenDigParamAi,   ai,        &init_record_common, &get_status_update, &read_ai);
-DSET(devCaenDigParamAo,   ao,        &init_record_common, NULL,               &write_ao);
-DSET(devCaenDigParamBi,   bi,        &init_record_common, &get_status_update, &read_bi);
-DSET(devCaenDigParamBo,   bo,        &init_record_common, NULL,               &write_bo);
-DSET(devCaenDigParamMbbi, mbbi,      &init_record_common, &get_status_update, &read_mbbi);
-DSET(devCaenDigParamMbbo, mbbo,      &init_record_common, NULL,               &write_mbbo);
-
-DSET(devCaenDigCmdBo,     bo,        &init_record_common, NULL,               &send_command_bo);
-
-DSET(devCaenDigChDataWf, waveform,  &init_record_chan,   &get_data_update,   &read_chan_data);
+DSET(devCaenDigParamSi,       stringin,  &init_record_common, &get_status_update, &read_si);
+DSET(devCaenDigParamSo,       stringout, &init_record_common, NULL,               &write_so);
+DSET(devCaenDigParamLi,       longin,    &init_record_common, &get_status_update, &read_li);
+DSET(devCaenDigParamLo,       longout,   &init_record_common, NULL,               &write_lo);
+DSET(devCaenDigParamInt64In,  int64in,   &init_record_common, &get_status_update, &read_int64in);
+DSET(devCaenDigParamInt64Out, int64out,  &init_record_common, NULL,               &write_int64out);
+DSET(devCaenDigParamAi,       ai,        &init_record_common, &get_status_update, &read_ai);
+DSET(devCaenDigParamAo,       ao,        &init_record_common, NULL,               &write_ao);
+DSET(devCaenDigParamBi,       bi,        &init_record_common, &get_status_update, &read_bi);
+DSET(devCaenDigParamBo,       bo,        &init_record_common, NULL,               &write_bo);
+DSET(devCaenDigParamMbbi,     mbbi,      &init_record_common, &get_status_update, &read_mbbi);
+DSET(devCaenDigParamMbbo,     mbbo,      &init_record_common, NULL,               &write_mbbo);
+DSET(devCaenDigCmdBo,         bo,        &init_record_common, NULL,               &send_command_bo);
+DSET(devCaenDigChDataWf,      waveform,  &init_record_chan,   &get_data_update,   &read_chan_data);
 
 epicsExportRegistrar(caenDigitizerRegistrar);
