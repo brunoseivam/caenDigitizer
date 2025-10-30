@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-10-27 20:40:27 by bmartins-->
+<!--Saved on 2025-10-29 22:09:22 by bmartins-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
@@ -7445,6 +7445,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_17</name>
@@ -7460,6 +7461,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_18</name>
@@ -7475,6 +7477,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_19</name>
@@ -7490,6 +7493,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_12</name>
@@ -7505,6 +7509,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_13</name>
@@ -7520,6 +7525,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_14</name>
@@ -7535,6 +7541,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_15</name>
@@ -7550,6 +7557,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_11</name>
@@ -7565,6 +7573,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_10</name>
@@ -7580,6 +7589,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box_9</name>
@@ -7595,6 +7605,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="checkbox" version="2.0.0">
       <name>Check Box</name>
@@ -7610,6 +7621,7 @@
           <pv_name>$(pv_name).DESC</pv_name>
         </rule>
       </rules>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="label" version="2.0.0">
       <name>Label</name>
