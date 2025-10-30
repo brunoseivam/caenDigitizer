@@ -8,6 +8,7 @@
 #include <cstring>
 #include <ctime>
 #include <exception>
+#include <functional>
 #include <stdexcept>
 #include <string>
 
@@ -155,7 +156,7 @@ static void throw_if_err(int ec, const std::string & msg) {
 CaenDigitizerParam::CaenDigitizerParam(CaenDigitizer *parent, const std::string & path)
 : parent_(parent), path_(path),
   type_(path.find("/cmd") == 0 ? CaenDigitizerParam::Type::Command : CaenDigitizerParam::Type::Parameter),
-  handle_(NO_HANDLE), value_()
+  handle_(NO_HANDLE), timestamp_({0, 0}), value_(), ever_set_(false)
 {
     reset();
 }
@@ -164,43 +165,60 @@ IOSCANPVT CaenDigitizerParam::get_status_update() {
     return parent_->status_update;
 }
 
+void CaenDigitizerParam::register_callback(std::function<void()> cb) {
+    callbacks_.push_back(cb);
+}
+
 void CaenDigitizerParam::reset() {
     handle_ = NO_HANDLE;
+    timestamp_ = {0, 0};
     value_.clear();
+    ever_set_ = false;
 }
 
-void CaenDigitizerParam::set(uint64_t handle, const std::string & value) {
-    value_ = value;
+void CaenDigitizerParam::set(uint64_t handle, epicsTimeStamp ts, const std::string & value) {
+    // Trigger callbacks if this is the first time the value is set
+    // or if the value has changed
+    bool should_trigger_cb = (!ever_set_) || (value != value_);
     handle_ = handle;
+    timestamp_ = ts;
+    value_ = value;
+    ever_set_ = true;
+
+    if (should_trigger_cb)
+        for (auto & cb : callbacks_)
+            cb();
 }
 
-void CaenDigitizerParam::get_value(std::string & v) {
-    if (handle_ != NO_HANDLE)
+void CaenDigitizerParam::get_value(epicsTimeStamp & ts, std::string & v) {
+    if (handle_ != NO_HANDLE) {
+        ts = timestamp_;
         v = value_;
-    else
-        // TODO: improve error path
+    } else {
         throw std::runtime_error("INVALID HANDLE");
+    }
 }
 
-void CaenDigitizerParam::get_value(int64_t & v) {
+void CaenDigitizerParam::get_value(epicsTimeStamp & ts, int64_t & v) {
     std::string value;
-    get_value(value);
+    get_value(ts, value);
     v = std::stol(value);
 }
 
-void CaenDigitizerParam::get_value(double & v) {
+void CaenDigitizerParam::get_value(epicsTimeStamp & ts, double & v) {
     std::string value;
-    get_value(value);
+    get_value(ts, value);
     v = std::stod(value);
 }
 
-void CaenDigitizerParam::get_value(bool & v) {
+void CaenDigitizerParam::get_value(epicsTimeStamp & ts, bool & v) {
     std::string value;
-    get_value(value);
+    get_value(ts, value);
     v = value[0]=='T' || value[0]=='t';
 }
 
 void CaenDigitizerParam::set_value(const std::string & v) {
+    value_ = v;
     parent_->write_parameter(path_, v);
 }
 
@@ -288,6 +306,10 @@ void CaenDigitizer::ParameterReader::fetch_all_params(uint64_t handle) {
     // Parse device tree contents into JSON
     auto device_tree = json::parse(device_tree_buffer);
 
+    // Current timestamp to assign to all parameters
+    epicsTimeStamp param_ts;
+    epicsTimeGetCurrent(&param_ts);
+
     // For every registered parameter, search for its corresponding value in the device tree contents
     for (auto it = params->begin(); it != params->end(); ++it) {
         const std::string & path = it->first;
@@ -335,7 +357,7 @@ void CaenDigitizer::ParameterReader::fetch_all_params(uint64_t handle) {
             continue;
         }
 
-        param->set(param_handle, param_value);
+        param->set(param_handle, param_ts, param_value);
         //printf("P[%s] (%lu) = %s\n", path.c_str(), param->handle_, param->value_.c_str());
     }
 }

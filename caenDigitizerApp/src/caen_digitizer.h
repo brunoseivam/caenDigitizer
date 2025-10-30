@@ -9,6 +9,7 @@
 #include <epicsMutex.h>
 #include <epicsThread.h>
 #include <epicsMessageQueue.h>
+#include <epicsTime.h>
 #include <dbScan.h>
 
 class CaenDigitizer;
@@ -43,25 +44,31 @@ private:
     enum Type type_;
 
     uint64_t handle_;
+    epicsTimeStamp timestamp_;
     std::string value_;
+    bool ever_set_;
+
+    std::vector<std::function<void()>> callbacks_;
 
     // Reset this parameter to its initial, undefined value
     void reset();
 
     // Set the inner value for this parameter. Called whenever there's
     // an update
-    void set(uint64_t handle, const std::string & value);
+    void set(uint64_t handle, epicsTimeStamp ts, const std::string & value);
 
 public:
     CaenDigitizerParam(CaenDigitizer* parent, const std::string & path);
 
     IOSCANPVT get_status_update();
 
+    void register_callback(std::function<void()> cb);
+
     // Get the inner value, converting it to the target type
-    void get_value(std::string & v);
-    void get_value(int64_t & v);
-    void get_value(double & v);
-    void get_value(bool & v);
+    void get_value(epicsTimeStamp &ts, std::string & v);
+    void get_value(epicsTimeStamp &ts, int64_t & v);
+    void get_value(epicsTimeStamp &ts, double & v);
+    void get_value(epicsTimeStamp &ts, bool & v);
 
     // Enqueue a value update
     void set_value(const std::string & v);

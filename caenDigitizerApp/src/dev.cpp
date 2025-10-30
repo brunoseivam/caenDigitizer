@@ -1,4 +1,7 @@
 #include "caen_digitizer.h"
+#include "dbAccessDefs.h"
+#include "dbCommon.h"
+#include "dbLock.h"
 
 #include <algorithm>
 #include <cstring>
@@ -40,6 +43,15 @@
 
 typedef std::map<std::string, CaenDigitizer*> dev_map_t;
 static dev_map_t dev_map;
+
+struct ParamPvt {
+    CaenDigitizerParam *param;
+    bool pending_update;
+
+    ParamPvt(CaenDigitizerParam *param)
+    : param(param), pending_update(false)
+    {}
+};
 
 struct ChannelPvt {
     CaenDigitizer *dev;
@@ -94,21 +106,8 @@ void createCaenDigitizer(const std::string & name, const std::string & addr) {
 }
 
 // Device support
-
 long get_dev_link_match(dbCommon *prec, const std::regex & re, std::cmatch & m) {
-    DBLINK *plink = NULL;
-    DBENTRY ent;
-
-    dbInitEntry(pdbbase, &ent);
-
-    dbFindRecord(&ent, prec->name);
-    assert(ent.precnode->precord==(void*)prec);
-
-    if (dbFindField(&ent, "INP") == 0 || dbFindField(&ent, "OUT") == 0) {
-        plink = (DBLINK*)((char*)prec + ent.pflddes->offset);
-    }
-
-    dbFinishEntry(&ent);
+    DBLINK *plink = dbGetDevLink(prec);
 
     if (!plink) {
         recGblRecordError(S_db_badField, prec, "can't find dev link");
@@ -133,7 +132,26 @@ long get_dev_link_match(dbCommon *prec, const std::regex & re, std::cmatch & m) 
     return 0;
 }
 
-long init_record_common(dbCommon *prec) {
+enum RecType {
+    REC_INP,
+    REC_OUT,
+    REC_CMD,
+};
+long init_record_common(dbCommon *prec, enum RecType rt);
+
+long init_record_inp(dbCommon *prec) {
+    return init_record_common(prec, RecType::REC_INP);
+}
+
+long init_record_out(dbCommon *prec) {
+    return init_record_common(prec, RecType::REC_OUT);
+}
+
+long init_record_cmd(dbCommon *prec) {
+    return init_record_common(prec, RecType::REC_CMD);
+}
+
+long init_record_common(dbCommon *prec, enum RecType rt) {
     static std::regex LINK_RE("([^\\s]+) ([^\\s]+)");
 
     try {
@@ -155,7 +173,20 @@ long init_record_common(dbCommon *prec) {
 
         auto digitizer = dev->second;
         CaenDigitizerParam *p = digitizer->get_parameter(path);
-        prec->dpvt = p;
+        prec->dpvt = new ParamPvt(p);
+
+        // For output records, register a callback to refresh the value on connection
+        // or on external change
+        if (rt == RecType::REC_OUT) {
+            p->register_callback([prec]() {
+                dbScanLock(prec);
+                static_cast<ParamPvt*>(prec->dpvt)->pending_update = true;
+                prec->udf = 0;
+                dbProcess(prec);
+                static_cast<ParamPvt*>(prec->dpvt)->pending_update = false;
+                dbScanUnlock(prec);
+            });
+        }
 
         return 0;
     } catch (std::exception & ex) {
@@ -198,8 +229,8 @@ long init_record_chan(dbCommon *prec) {
 }
 
 long get_status_update(int, dbCommon* prec, IOSCANPVT* scan) {
-    CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
-    *scan = pvt->get_status_update();
+    ParamPvt *pvt = static_cast<ParamPvt*>(prec->dpvt);
+    *scan = pvt->param->get_status_update();
     return 0;
 }
 
@@ -210,101 +241,151 @@ long get_data_update(int, dbCommon* prec, IOSCANPVT* scan) {
 }
 
 template<typename R>
-using io_func_t = std::function<void(CaenDigitizerParam*)>;
+using read_func_t = std::function<void(CaenDigitizerParam*)>;
 
 template<typename R>
-long do_param_io(R *prec, long ret, int alarm, io_func_t<R> io_func) {
-    CaenDigitizerParam *pvt = static_cast<CaenDigitizerParam*>(prec->dpvt);
+long do_param_read(R *prec, long ret, read_func_t<R> read_func) {
+    ParamPvt *pvt = static_cast<ParamPvt*>(prec->dpvt);
+    CaenDigitizerParam *param = pvt->param;
 
     try {
-        io_func(pvt);
+        read_func(param);
     } catch (std::exception & ex) {
-        recGblSetSevr(prec, alarm, INVALID_ALARM);
+        recGblSetSevr(prec, READ_ALARM, INVALID_ALARM);
+        errlogPrintf(ERL_ERROR " %s: got exception while processing record: %s\n", prec->name, ex.what());
+    }
+    return ret;
+}
+
+template<typename R>
+using write_func_t = std::function<void(CaenDigitizerParam*, bool)>;
+
+template<typename R>
+long do_param_write(R *prec, long ret, write_func_t<R> write_func) {
+    ParamPvt *pvt = static_cast<ParamPvt*>(prec->dpvt);
+    CaenDigitizerParam *param = pvt->param;
+    bool pending_update = pvt->pending_update;
+
+    try {
+        write_func(param, pending_update);
+    } catch (std::exception & ex) {
+        recGblSetSevr(prec, WRITE_ALARM, INVALID_ALARM);
         errlogPrintf(ERL_ERROR " %s: got exception while processing record: %s\n", prec->name, ex.what());
     }
     return ret;
 }
 
 long read_si(stringinRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_read(prec, 0, [&](CaenDigitizerParam *param) {
         std::string value;
-        param->get_value(value);
+        param->get_value(prec->time, value);
         snprintf(prec->val, sizeof(prec->val), "%s", value.c_str());
     });
 }
 
 long write_so(stringoutRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
-        std::string value(prec->val);
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            std::string value;
+            param->get_value(prec->time, value);
+            snprintf(prec->val, sizeof(prec->val), "%s", value.c_str());
+        } else {
+            std::string value(prec->val);
+            param->set_value(value);
+        }
     });
 }
 
 long read_li(longinRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_read(prec, 0, [&](CaenDigitizerParam *param) {
         int64_t value;
-        param->get_value(value);
+        param->get_value(prec->time, value);
         prec->val = value;
     });
 }
 
 long write_lo(longoutRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
-        int64_t value = prec->val;
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            int64_t value;
+            param->get_value(prec->time, value);
+            prec->val = value;
+        } else {
+            int64_t value = prec->val;
+            param->set_value(value);
+        }
     });
 }
 
 long read_int64in(int64inRecord *prec) {
-    return do_param_io(prec, 0, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_read(prec, 0, [&](CaenDigitizerParam *param) {
         int64_t value;
-        param->get_value(value);
+        param->get_value(prec->time, value);
         prec->val = value;
     });
 }
 
 long write_int64out(int64outRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
-        int64_t value = prec->val;
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            int64_t value;
+            param->get_value(prec->time, value);
+            prec->val = value;
+        } else {
+            int64_t value = prec->val;
+            param->set_value(value);
+        }
     });
 }
 
 long read_ai(aiRecord *prec) {
-    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
-        int64_t value;
-        param->get_value(value);
+    return do_param_read(prec, 2, [&](CaenDigitizerParam *param) {
+        double value;
+        param->get_value(prec->time, value);
         prec->val = value;
     });
 }
 
 long write_ao(aoRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
-        double value = prec->val;
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            double value;
+            param->get_value(prec->time, value);
+            prec->val = value;
+        } else {
+            double value = prec->val;
+            param->set_value(value);
+        }
     });
 }
 
 long read_bi(biRecord *prec) {
-    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_read(prec, 2, [&](CaenDigitizerParam *param) {
         bool value;
-        param->get_value(value);
+        param->get_value(prec->time, value);
         prec->val = value ? 1 : 0;
         prec->udf = 0;
     });
 }
 
 long write_bo(boRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
-        bool value = !!prec->val;
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            bool value;
+            param->get_value(prec->time, value);
+            prec->val = value ? 1 : 0;
+            prec->udf = 0;
+        } else {
+            bool value = !!prec->val;
+            param->set_value(value);
+        }
     });
 }
 
 long read_mbbi(mbbiRecord *prec) {
-    return do_param_io(prec, 2, READ_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_read(prec, 2, [&](CaenDigitizerParam *param) {
         std::string value;
-        param->get_value(value);
+        param->get_value(prec->time, value);
         value = str_tolower(value);
 
         size_t i = 0;
@@ -323,16 +404,35 @@ long read_mbbi(mbbiRecord *prec) {
 }
 
 long write_mbbo(mbboRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
-        char (*p)[26] = &prec->zrst;
-        p += prec->val;
-        std::string value = *p;
-        param->set_value(value);
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
+        if (pending_update) {
+            std::string value;
+            param->get_value(prec->time, value);
+            value = str_tolower(value);
+
+            size_t i = 0;
+            char (*p)[26] = &prec->zrst;
+            for (; i < 16; ++p, ++i) {
+                if (str_tolower(*p) == value) {
+                    prec->val = i;
+                    prec->udf = 0;
+                    return;
+                }
+            }
+            throw std::runtime_error(
+                std::string("Failed to match value '") + value + "' to one of the choices"
+            );
+        } else {
+            char (*p)[26] = &prec->zrst;
+            p += prec->val;
+            std::string value = *p;
+            param->set_value(value);
+        }
     });
 }
 
 long send_command_bo(boRecord *prec) {
-    return do_param_io(prec, 0, WRITE_ALARM, [&](CaenDigitizerParam *param) {
+    return do_param_write(prec, 0, [&](CaenDigitizerParam *param, bool pending_update) {
         param->send_command();
     });
 }
@@ -404,19 +504,19 @@ struct dset6 {
 #define DSET(NAME, REC, INIT, IOINTR, RW) static dset6<REC ## Record> NAME = \
     {6, NULL, NULL, INIT, IOINTR, RW, NULL}; epicsExportAddress(dset, NAME)
 
-DSET(devCaenDigParamSi,       stringin,  &init_record_common, &get_status_update, &read_si);
-DSET(devCaenDigParamSo,       stringout, &init_record_common, NULL,               &write_so);
-DSET(devCaenDigParamLi,       longin,    &init_record_common, &get_status_update, &read_li);
-DSET(devCaenDigParamLo,       longout,   &init_record_common, NULL,               &write_lo);
-DSET(devCaenDigParamInt64In,  int64in,   &init_record_common, &get_status_update, &read_int64in);
-DSET(devCaenDigParamInt64Out, int64out,  &init_record_common, NULL,               &write_int64out);
-DSET(devCaenDigParamAi,       ai,        &init_record_common, &get_status_update, &read_ai);
-DSET(devCaenDigParamAo,       ao,        &init_record_common, NULL,               &write_ao);
-DSET(devCaenDigParamBi,       bi,        &init_record_common, &get_status_update, &read_bi);
-DSET(devCaenDigParamBo,       bo,        &init_record_common, NULL,               &write_bo);
-DSET(devCaenDigParamMbbi,     mbbi,      &init_record_common, &get_status_update, &read_mbbi);
-DSET(devCaenDigParamMbbo,     mbbo,      &init_record_common, NULL,               &write_mbbo);
-DSET(devCaenDigCmdBo,         bo,        &init_record_common, NULL,               &send_command_bo);
-DSET(devCaenDigChDataWf,      waveform,  &init_record_chan,   &get_data_update,   &read_chan_data);
+DSET(devCaenDigParamSi,       stringin,  &init_record_inp,  &get_status_update, &read_si);
+DSET(devCaenDigParamSo,       stringout, &init_record_out,  NULL,               &write_so);
+DSET(devCaenDigParamLi,       longin,    &init_record_inp,  &get_status_update, &read_li);
+DSET(devCaenDigParamLo,       longout,   &init_record_out,  NULL,               &write_lo);
+DSET(devCaenDigParamInt64In,  int64in,   &init_record_inp,  &get_status_update, &read_int64in);
+DSET(devCaenDigParamInt64Out, int64out,  &init_record_out,  NULL,               &write_int64out);
+DSET(devCaenDigParamAi,       ai,        &init_record_inp,  &get_status_update, &read_ai);
+DSET(devCaenDigParamAo,       ao,        &init_record_out,  NULL,               &write_ao);
+DSET(devCaenDigParamBi,       bi,        &init_record_inp,  &get_status_update, &read_bi);
+DSET(devCaenDigParamBo,       bo,        &init_record_out,  NULL,               &write_bo);
+DSET(devCaenDigParamMbbi,     mbbi,      &init_record_inp,  &get_status_update, &read_mbbi);
+DSET(devCaenDigParamMbbo,     mbbo,      &init_record_out,  NULL,               &write_mbbo);
+DSET(devCaenDigCmdBo,         bo,        &init_record_cmd,  NULL,               &send_command_bo);
+DSET(devCaenDigChDataWf,      waveform,  &init_record_chan, &get_data_update,   &read_chan_data);
 
 epicsExportRegistrar(caenDigitizerRegistrar);
