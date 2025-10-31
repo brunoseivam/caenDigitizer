@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2025-10-30 21:04:07 by bmartins-->
+<display version="2.0.0">
+  <name>Display</name>
+  <widget type="group" version="3.0.0">
+    <name>Group</name>
+    <width>170</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_19</name>
+      <actions>
+        <action type="open_display">
+          <description>Configure Channel</description>
+          <file>dt274x_ch.bob</file>
+          <macros>
+            <CH>$(CH)</CH>
+            <P>$(P)</P>
+            <R>$(R)</R>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>$(CH)</text>
+      <width>40</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="checkbox" version="2.0.0">
+      <name>Check Box_1</name>
+      <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
+      <label></label>
+      <x>45</x>
+      <width>20</width>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_23</name>
+      <class>ON_OFF</class>
+      <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
+      <x>70</x>
+      <off_color use_class="true">
+        <color name="Off" red="60" green="100" blue="60">
+        </color>
+      </off_color>
+      <on_color use_class="true">
+        <color name="On" red="0" green="255" blue="0">
+        </color>
+      </on_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_65</name>
+      <pv_name>$(P)$(R)Ch$(CH):DataAvg_RBV</pv_name>
+      <x>90</x>
+      <width>80</width>
+      <background_color>
+        <color name="Background" red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+  </widget>
+</display>

@@ -5,4 +5,21 @@ record(waveform, "$(P)$(R)$(NAME)_RBV") {
     field(FTVL, "USHORT")
     field(NELM, "$(NELM=1048576)")
     field(SCAN, "$(SCAN=I/O Intr)")
+    field(EGU,  "ct")
+}
+
+record(longout, "$(P)$(R)$(NAME)NumSamp") {
+    field(DESC, "$(DESC) Num Samp")
+    field(OUT,  "$(P)$(R)$(NAME)Avg_RBV.N PP")
+    field(DOL,  "$(P)$(R)$(NAME)_RBV.NORD CP")
+    field(OOPT, "On Change")
+    field(OMSL, "closed_loop")
+}
+
+record(compress, "$(P)$(R)$(NAME)Avg_RBV") {
+    field(DESC, "$(DESC) Avg")
+    field(ALG,  "N to 1 Average")
+    field(INP,  "$(P)$(R)$(NAME)_RBV CP")
+    field(NSAM, "1")
+    field(EGU,  "ct")
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-10-29 22:09:22 by bmartins-->
+<!--Saved on 2025-10-30 21:15:35 by bmartins-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
     <P>DT274X:</P>
     <R></R>
   </macros>
-  <width>1800</width>
-  <height>750</height>
+  <width>1880</width>
+  <height>1350</height>
   <grid_color>
     <color red="128" green="128" blue="128" alpha="127">
     </color>
@@ -1307,10 +1307,10 @@
   </widget>
   <widget type="group" version="3.0.0">
     <name>Channels</name>
-    <x>1030</x>
+    <x>780</x>
     <y>635</y>
-    <width>500</width>
-    <height>465</height>
+    <width>750</width>
+    <height>715</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
@@ -1325,3333 +1325,773 @@
     </background_color>
     <actions>
     </actions>
-    <widget type="group" version="3.0.0">
-      <name>Group</name>
-      <macros>
-        <CH>0</CH>
-      </macros>
-      <x>5</x>
-      <y>5</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_19</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_1</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_23</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_8</name>
-      <macros>
-        <CH>1</CH>
-      </macros>
-      <x>5</x>
-      <y>30</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_20</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_2</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_24</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_10</name>
-      <macros>
-        <CH>2</CH>
-      </macros>
-      <x>5</x>
-      <y>55</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_21</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_3</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_26</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_16</name>
-      <macros>
-        <CH>3</CH>
-      </macros>
-      <x>5</x>
-      <y>80</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_22</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_4</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_27</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_19</name>
-      <macros>
-        <CH>4</CH>
-      </macros>
-      <x>5</x>
-      <y>105</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_23</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_5</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_28</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_34</name>
-      <macros>
-        <CH>5</CH>
-      </macros>
-      <x>5</x>
-      <y>130</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_24</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_6</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_35</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_43</name>
-      <macros>
-        <CH>6</CH>
-      </macros>
-      <x>5</x>
-      <y>155</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_25</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_7</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_36</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_44</name>
-      <macros>
-        <CH>7</CH>
-      </macros>
-      <x>5</x>
-      <y>180</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_26</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_8</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_37</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_51</name>
-      <macros>
-        <CH>8</CH>
-      </macros>
-      <x>5</x>
-      <y>205</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_28</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_33</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_61</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_52</name>
-      <macros>
-        <CH>9</CH>
-      </macros>
-      <x>5</x>
-      <y>230</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_29</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_34</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_64</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_53</name>
-      <macros>
-        <CH>10</CH>
-      </macros>
-      <x>5</x>
-      <y>255</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_30</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_35</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_72</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_54</name>
-      <macros>
-        <CH>11</CH>
-      </macros>
-      <x>5</x>
-      <y>280</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_31</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_36</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_73</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_55</name>
-      <macros>
-        <CH>12</CH>
-      </macros>
-      <x>5</x>
-      <y>305</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_32</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_37</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_74</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_56</name>
-      <macros>
-        <CH>13</CH>
-      </macros>
-      <x>5</x>
-      <y>330</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_33</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_38</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_75</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_57</name>
-      <macros>
-        <CH>14</CH>
-      </macros>
-      <x>5</x>
-      <y>355</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_34</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_39</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_76</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_58</name>
-      <macros>
-        <CH>15</CH>
-      </macros>
-      <x>5</x>
-      <y>380</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_35</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_40</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_77</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_60</name>
-      <macros>
-        <CH>16</CH>
-      </macros>
-      <x>105</x>
-      <y>5</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_36</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_41</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_78</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_61</name>
-      <macros>
-        <CH>17</CH>
-      </macros>
-      <x>105</x>
-      <y>30</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_37</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_42</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_79</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_62</name>
-      <macros>
-        <CH>18</CH>
-      </macros>
-      <x>105</x>
-      <y>55</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_38</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_43</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_80</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_63</name>
-      <macros>
-        <CH>19</CH>
-      </macros>
-      <x>105</x>
-      <y>80</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_39</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_44</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_81</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_64</name>
-      <macros>
-        <CH>20</CH>
-      </macros>
-      <x>105</x>
-      <y>105</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_40</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_45</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_82</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_65</name>
-      <macros>
-        <CH>21</CH>
-      </macros>
-      <x>105</x>
-      <y>130</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_41</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_46</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_83</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_66</name>
-      <macros>
-        <CH>22</CH>
-      </macros>
-      <x>105</x>
-      <y>155</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_42</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_47</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_84</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_67</name>
-      <macros>
-        <CH>23</CH>
-      </macros>
-      <x>105</x>
-      <y>180</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_43</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_48</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_85</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_68</name>
-      <macros>
-        <CH>24</CH>
-      </macros>
-      <x>105</x>
-      <y>205</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_44</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_49</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_86</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_69</name>
-      <macros>
-        <CH>25</CH>
-      </macros>
-      <x>105</x>
-      <y>230</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_45</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_50</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_87</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_70</name>
-      <macros>
-        <CH>26</CH>
-      </macros>
-      <x>105</x>
-      <y>255</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_46</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_51</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_88</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_71</name>
-      <macros>
-        <CH>27</CH>
-      </macros>
-      <x>105</x>
-      <y>280</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_47</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_52</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_89</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_72</name>
-      <macros>
-        <CH>28</CH>
-      </macros>
-      <x>105</x>
-      <y>305</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_48</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_53</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_90</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_73</name>
-      <macros>
-        <CH>29</CH>
-      </macros>
-      <x>105</x>
-      <y>330</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_49</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_54</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_91</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_74</name>
-      <macros>
-        <CH>30</CH>
-      </macros>
-      <x>105</x>
-      <y>355</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_50</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_55</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_92</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_75</name>
-      <macros>
-        <CH>31</CH>
-      </macros>
-      <x>105</x>
-      <y>380</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_51</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_56</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_93</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_77</name>
-      <macros>
-        <CH>32</CH>
-      </macros>
-      <x>200</x>
-      <y>5</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_52</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_57</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_94</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_78</name>
-      <macros>
-        <CH>33</CH>
-      </macros>
-      <x>200</x>
-      <y>30</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_53</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_58</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_95</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_80</name>
-      <macros>
-        <CH>34</CH>
-      </macros>
-      <x>200</x>
-      <y>55</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_54</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_59</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_96</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_81</name>
-      <macros>
-        <CH>35</CH>
-      </macros>
-      <x>200</x>
-      <y>80</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_55</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_60</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_97</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_82</name>
-      <macros>
-        <CH>36</CH>
-      </macros>
-      <x>200</x>
-      <y>105</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_56</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_61</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_98</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_83</name>
-      <macros>
-        <CH>37</CH>
-      </macros>
-      <x>200</x>
-      <y>130</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_57</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_62</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_99</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_84</name>
-      <macros>
-        <CH>38</CH>
-      </macros>
-      <x>200</x>
-      <y>155</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_58</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_63</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_100</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_85</name>
-      <macros>
-        <CH>39</CH>
-      </macros>
-      <x>200</x>
-      <y>180</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_59</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_64</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_101</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_86</name>
-      <macros>
-        <CH>40</CH>
-      </macros>
-      <x>200</x>
-      <y>205</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_60</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_65</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_102</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_87</name>
-      <macros>
-        <CH>41</CH>
-      </macros>
-      <x>200</x>
-      <y>230</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_61</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_66</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_103</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_88</name>
-      <macros>
-        <CH>42</CH>
-      </macros>
-      <x>200</x>
-      <y>255</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_62</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_67</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_104</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_89</name>
-      <macros>
-        <CH>43</CH>
-      </macros>
-      <x>200</x>
-      <y>280</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_63</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_68</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_105</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_90</name>
-      <macros>
-        <CH>44</CH>
-      </macros>
-      <x>200</x>
-      <y>305</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_64</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_69</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_106</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_91</name>
-      <macros>
-        <CH>45</CH>
-      </macros>
-      <x>200</x>
-      <y>330</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_65</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_70</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_107</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_92</name>
-      <macros>
-        <CH>46</CH>
-      </macros>
-      <x>200</x>
-      <y>355</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_66</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_71</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_108</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_93</name>
-      <macros>
-        <CH>47</CH>
-      </macros>
-      <x>200</x>
-      <y>380</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_67</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_72</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_109</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_139</name>
-      <macros>
-        <CH>48</CH>
-      </macros>
-      <x>300</x>
-      <y>5</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_68</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_73</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_110</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_140</name>
-      <macros>
-        <CH>49</CH>
-      </macros>
-      <x>300</x>
-      <y>30</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_69</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_74</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_111</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_141</name>
-      <macros>
-        <CH>50</CH>
-      </macros>
-      <x>300</x>
-      <y>55</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_70</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_75</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_112</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_142</name>
-      <macros>
-        <CH>51</CH>
-      </macros>
-      <x>300</x>
-      <y>80</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_71</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_76</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_113</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_143</name>
-      <macros>
-        <CH>52</CH>
-      </macros>
-      <x>300</x>
-      <y>105</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_72</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_77</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_114</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_144</name>
-      <macros>
-        <CH>53</CH>
-      </macros>
-      <x>300</x>
-      <y>130</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_73</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_78</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_115</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_145</name>
-      <macros>
-        <CH>54</CH>
-      </macros>
-      <x>300</x>
-      <y>155</y>
-      <width>90</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_74</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_79</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_116</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_146</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_48</name>
       <macros>
         <CH>55</CH>
       </macros>
-      <x>300</x>
-      <y>180</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>185</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_75</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_80</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_117</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_147</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_49</name>
       <macros>
-        <CH>56</CH>
+        <CH>54</CH>
       </macros>
-      <x>300</x>
-      <y>205</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>160</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_76</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_81</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_118</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_148</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_50</name>
       <macros>
-        <CH>57</CH>
+        <CH>53</CH>
       </macros>
-      <x>300</x>
-      <y>230</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>135</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_77</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_82</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_119</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_149</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_51</name>
       <macros>
-        <CH>58</CH>
+        <CH>52</CH>
       </macros>
-      <x>300</x>
-      <y>255</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>110</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_78</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_83</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_120</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_150</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_52</name>
       <macros>
-        <CH>59</CH>
+        <CH>51</CH>
       </macros>
-      <x>300</x>
-      <y>280</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>85</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_79</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_84</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_121</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_158</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_53</name>
       <macros>
-        <CH>60</CH>
+        <CH>50</CH>
       </macros>
-      <x>300</x>
-      <y>305</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>60</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_80</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_85</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_122</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_159</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_54</name>
       <macros>
-        <CH>61</CH>
+        <CH>49</CH>
       </macros>
-      <x>300</x>
-      <y>330</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>35</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_81</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_86</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_123</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_160</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_55</name>
       <macros>
-        <CH>62</CH>
+        <CH>48</CH>
       </macros>
-      <x>300</x>
-      <y>355</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>10</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_82</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_87</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_124</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
     </widget>
-    <widget type="group" version="3.0.0">
-      <name>Group_161</name>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_56</name>
       <macros>
         <CH>63</CH>
       </macros>
-      <x>300</x>
-      <y>380</y>
-      <width>90</width>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>385</y>
+      <width>170</width>
       <height>20</height>
-      <style>3</style>
       <transparent>true</transparent>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_83</name>
-        <actions>
-          <action type="open_display">
-            <description>Configure Channel</description>
-            <file>dt274x_ch.bob</file>
-            <macros>
-              <CH>$(CH)</CH>
-              <P>$(P)</P>
-              <R>$(R)</R>
-            </macros>
-            <target>tab</target>
-          </action>
-        </actions>
-        <text>$(CH)</text>
-        <width>40</width>
-        <height>20</height>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="checkbox" version="2.0.0">
-        <name>Check Box_88</name>
-        <pv_name>$(P)$(R)Ch$(CH):Enable</pv_name>
-        <label></label>
-        <x>45</x>
-        <width>20</width>
-      </widget>
-      <widget type="led" version="2.0.0">
-        <name>LED_125</name>
-        <class>ON_OFF</class>
-        <pv_name>$(P)$(R)Ch$(CH):Enable_RBV</pv_name>
-        <x>70</x>
-        <off_color use_class="true">
-          <color name="Off" red="60" green="100" blue="60">
-          </color>
-        </off_color>
-        <on_color use_class="true">
-          <color name="On" red="0" green="255" blue="0">
-          </color>
-        </on_color>
-      </widget>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_57</name>
+      <macros>
+        <CH>62</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>360</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_58</name>
+      <macros>
+        <CH>61</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>335</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_59</name>
+      <macros>
+        <CH>60</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>310</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_60</name>
+      <macros>
+        <CH>59</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>285</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_61</name>
+      <macros>
+        <CH>58</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>260</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_62</name>
+      <macros>
+        <CH>57</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>235</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_63</name>
+      <macros>
+        <CH>56</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>535</x>
+      <y>210</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_32</name>
+      <macros>
+        <CH>39</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>185</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_33</name>
+      <macros>
+        <CH>38</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>160</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_34</name>
+      <macros>
+        <CH>37</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>135</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_35</name>
+      <macros>
+        <CH>36</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>110</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_36</name>
+      <macros>
+        <CH>35</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>85</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_37</name>
+      <macros>
+        <CH>34</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>60</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_38</name>
+      <macros>
+        <CH>33</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>35</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_39</name>
+      <macros>
+        <CH>32</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>10</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_40</name>
+      <macros>
+        <CH>47</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>385</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_41</name>
+      <macros>
+        <CH>46</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>360</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_42</name>
+      <macros>
+        <CH>45</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>335</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_43</name>
+      <macros>
+        <CH>44</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>310</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_44</name>
+      <macros>
+        <CH>43</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>285</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_45</name>
+      <macros>
+        <CH>42</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>260</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_46</name>
+      <macros>
+        <CH>41</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>235</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_47</name>
+      <macros>
+        <CH>40</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>360</x>
+      <y>210</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_16</name>
+      <macros>
+        <CH>23</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>185</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_17</name>
+      <macros>
+        <CH>22</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>160</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_18</name>
+      <macros>
+        <CH>21</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>135</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_19</name>
+      <macros>
+        <CH>20</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>110</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_20</name>
+      <macros>
+        <CH>19</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>85</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_21</name>
+      <macros>
+        <CH>18</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>60</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_22</name>
+      <macros>
+        <CH>17</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>35</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_23</name>
+      <macros>
+        <CH>16</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>10</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_24</name>
+      <macros>
+        <CH>31</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>385</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_25</name>
+      <macros>
+        <CH>30</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>360</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_26</name>
+      <macros>
+        <CH>29</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>335</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_27</name>
+      <macros>
+        <CH>28</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>310</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_28</name>
+      <macros>
+        <CH>27</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>285</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_29</name>
+      <macros>
+        <CH>26</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>260</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_30</name>
+      <macros>
+        <CH>25</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>235</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_31</name>
+      <macros>
+        <CH>24</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>185</x>
+      <y>210</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_4</name>
+      <macros>
+        <CH>7</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>185</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_5</name>
+      <macros>
+        <CH>6</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>160</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_6</name>
+      <macros>
+        <CH>5</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>135</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_7</name>
+      <macros>
+        <CH>4</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>110</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_3</name>
+      <macros>
+        <CH>3</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>85</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_2</name>
+      <macros>
+        <CH>2</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>60</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_1</name>
+      <macros>
+        <CH>1</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>35</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display</name>
+      <macros>
+        <CH>0</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>10</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_8</name>
+      <macros>
+        <CH>15</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>385</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_9</name>
+      <macros>
+        <CH>14</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>360</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_10</name>
+      <macros>
+        <CH>13</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>335</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_11</name>
+      <macros>
+        <CH>12</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>310</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_12</name>
+      <macros>
+        <CH>11</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>285</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_13</name>
+      <macros>
+        <CH>10</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>260</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_14</name>
+      <macros>
+        <CH>9</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>235</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>Embedded Display_15</name>
+      <macros>
+        <CH>8</CH>
+      </macros>
+      <file>dt274x_ch_line.bob</file>
+      <x>10</x>
+      <y>210</y>
+      <width>170</width>
+      <height>20</height>
+      <transparent>true</transparent>
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
@@ -7104,8 +4544,8 @@
     <name>Monitor</name>
     <x>410</x>
     <y>635</y>
-    <width>400</width>
-    <height>465</height>
+    <width>370</width>
+    <height>215</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
@@ -7387,10 +4827,10 @@
   </widget>
   <widget type="group" version="3.0.0">
     <name>Acquisition Triggers</name>
-    <x>810</x>
-    <y>635</y>
-    <width>220</width>
-    <height>465</height>
+    <x>410</x>
+    <y>850</y>
+    <width>370</width>
+    <height>500</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
@@ -7802,7 +5242,7 @@
     <x>1530</x>
     <y>595</y>
     <width>350</width>
-    <height>505</height>
+    <height>755</height>
     <foreground_color>
       <color red="0" green="128" blue="255">
       </color>
