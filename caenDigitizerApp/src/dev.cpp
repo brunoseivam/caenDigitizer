@@ -461,12 +461,10 @@ long read_chan_data(waveformRecord *prec) {
             size_t nelm_event = event->n_samples[ch];
 
             size_t nord = std::min(nelm_record, nelm_event);
-
-            if (!nord)
-                return;
-
-            memcpy(bptr, event->waveform[ch], nord*sizeof(*bptr));
             prec->nord = nord;
+
+            if (nord)
+                memcpy(bptr, event->waveform[ch], nord*sizeof(*bptr));
 
             /*
             TODO: derive time from event->timestamp

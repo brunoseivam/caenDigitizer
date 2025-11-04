@@ -162,3 +162,7 @@ pattern
 { "SWStartAcquisition", "/cmd/swstartacquisition", "Start Acquisition"        }
 { "SWStopAcquisition",  "/cmd/swstopacquisition",  "Stop Acquisition"         }
 }
+
+file "dt274x_time.template" {
+{}
+}

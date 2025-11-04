@@ -1,0 +1,32 @@
+record(longout, "$(P)$(R)TimeNumSamp") {
+    field(DESC, "Time Num Samp")
+    field(OUT,  "$(P)$(R)Time_CALC.NUSE PP")
+    field(DOL,  "$(P)$(R)RecordLenS_RBV CP")
+    field(OOPT, "On Change")
+    field(OMSL, "closed_loop")
+}
+
+record(acalcout, "$(P)$(R)Time_CALC") {
+    field(NELM, "$(NELM=1048576)")
+    field(INPA, "$(P)$(R)AdcSampleRate_RBV CP")
+    field(CALC, "IX/A")
+    field(OOPT, "Every Time")
+    field(OUT,  "$(P)$(R)Time_RBV PP")
+    field(PREC, "3")
+    field(SIZE, "NUSE")
+}
+
+record(waveform, "$(P)$(R)Time_RBV") {
+    field(DESC, "Time")
+    field(FTVL, "DOUBLE")
+    field(NELM, "$(NELM=1048576)")
+    field(EGU,  "us")
+    field(PREC, "3")
+}
+
+record(calc, "$(P)$(R)PreTrigger_RBV") {
+    field(DESC, "Pre-Trigger")
+    field(PREC, "3")
+    field(INPA, "$(P)$(R)PreTriggerT_RBV CP")
+    field(CALC, "A/1000")
+}

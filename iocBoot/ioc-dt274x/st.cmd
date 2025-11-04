@@ -20,7 +20,7 @@ iocInit()
 # Setup example acquisition for the first channel
 
 # Wait for connection
-epicsThreadSleep 2.0
+epicsThreadSleep 5.0
 
 # Enable channels 0-3, disable rest
 dbpf $(PREFIX)Ch0:Enable 1

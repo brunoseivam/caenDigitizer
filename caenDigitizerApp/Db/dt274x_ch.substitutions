@@ -35,7 +35,5 @@ pattern
 }
 
 file "dt274x_ch_data.template" {
-pattern
-{ NAME,            DESC            }
-{ "Ch\$(N):Data",  "Ch \$(N) Data" }
+{}
 }
