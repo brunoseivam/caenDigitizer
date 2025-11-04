@@ -45,6 +45,7 @@ private:
 
     uint64_t handle_;
     epicsTimeStamp timestamp_;
+    bool connected_;
     std::string value_;
     bool ever_set_;
 
@@ -54,12 +55,13 @@ private:
     void reset();
 
     // Set the inner value for this parameter. Called whenever there's
-    // an update
+    // an update. Implicitly mark it as connected
     void set(uint64_t handle, epicsTimeStamp ts, const std::string & value);
 
 public:
     CaenDigitizerParam(CaenDigitizer* parent, const std::string & path);
 
+    bool is_connected();
     IOSCANPVT get_status_update();
 
     void register_callback(std::function<void()> cb);
@@ -173,7 +175,6 @@ class CaenDigitizer : public epicsThreadRunable {
 public:
     IOSCANPVT status_update;
     IOSCANPVT data_update;
-    IOSCANPVT error_update;
 
     CaenDigitizer(const std::string & name, const std::string & addr);
     virtual ~CaenDigitizer();

@@ -161,6 +161,10 @@ CaenDigitizerParam::CaenDigitizerParam(CaenDigitizer *parent, const std::string 
     reset();
 }
 
+bool CaenDigitizerParam::is_connected() {
+    return connected_;
+}
+
 IOSCANPVT CaenDigitizerParam::get_status_update() {
     return parent_->status_update;
 }
@@ -170,10 +174,18 @@ void CaenDigitizerParam::register_callback(std::function<void()> cb) {
 }
 
 void CaenDigitizerParam::reset() {
+    // We will trigger callbacks if we were ever connected
+    bool should_trigger_cb = connected_;
+
     handle_ = NO_HANDLE;
     timestamp_ = {0, 0};
     value_.clear();
     ever_set_ = false;
+    connected_ = false;
+
+    if (should_trigger_cb)
+        for (auto & cb : callbacks_)
+            cb();
 }
 
 void CaenDigitizerParam::set(uint64_t handle, epicsTimeStamp ts, const std::string & value) {
@@ -184,6 +196,7 @@ void CaenDigitizerParam::set(uint64_t handle, epicsTimeStamp ts, const std::stri
     timestamp_ = ts;
     value_ = value;
     ever_set_ = true;
+    connected_ = true;
 
     if (should_trigger_cb)
         for (auto & cb : callbacks_)
@@ -315,9 +328,13 @@ void CaenDigitizer::ParameterReader::fetch_all_params(uint64_t handle) {
         const std::string & path = it->first;
         CaenDigitizerParam *param = it->second;
 
-        // If the parameter is a command, skip trying to get its value (it makes no sense for a command to have a value)
-        if (param->type_ == CaenDigitizerParam::Type::Command)
+        // If the parameter is a command, skip trying to get its value
+        // (it makes no sense for a command to have a value)
+        // But still call 'set' to mark it as connected
+        if (param->type_ == CaenDigitizerParam::Type::Command) {
+            param->set(handle, param_ts, "");
             continue;
+        }
 
         auto node = device_tree[json::json_pointer(path)];
 
@@ -516,7 +533,7 @@ struct Event *CaenDigitizer::DataReader::read_data(uint64_t ep_handle, size_t nu
 }
 CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
 : name_(name), addr_(addr), running_(false),
-  latest_event_(NULL), latest_event_lock_(),
+  params_(), latest_event_(NULL), latest_event_lock_(),
   parameter_reader_(name + "::ParameterReader", &status_update, &params_),
   parameter_writer_(name + "::ParameterWriter"),
   data_reader_(name + "::DataReader", &data_update, &latest_event_, &latest_event_lock_),
@@ -543,7 +560,6 @@ CaenDigitizer::CaenDigitizer(const std::string & name, const std::string & addr)
 {
     scanIoInit(&status_update);
     scanIoInit(&data_update);
-    scanIoInit(&error_update);
 }
 
 CaenDigitizer::~CaenDigitizer() {
@@ -596,6 +612,8 @@ void CaenDigitizer::run() {
         // Clear all parameters
         for (auto it = params_.begin(); it != params_.end(); ++it)
             it->second->reset();
+
+        scanIoRequest(status_update);
 
         int ec = CAEN_FELib_Open(addr_.c_str(), &handle);
         if (ec < 0) {
@@ -663,7 +681,6 @@ void CaenDigitizer::write_parameter(const std::string & path, const std::string 
     PendingWrite *pw = new PendingWrite(lpath, value);
 
     if (parameter_writer_.pending_writes.trySend(&pw, sizeof(pw)) < 0) {
-        // TODO: better error
         throw std::runtime_error("Failed to enqueue write: queue is full");
     }
 }
@@ -673,7 +690,6 @@ void CaenDigitizer::send_command(const std::string & path) {
     PendingWrite *pw = new PendingWrite(lpath);
 
     if (parameter_writer_.pending_writes.trySend(&pw, sizeof(pw)) < 0) {
-        // TODO: better error
         throw std::runtime_error("Failed to enqueue command: queue is full");
     }
 }

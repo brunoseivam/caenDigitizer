@@ -248,6 +248,11 @@ long do_param_read(R *prec, long ret, read_func_t<R> read_func) {
     ParamPvt *pvt = static_cast<ParamPvt*>(prec->dpvt);
     CaenDigitizerParam *param = pvt->param;
 
+    if (!param->is_connected()) {
+        recGblSetSevrMsg(prec, COMM_ALARM, MAJOR_ALARM, "Disconnected");
+        return ret;
+    }
+
     try {
         read_func(param);
     } catch (std::exception & ex) {
@@ -265,6 +270,11 @@ long do_param_write(R *prec, long ret, write_func_t<R> write_func) {
     ParamPvt *pvt = static_cast<ParamPvt*>(prec->dpvt);
     CaenDigitizerParam *param = pvt->param;
     bool pending_update = pvt->pending_update;
+
+    if (!param->is_connected()) {
+        recGblSetSevrMsg(prec, COMM_ALARM, MAJOR_ALARM, "Disconnected");
+        return ret;
+    }
 
     try {
         write_func(param, pending_update);
