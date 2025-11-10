@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-11-03 21:38:23 by bmartins-->
+<!--Saved on 2025-11-09 20:30:34 by bmartins-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
@@ -33,7 +33,7 @@
     </border_color>
   </widget>
   <widget type="group" version="3.0.0">
-    <name>Raw Data</name>
+    <name>Data</name>
     <x>410</x>
     <y>105</y>
     <width>1120</width>
@@ -106,6 +106,87 @@
             <value>false</value>
           </exp>
           <pv_name>loc://$(DID)ch7visible</pv_name>
+        </rule>
+        <rule name="CH0 Y PV" prop_id="traces[0].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch0:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch0:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH1 Y PV" prop_id="traces[1].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch1:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch1:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH2 Y PV" prop_id="traces[2].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch2:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch2:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH3 Y PV" prop_id="traces[3].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch3:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch3:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH4 Y PV" prop_id="traces[4].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch4:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch4:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH5 Y PV" prop_id="traces[5].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch5:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch5:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH6 Y PV" prop_id="traces[6].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch6:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch6:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="CH7 Y PV" prop_id="traces[7].y_pv" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>$(P)$(R)Ch7:Data_RBV</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>$(P)$(R)Ch7:RawData_RBV</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
+        </rule>
+        <rule name="Y Label" prop_id="y_axes[0].title" out_exp="false">
+          <exp bool_exp="pvInt0==0">
+            <value>ADC (V)</value>
+          </exp>
+          <exp bool_exp="pvInt0==1">
+            <value>ADC (ct)</value>
+          </exp>
+          <pv_name>loc://$(DID)rawData</pv_name>
         </rule>
       </rules>
       <x_axis>
@@ -361,6 +442,14 @@
       <x>200</x>
       <y>465</y>
       <width>60</width>
+    </widget>
+    <widget type="checkbox" version="2.0.0">
+      <name>RawYData</name>
+      <pv_name>loc://$(DID)rawData(0)</pv_name>
+      <label>Show Raw Y Data (ADC Counts)</label>
+      <x>582</x>
+      <y>465</y>
+      <width>240</width>
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
