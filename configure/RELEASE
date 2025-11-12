@@ -33,7 +33,18 @@
 #SNCSEQ = $(MODULES)/seq-ver
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
-EPICS_BASE = /home/bmartins/osprey/epics/epics-base
+EPICS_BASE = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/base
+RECCASTER = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/modules/recsync
+IOCSTATS = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/modules/iocStats
+AUTOSAVE = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/modules/autosave
+CAPUTLOG = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/modules/caPutLog
+CALC = /usr/local/epics/1.1.0/ubuntu-22.04/7.0.7/modules/calc
+
+#Access security file location
+ASCF=/ics/ascf
+
+#Save/Restore file location
+SAVE=/ics/var/mpex-acf
 
 # Set RULES here if you want to use build rules from somewhere
 # other than EPICS_BASE:

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-11-09 20:30:34 by bmartins-->
+<!--Saved on 2025-11-12 08:37:53 by omitto-->
 <display version="2.0.0">
   <name>CAEN DT274x $(P)$(R)</name>
   <macros>
-    <P>DT274X:</P>
+    <P>MPEX:DIAG:CAEN1:</P>
     <R></R>
   </macros>
   <width>1880</width>
